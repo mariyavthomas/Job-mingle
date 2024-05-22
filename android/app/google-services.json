@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "547625483270",
+    "project_id": "jobmingle-91729",
+    "storage_bucket": "jobmingle-91729.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:547625483270:android:332ffa444e135d6e0e1787",
+        "android_client_info": {
+          "package_name": "com.example.jobmingle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAv-M0XQW07eQRNLHBn5y7u0u1DRWKYig"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
