@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/login_auth/loginauth_bloc.dart';
+import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
+
 import 'package:jobmingle/presentaion/screen/common/naviagating_screen/navigating_screen.dart';
 import 'package:jobmingle/presentaion/screen/user/home/home_screen_view.dart';
-import 'package:jobmingle/presentaion/screen/user/onboarding/onboarding.dart';
+
 import 'package:lottie/lottie.dart';
 
 class SplashPage extends StatelessWidget {

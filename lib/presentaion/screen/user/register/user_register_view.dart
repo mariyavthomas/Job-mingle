@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/login_auth/loginauth_bloc.dart';
+import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
+
 import 'widgets/colum_widgets.dart/register_colum_widgets.dart';
 
 class RegisterPage extends StatefulWidget {

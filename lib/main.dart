@@ -2,12 +2,13 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/login_auth/loginauth_bloc.dart';
+import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
+
 import 'package:jobmingle/presentaion/screen/company/auth_company/login_company.dart';
-import 'package:jobmingle/presentaion/screen/company/auth_company/sign_company.dart';
+import 'package:jobmingle/presentaion/screen/company/register/sign_company.dart';
 import 'package:jobmingle/presentaion/screen/user/home/home_screen_view.dart';
 import 'package:jobmingle/presentaion/screen/user/login/login_view_screen.dart';
-import 'package:jobmingle/presentaion/screen/user/onboarding/onboarding.dart';
+import 'package:jobmingle/presentaion/screen/common/onboarding/onboarding.dart';
 import 'package:jobmingle/presentaion/screen/user/register/user_register_view.dart';
 import 'package:jobmingle/presentaion/screen/common/splash/splash_view_screen.dart';
 
@@ -66,7 +67,7 @@ class MyApp extends StatelessWidget {
           '/home': (context) => HomePage(),
           '/login': (context) => LoginPage(),
           '/register': (context) => RegisterPage(),
-          '/Lcomp': (context) => LoginCompany(),
+          '/Lcomp': (context) => LoginPageCompany(),
           '/Scomp': (context) => SignUpCompany(),
           
         },

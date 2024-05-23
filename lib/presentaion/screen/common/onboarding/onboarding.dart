@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jobmingle/presentaion/screen/user/login/login_view_screen.dart';
-import 'package:jobmingle/presentaion/screen/user/register/user_register_view.dart';
 
+// ignore: must_be_immutable
 class Onboarding extends StatelessWidget {
   Onboarding({super.key,required this.select
  });

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/login_auth/loginauth_bloc.dart';
+import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
+
 import 'package:jobmingle/presentaion/screen/user/login/forgot_password.dart';
 import 'package:jobmingle/presentaion/screen/user/register/widgets/button_widgets/buttonwithgooge_widgets.dart';
 import 'package:jobmingle/utils/cutomtextformfil.dart';

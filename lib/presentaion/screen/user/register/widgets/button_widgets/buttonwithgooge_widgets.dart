@@ -39,7 +39,7 @@ class buttongoogle_widget extends StatelessWidget {
                   width: 10,
                 ),
                 Text(
-                  'Sign up with Google',
+                  'Sign In with Google',
                   style: Theme.of(context).textTheme.displayLarge,
                   
                 ),
