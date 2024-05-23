@@ -1,20 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/login_auth/loginauth_bloc.dart';
-import 'package:jobmingle/presentaion/screen/home/home_screen_view.dart';
 import 'widgets/colum_widgets.dart/register_colum_widgets.dart';
-
-// class RegisterPageWrapper extends StatelessWidget {
-//   const RegisterPageWrapper({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocProvider(
-//       create: (context) => LoginauthBloc(),
-//       child: RegisterPage(),
-//     );
-//   }
-// }
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
@@ -38,20 +25,8 @@ class _RegisterPageState extends State<RegisterPage> {
   bool loading = false;
   @override
   Widget build(BuildContext context) {
-    return
-        // BlocListener<GoogleAthBloc, GoogleAthState>(
-        //   listener: (context, state) {
-        //     if (state is GoogleAthSuccess) {
-        //       WidgetsBinding.instance.addPostFrameCallback((_) {
-        //         Navigator.pushAndRemoveUntil(
-        //             context,
-        //             MaterialPageRoute(builder: (context) => HomePage()),
-        //             (route) => false);
-        //       });
-        //     }
-        //   },
-        //   child:
-        BlocBuilder<LoginauthBloc, LoginauthState>(builder: (context, state) {
+    return BlocBuilder<LoginauthBloc, LoginauthState>(
+        builder: (context, state) {
       if (state is LoginauthInitialstate) {
         loading = false;
       }
@@ -87,11 +62,10 @@ class _RegisterPageState extends State<RegisterPage> {
             backgroundColor: Colors.green,
           ));
         });
-        Future.delayed(Duration(seconds: 2),(){
+        Future.delayed(Duration(seconds: 2), () {
           Navigator.pushNamedAndRemoveUntil(
-            context, '/onboarding', (route) => false);
+              context, '/onboarding', (route) => false);
         });
-        
       }
       return Scaffold(
         body: SafeArea(

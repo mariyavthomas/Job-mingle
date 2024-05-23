@@ -9,91 +9,85 @@ class Onboarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Container(
-        child: Column(
-          children: [
-            Container(
-                height: 600,
-                child: Image(
-                    image:
-                        AssetImage('lib/assests/images/onboaringimage.jpg'))),
-            InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RegisterPage()));
-              },
-              child: Container(
-                height: 50,
-                width: 250,
-                decoration: BoxDecoration(
-                    color: Color.fromARGB(200, 75, 110, 225),
-                    borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                    child: Row(
-                  children: [
-                    SizedBox(
-                      width: 40,
-                    ),
-                    Text(
-                      'Register Account',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Icon(
-                      Icons.arrow_forward,
-                      color: Colors.black,weight: 25,
-                    )
-                  ],
-                )),
+          child: SingleChildScrollView(
+            child: Container(
+                  child: Column(
+            children: [
+              Container(
+                  height: 600,
+                  child: Image(
+                      image:
+                          AssetImage('lib/assests/images/onboaringimage.jpg'))),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => RegisterPage()));
+                },
+                child: Container(
+                  height: 50,
+                  width: 250,
+                  decoration: BoxDecoration(
+                      color: Color.fromARGB(200, 75, 110, 225),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                      child: Row(
+                    children: [
+                      SizedBox(
+                        width: 60,
+                      ),
+                      Center(
+                        child: Text(
+                          'Register Account',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 17,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      
+                     
+                    ],
+                  )),
+                ),
               ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            InkWell(
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
-              },
-              child: Container(
-                height: 50,
-                width: 250,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 2,color: Color.fromARGB(200, 75, 110, 225)),
+              SizedBox(
+                height: 30,
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                },
+                child: Container(
+                  height: 50,
+                  width: 250,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 2,color: Color.fromARGB(200, 75, 110, 225)),
+                      
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                      child: Row(
+                    children: [
+                      SizedBox(
+                        width: 90,
+                      ),
+                      Text(
+                        'Login',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize:17,
+                            fontWeight: FontWeight.bold),
+                      ),
                     
-                    borderRadius: BorderRadius.circular(10)),
-                child: Center(
-                    child: Row(
-                  children: [
-                    SizedBox(
-                      width: 80,
-                    ),
-                    Text(
-                      'Login',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontSize:17,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Icon(
-                      Icons.arrow_forward,
-                      color: Colors.black,weight: 25,
-                    )
-                  ],
-                )),
-              ),
-            )
-          ],
-        ),
-      )),
+                      
+                    ],
+                  )),
+                ),
+              )
+            ],
+                  ),
+                ),
+          )),
     );
   }
 }

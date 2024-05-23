@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class PhoneAuthRepo {
   FirebaseAuth authphone = FirebaseAuth.instance;
@@ -17,7 +14,7 @@ class PhoneAuthRepo {
       required Function(String) codeAutoRetrivalTimeout}) async {
     await authphone.verifyPhoneNumber(
         verificationCompleted: verficationComplated,
-        verificationFailed:verficationfailed,
+        verificationFailed: verficationfailed,
         codeSent: codesent,
         codeAutoRetrievalTimeout: codeAutoRetrivalTimeout);
   }

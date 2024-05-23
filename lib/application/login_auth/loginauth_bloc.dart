@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:jobmingle/domin/models/user_model.dart';
 import 'package:meta/meta.dart';
 
@@ -12,13 +11,15 @@ class LoginauthBloc extends Bloc<LoginauthEvent, LoginauthState> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   LoginauthBloc() : super(LoginauthInitialstate()) {
-on<LogingInitialEvent>((event, emit) {
+    on<LogingInitialEvent>((event, emit) {
+     
       // Handle LoginInitialEvent
+     
       emit(LoginauthInitialstate());
     });
 
-
     // --------->Checking user is signin or not<----------------//
+   
     on<CheckLoginStatusEvent>((event, emit) async {
       User? user;
       try {
@@ -34,7 +35,9 @@ on<LogingInitialEvent>((event, emit) {
         emit(AuthenticatedError(message: e.toString()));
       }
     });
+   
     //------------------------->Sign up<-----------------------------//
+    
     on<SignUpEvent>((event, emit) async {
       emit((Authloading()));
       try {
@@ -60,7 +63,9 @@ on<LogingInitialEvent>((event, emit) {
         emit(AuthenticatedError(message: e.toString()));
       }
     });
+
     //------------>SignOut<--------------//
+    
     on<SignOutEvent>((event, emit) async {
       try {
         await _auth.signOut();
@@ -69,7 +74,9 @@ on<LogingInitialEvent>((event, emit) {
         emit(AuthenticatedError(message: e.toString()));
       }
     });
+
     //---------->Login<--------------//
+    
     on<LoginEvent>((event, emit) async {
       emit(Authloading());
       try {

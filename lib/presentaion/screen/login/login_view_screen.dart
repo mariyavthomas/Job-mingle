@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/login_auth/loginauth_bloc.dart';
 import 'package:jobmingle/presentaion/screen/login/login_widgets.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -32,8 +31,7 @@ class _LoginPageState extends State<LoginPage> {
         builder: (context, state) {
       if (state is LoginauthInitialstate) {
         loading = false;
-      }
-       else if (state is Authloading) {
+      } else if (state is Authloading) {
         loading = true;
         // return Column(children: [
         //   LoadingAnimationWidget.halfTriangleDot(color: Colors.black, size: 40)
@@ -42,17 +40,12 @@ class _LoginPageState extends State<LoginPage> {
         //   ),
         //   Text('Loading',style: TextStyle(color: Colors.black,fontSize: 50))
         // ],);
-      }
-
-      else if (state is Authenticated) {
+      } else if (state is Authenticated) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-          BlocProvider.of<LoginauthBloc>(context).add(LogingInitialEvent(
-             
-           ) );
+          BlocProvider.of<LoginauthBloc>(context).add(LogingInitialEvent());
         });
-      }
-      else if (state is AuthenticatedError) {
+      } else if (state is AuthenticatedError) {
         // return ScaffoldMessenger.of(context).showSnackBar(
         WidgetsBinding.instance.addPostFrameCallback((_) {
           // showDialog(
@@ -73,19 +66,33 @@ class _LoginPageState extends State<LoginPage> {
           //     );
           //   },
           // );
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message,),backgroundColor: Colors.red,));
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(
+              state.message,
+            ),
+            backgroundColor: Colors.red,
+          ));
         });
       }
       return Scaffold(
-          body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 30),
-        height: double.infinity,
-        width: double.infinity,
-        child: logincolum(
-            loading: loading,
-            emailController: _emailController,
-            passwordcontroller: _passwordcontroller),
-      ));
+          body: CustomScrollView(slivers: [
+        SliverFillRemaining(
+          hasScrollBody: false,
+          child: Container(
+            decoration: BoxDecoration(
+
+                //image:DecorationImage(image: AssetImage('lib/assests/images/signinimage.jpg',),fit: BoxFit.contain,)
+                ),
+            padding: EdgeInsets.symmetric(horizontal: 30),
+            height: double.infinity,
+            width: double.infinity,
+            child: logincolum(
+                loading: loading,
+                emailController: _emailController,
+                passwordcontroller: _passwordcontroller),
+          ),
+        )
+      ]));
     });
   }
 }

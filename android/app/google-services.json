@@ -12,7 +12,20 @@
           "package_name": "com.example.jobmingle"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "547625483270-m7mu49mo0kl3n9u6ib0esvfmt966mk28.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jobmingle",
+            "certificate_hash": "f08c12f51fce04608d90e5f5af7298665948991b"
+          }
+        },
+        {
+          "client_id": "547625483270-6j0bqs152panreju39o5af1627ublao4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDAv-M0XQW07eQRNLHBn5y7u0u1DRWKYig"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "547625483270-6j0bqs152panreju39o5af1627ublao4.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "547625483270-ucdkhj2j7pi3b5l9c7d5u34ua8g6r6h8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.jobmingle"
+              }
+            }
+          ]
         }
       }
     }

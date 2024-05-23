@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/login_auth/loginauth_bloc.dart';
 
-
+// ignore: must_be_immutable
 class CustomTextFormField extends StatelessWidget {
   final bool readOnly;
   final TextEditingController controller;
@@ -43,51 +43,54 @@ class CustomTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: BlocBuilder<LoginauthBloc, LoginauthState>(
-        builder: (context, state) {
-          if(state is ObsecureState){
-            _obscureText=state.obscure;
-          }
-          return TextFormField(
-            readOnly: readOnly,
-            style: Theme.of(context).textTheme.bodySmall,
-            maxLines: maxlines,
-            keyboardType: type,
-            controller: controller,
-            decoration: InputDecoration(
-              labelText: labeltext,
-              errorStyle: TextStyle(color: Colors.red),
-              hintStyle: Theme.of(context).textTheme.bodySmall,
-              hintText: hintText,
-              enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide(color: Colors.black)),
-              focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(
-                    12,
-                  ),
-                  borderSide: BorderSide(color: Colors.blue, width: 3)),
-              prefixIcon: prefixIcon,
-              suffixIcon: obscureText
-                  ? IconButton(
-                      icon: Icon(
-                        _obscureText ? Icons.visibility_off : Icons.visibility,
-                        color: Colors.black,
-                      ),
-                      onPressed: () {
-                  
-                        BlocProvider.of<LoginauthBloc>(context).add(ObsecuretextEvent(obscure: _obscureText));
-                      },
-                    )
-                  : suffixIcon,
+    return BlocBuilder<LoginauthBloc, LoginauthState>(
+      builder: (context, state) {
+        if(state is ObsecureState){
+          _obscureText=state.obscure;
+        }
+        return Column(
+          children: [
+            TextFormField(
+              readOnly: readOnly,
+              style: Theme.of(context).textTheme.bodySmall,
+              maxLines: maxlines,
+              keyboardType: type,
+              controller: controller,
+              decoration: InputDecoration(
+                labelText: labeltext,
+                errorStyle: TextStyle(color: Colors.red),
+                hintStyle: Theme.of(context).textTheme.bodySmall,
+                hintText: hintText,
+                enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: Colors.black)),
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(
+                      12,
+                    ),
+                    borderSide: BorderSide(color: Colors.blue, width: 3)),
+                prefixIcon: prefixIcon,
+                suffixIcon: obscureText
+                    ? IconButton(
+                        icon: Icon(
+                          _obscureText ? Icons.visibility_off : Icons.visibility,
+                          color: Colors.black,
+                        ),
+                        onPressed: () {
+                    
+                          BlocProvider.of<LoginauthBloc>(context).add(ObsecuretextEvent(obscure: _obscureText));
+                        },
+                      )
+                    : suffixIcon,
+              ),
+              obscureText: obscureText && _obscureText,
+              validator: validator,
             ),
-            obscureText: obscureText && _obscureText,
-            validator: validator,
-          );
-        },
-      ),
+            SizedBox(height: 10,)
+          ],
+        );
+        
+      },
     );
   }
 }

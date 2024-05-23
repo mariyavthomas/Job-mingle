@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-
 import '../button_widgets/buttoblogin.dart';
 import '../button_widgets/buttonregister.dart';
-import '../button_widgets/buttonwithgooge_widgets.dart';
 import '../fields/emailfield.dart';
 import '../fields/namefiled.dart';
 import '../fields/passwordfield.dart';
@@ -64,12 +62,22 @@ class registercolum extends StatelessWidget {
       SizedBox(
         height: 10,
       ),
-      Formfieldname(fullnamecontroller: _fullnamecontroller),
-      Formfieldemail(emailController: _emailController),
-      Formfieldpassword(passwordcontroller: _passwordcontroller),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Formfieldname(fullnamecontroller: _fullnamecontroller),
+      ),
+      
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Formfieldemail(emailController: _emailController),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Formfieldpassword(passwordcontroller: _passwordcontroller),
+      ),
       Formfieldphonenumber(phonenumbercontroller: _phonenumbercontroller),
       SizedBox(
-        height: 30,
+        height: 10,
       ),
       buttonregister(
         loading:  loading,

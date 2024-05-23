@@ -20,8 +20,10 @@ void main() async {
           appId: "1:547625483270:android:332ffa444e135d6e0e1787",
           storageBucket: 'jobmingle-91729.appspot.com',
         ))
-      : await Firebase.initializeApp();
-  //  await initializeDependencies();
+   
+    :
+ await Firebase.initializeApp();
+   // await initializeDependencies();
   runApp(const MyApp());
 }
 
@@ -43,7 +45,7 @@ class MyApp extends StatelessWidget {
                 ProgressIndicatorThemeData(color: Colors.blue),
             textTheme: TextTheme(
                 displayLarge: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
                 bodySmall: TextStyle(
