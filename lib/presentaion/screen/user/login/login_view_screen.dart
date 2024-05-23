@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/login_auth/loginauth_bloc.dart';
-import 'package:jobmingle/presentaion/screen/login/login_widgets.dart';
+import 'package:jobmingle/presentaion/screen/user/login/login_widgets.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});

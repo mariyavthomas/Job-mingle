@@ -2,52 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:jobmingle/presentaion/screen/home/home_screen_view.dart';
+import 'package:jobmingle/presentaion/screen/user/home/home_screen_view.dart';
 
 class AuthRepoGoogle {
   final _auth = FirebaseAuth.instance;
 
-  // Future<User?> signInWithGoogle( BuildContext context) async {
-  //   User? user;
-  //   try {
-  //     // Google Sign-in package
-  //     final googleUser = await GoogleSignIn().signIn();
-  //     if (googleUser != null){
-  //     final googleAuth = await googleUser.authentication;
-  //     final credential = GoogleAuthProvider.credential(
-  //       accessToken: googleAuth.accessToken,
-  //       idToken: googleAuth.idToken,
-  //     );
-  //     final userCredential = await _auth.signInWithCredential(credential);
-  //     user=userCredential.user;
-    
-  //       }
-  //         // Firebase
-      
-     
-  //   } catch (e) {
-  //     print(e);
-  //     showDialog(
-  //       context: context,
-  //       builder: (context) {
-  //         return AlertDialog(
-  //           title: Text('Error'),
-  //           content: Text(e.toString()),
-  //           actions: [
-  //             ElevatedButton(
-  //               onPressed: () {
-  //                 Navigator.pop(context);
-  //               },
-  //               child: Text('OK'),
-  //             ),
-  //           ],
-  //         );
-  //       },
-  //     );
-    
-  //   }
-  //   return user;
-  // }
+  
   Future<void> signInWithGoogle(BuildContext context, bool isUser) async {
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
@@ -90,4 +50,65 @@ class AuthRepoGoogle {
 {
   print(e.toString());
 }}
+
+
+void showBottomAlertBox(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
+    ),
+    builder: (BuildContext context) {
+      return Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children:[
+            Text(
+              'Continue with Google',
+              style: TextStyle(
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(height: 16.0),
+            Text(
+              'You will be redirected to Google for a secure and faster login.Your name and email will be shared with jomingle app and websit',
+              style: TextStyle(
+                fontSize: 15.0,
+              ),
+            ),
+            SizedBox(height: 24.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children:[
+                SizedBox(
+                  width: 30,
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    'CANCEL',
+                    style: TextStyle(color: Color.fromARGB(200, 75, 110, 225)),
+                  ),
+                ),
+                SizedBox(width: 100),
+                ElevatedButton(
+                  style: ButtonStyle(backgroundColor: MaterialStatePropertyAll( Color.fromARGB(200, 75, 110, 225))),
+                  onPressed: () {
+                  
+                     AuthRepoGoogle().signInWithGoogle(context,true);
+                  },
+                  child: Text('Continue'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
 }

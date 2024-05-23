@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobmingle/presentaion/screen/register/widgets/fields/phonenumberfield.dart';
+import 'package:jobmingle/presentaion/screen/user/register/widgets/fields/phonenumberfield.dart';
 
 
 

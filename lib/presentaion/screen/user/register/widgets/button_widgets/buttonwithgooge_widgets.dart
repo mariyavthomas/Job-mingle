@@ -10,7 +10,9 @@ class buttongoogle_widget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () {
-        AuthRepoGoogle().signInWithGoogle(context,true);
+        // AuthRepoGoogle().signInWithGoogle(context,true);
+      AuthRepoGoogle().showBottomAlertBox(context);
+        
         },
         child: Container(
           height: 50,

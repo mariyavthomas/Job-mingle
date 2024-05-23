@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:jobmingle/presentaion/screen/login/login_view_screen.dart';
-import 'package:jobmingle/presentaion/screen/register/user_register_view.dart';
+import 'package:jobmingle/presentaion/screen/user/login/login_view_screen.dart';
+import 'package:jobmingle/presentaion/screen/user/register/user_register_view.dart';
 
 class Onboarding extends StatelessWidget {
-  const Onboarding({super.key});
+  Onboarding({super.key,required this.select
+ });
 
+bool select;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +22,8 @@ class Onboarding extends StatelessWidget {
                           AssetImage('lib/assests/images/onboaringimage.jpg'))),
               InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => RegisterPage()));
+                 Navigator.pushNamed(
+                        context, select ? '/Scomp' : '/register');
                 },
                 child: Container(
                   height: 50,
@@ -55,8 +57,8 @@ class Onboarding extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LoginPage()));
+                 Navigator.pushNamed(
+                        context, select ? '/Lcomp' : '/login');
                 },
                 child: Container(
                   height: 50,

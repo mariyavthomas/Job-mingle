@@ -3,11 +3,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/login_auth/loginauth_bloc.dart';
-import 'package:jobmingle/presentaion/screen/home/home_screen_view.dart';
-import 'package:jobmingle/presentaion/screen/login/login_view_screen.dart';
-import 'package:jobmingle/presentaion/screen/onboarding/onboarding.dart';
-import 'package:jobmingle/presentaion/screen/register/user_register_view.dart';
-import 'package:jobmingle/presentaion/screen/splash/splash_view_screen.dart';
+import 'package:jobmingle/presentaion/screen/company/auth_company/login_company.dart';
+import 'package:jobmingle/presentaion/screen/company/auth_company/sign_company.dart';
+import 'package:jobmingle/presentaion/screen/user/home/home_screen_view.dart';
+import 'package:jobmingle/presentaion/screen/user/login/login_view_screen.dart';
+import 'package:jobmingle/presentaion/screen/user/onboarding/onboarding.dart';
+import 'package:jobmingle/presentaion/screen/user/register/user_register_view.dart';
+import 'package:jobmingle/presentaion/screen/common/splash/splash_view_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -60,10 +62,13 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         routes: {
           '/': (context) => SplashPage(),
-          '/onboarding':(context) => Onboarding(),
+          '/onboarding':(context) => Onboarding(select: false,),
           '/home': (context) => HomePage(),
           '/login': (context) => LoginPage(),
           '/register': (context) => RegisterPage(),
+          '/Lcomp': (context) => LoginCompany(),
+          '/Scomp': (context) => SignUpCompany(),
+          
         },
       ),
     );
