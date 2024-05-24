@@ -2,15 +2,9 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobmingle/application/auth_company/auth_company_bloc.dart';
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
-
-import 'package:jobmingle/presentaion/screen/company/auth_company/login_company.dart';
-import 'package:jobmingle/presentaion/screen/company/register/sign_company.dart';
-import 'package:jobmingle/presentaion/screen/user/home/home_screen_view.dart';
-import 'package:jobmingle/presentaion/screen/user/login/login_view_screen.dart';
-import 'package:jobmingle/presentaion/screen/common/onboarding/onboarding.dart';
-import 'package:jobmingle/presentaion/screen/user/register/user_register_view.dart';
-import 'package:jobmingle/presentaion/screen/common/splash/splash_view_screen.dart';
+import 'package:jobmingle/utils/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,10 +17,8 @@ void main() async {
           appId: "1:547625483270:android:332ffa444e135d6e0e1787",
           storageBucket: 'jobmingle-91729.appspot.com',
         ))
-   
-    :
- await Firebase.initializeApp();
-   // await initializeDependencies();
+      : await Firebase.initializeApp();
+  // await initializeDependencies();
   runApp(const MyApp());
 }
 
@@ -39,8 +31,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => LoginauthBloc()..add(CheckLoginStatusEvent()),
+          
         ),
-       // BlocProvider(create: (context) => GoogleAthBloc(AuthRepo()))
+        BlocProvider(create: (context)=>AuthCompanyBloc()..add(CheckLoginStatusEventCompany()))
+        // BlocProvider(create: (context) => GoogleAthBloc(AuthRepo()))
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -61,16 +55,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         // go to the splashscreen
         initialRoute: '/',
-        routes: {
-          '/': (context) => SplashPage(),
-          '/onboarding':(context) => Onboarding(select: false,),
-          '/home': (context) => HomePage(),
-          '/login': (context) => LoginPage(),
-          '/register': (context) => RegisterPage(),
-          '/Lcomp': (context) => LoginPageCompany(),
-          '/Scomp': (context) => SignUpCompany(),
-          
-        },
+        routes: Routers().routes,
       ),
     );
   }

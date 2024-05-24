@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobmingle/application/auth_company/auth_company_bloc.dart';
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
+// Import another Bloc
 
 import 'package:jobmingle/presentaion/screen/common/naviagating_screen/navigating_screen.dart';
 import 'package:jobmingle/presentaion/screen/user/home/home_screen_view.dart';
@@ -12,16 +14,38 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginauthBloc, LoginauthState>(
-      listener: (context, state) {
-        if (state is Authenticated) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
-        } else if (state is UnAuthenticated) {
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => NaviagtingScreen()));
-        }
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<LoginauthBloc, LoginauthState>(
+          listener: (context, state) {
+            if (state is Authenticated) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            } else if (state is UnAuthenticated) {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => NaviagtingScreen()),
+              );
+            }
+          },
+        ),
+        BlocListener<AuthCompanyBloc, AuthCompanyState>(
+          listener: (context, state) {
+            if (state is Authenticatedcompany) {
+              Navigator.pushNamed(context, '/CompanyHome');
+               
+            }
+            else if(state is UnAuthenticatedcompany){
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => NaviagtingScreen()),
+              );
+            }
+          },
+        ),
+      ],
       child: Scaffold(
         body: Container(
           height: double.infinity,
@@ -30,9 +54,8 @@ class SplashPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                child:
-                    Lottie.asset('lib/assests/images/splash.json', height: 200),
-              )
+                child: Lottie.asset('lib/assests/images/splash.json', height: 200),
+              ),
             ],
           ),
         ),

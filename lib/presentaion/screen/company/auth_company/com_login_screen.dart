@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobmingle/application/auth_company/auth_company_bloc.dart';
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
+import 'package:jobmingle/presentaion/screen/company/auth_company/login_company_wid.dart';
 
 import 'package:jobmingle/presentaion/screen/user/login/login_widgets.dart';
 
@@ -26,18 +28,18 @@ class _LoginPageCompanyState extends State<LoginPageCompany> {
   @override
   Widget build(BuildContext context) {
    
-    return BlocBuilder<LoginauthBloc, LoginauthState>(
+    return BlocBuilder<AuthCompanyBloc, AuthCompanyState>(
         builder: (context, state) {
-      if (state is LoginauthInitialstate) {
+      if (state is AuthCompanyInitial) {
         loading = false;
-      } else if (state is Authloading) {
+      } else if (state is AuthCompanyLoading) {
         loading = true;
-      } else if (state is Authenticated) {
+      } else if (state is Authenticatedcompany) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
-          BlocProvider.of<LoginauthBloc>(context).add(LogingInitialEvent());
+          Navigator.pushNamedAndRemoveUntil(context, '/CompanyHome', (route) => false);
+          BlocProvider.of<AuthCompanyBloc>(context).add(LogingInitialcompanyEvent());
         });
-      } else if (state is AuthenticatedError) {
+      } else if (state is AuthenticatedErrorcomapny) {
         // return ScaffoldMessenger.of(context).showSnackBar(
         WidgetsBinding.instance.addPostFrameCallback((_) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -57,7 +59,7 @@ class _LoginPageCompanyState extends State<LoginPageCompany> {
             padding: EdgeInsets.symmetric(horizontal: 30),
             height: double.infinity,
             width: double.infinity,
-            child: logincolum(
+            child: LoginComapny(
                 loading: loading,
                 emailController: _emailController,
                 passwordcontroller: _passwordcontroller),
