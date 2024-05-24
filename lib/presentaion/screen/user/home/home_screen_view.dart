@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
 
+class HomePage extends StatefulWidget {
+   HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class _HomePageState extends State<HomePage> {
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +28,8 @@ class HomePage extends StatelessWidget {
               icon: Icon(Icons.logout))
         ],
       ),
-      body: Center(
-        child: Text('Heloooo'),
-      ),
+    
+                  
     );
   }
 }

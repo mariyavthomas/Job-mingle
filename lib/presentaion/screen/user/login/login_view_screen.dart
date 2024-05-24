@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
         loading = true;
       } else if (state is Authenticated) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+          Navigator.pushNamedAndRemoveUntil(context, '/BottamNavigation', (route) => false);
           BlocProvider.of<LoginauthBloc>(context).add(LogingInitialEvent());
         });
       } else if (state is AuthenticatedError) {
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
       }
       return Scaffold(
           body: CustomScrollView(slivers: [
-        SliverFillRemaining(
+                SliverFillRemaining(
           hasScrollBody: false,
           child: Container(
             decoration: BoxDecoration(),
@@ -62,8 +62,8 @@ class _LoginPageState extends State<LoginPage> {
                 emailController: _emailController,
                 passwordcontroller: _passwordcontroller),
           ),
-        )
-      ]));
+                )
+              ]));
     });
   }
 }

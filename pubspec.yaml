@@ -52,6 +52,7 @@ dependencies:
   animated_widgets: ^1.1.0
   loading_animation_widget: ^1.2.1
   firebase_core:
+  border_bottom_navigation_bar: ^0.0.4
   
   
 

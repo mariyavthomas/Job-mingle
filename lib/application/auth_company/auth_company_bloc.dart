@@ -47,10 +47,10 @@ class AuthCompanyBloc extends Bloc<AuthCompanyEvent, AuthCompanyState> {
         if (user != null) {
           FirebaseFirestore.instance.collection('company').doc(user.uid).set({
             'email': user.email,
-            'password': event.company.companyemail,
+            'password': event.company.companypassword,
             'companyname': event.company.companyname,
             'phone': event.company.phone,
-            'industry':event.company.industry,
+            
             'uid': user.uid,
             'CreatedAt': DateTime.now()
           });
