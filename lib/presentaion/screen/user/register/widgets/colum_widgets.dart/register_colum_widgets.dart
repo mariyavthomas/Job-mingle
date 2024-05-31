@@ -8,7 +8,7 @@ import '../fields/passwordfield.dart';
 import '../fields/phonefield.dart';
 
 class registercolum extends StatelessWidget {
-  const registercolum({
+   registercolum({
     super.key,required this.loading,
     required TextEditingController fullnamecontroller,
     required TextEditingController emailController,
@@ -24,80 +24,84 @@ class registercolum extends StatelessWidget {
   final TextEditingController _passwordcontroller;
   final TextEditingController _phonenumbercontroller;
    final bool loading;
+   final formkey= GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start, children: [
-      Align(
-        alignment: Alignment.topLeft,
-        child: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(Icons.arrow_back)),
-      ),
-      Container(
-        child: Lottie.asset('lib/assests/images/splash.json',
-            height: 80, width: 200),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          'Create Your JobMingle Profile',
-          style: TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
+    return Form(
+      key: formkey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start, children: [
+        Align(
+          alignment: Alignment.topLeft,
+          child: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.arrow_back)),
+        ),
+        Container(
+          child: Lottie.asset('lib/assests/images/splash.json',
+              height: 80, width: 200),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Create Your JobMingle Profile',
+            style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Align(
-            alignment: Alignment.bottomLeft,
-            child: Text(
-              'Register with Email',
-              style: TextStyle(color: Colors.grey, fontSize: 15),
-            )),
-      ),
-      SizedBox(
-        height: 10,
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Formfieldname(fullnamecontroller: _fullnamecontroller),
-      ),
-      
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Formfieldemail(emailController: _emailController),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Formfieldpassword(passwordcontroller: _passwordcontroller),
-      ),
-      Formfieldphonenumber(phonenumbercontroller: _phonenumbercontroller),
-      SizedBox(
-        height: 10,
-      ),
-      buttonregister(
-        loading:  loading,
-        emailController: _emailController,fullnamecontroller: _fullnamecontroller,passwordcontroller: _passwordcontroller,phonenumbercontroller: _phonenumbercontroller),
-      SizedBox(
-        height: 10,
-      ),
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Divider(
-          thickness: 1,
-          color: Colors.black,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Text(
+                'Register with Email',
+                style: TextStyle(color: Colors.grey, fontSize: 15),
+              )),
         ),
-      ),
-      // Padding(
-      //   padding: const EdgeInsets.only(bottom: 10),
-      //   child: Text('Or'),
-      // ),
-      //buttongoogle_widget(),
-      buttonlogin()
-    ]);
+        SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Formfieldname(fullnamecontroller: _fullnamecontroller),
+        ),
+        
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Formfieldemail(emailController: _emailController),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Formfieldpassword(passwordcontroller: _passwordcontroller),
+        ),
+        Formfieldphonenumber(phonenumbercontroller: _phonenumbercontroller),
+        SizedBox(
+          height: 10,
+        ),
+        buttonregister(formkey: formkey,
+          loading:  loading,
+          emailController: _emailController,fullnamecontroller: _fullnamecontroller,passwordcontroller: _passwordcontroller,phonenumbercontroller: _phonenumbercontroller),
+        SizedBox(
+          height: 10,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Divider(
+            thickness: 1,
+            color: Colors.black,
+          ),
+        ),
+        // Padding(
+        //   padding: const EdgeInsets.only(bottom: 10),
+        //   child: Text('Or'),
+        // ),
+        //buttongoogle_widget(),
+        buttonlogin()
+      ]),
+    );
   }
 }

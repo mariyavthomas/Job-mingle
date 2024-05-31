@@ -7,10 +7,10 @@ class CheckLoginStatusEventCompany extends AuthCompanyEvent{}
 
 //-----LoginEvent-------//
 class LoginComapanyEvent extends AuthCompanyEvent{
-  final String email;
+  final String username;
   final String password;
 
-LoginComapanyEvent({required this.email,required this.password});
+LoginComapanyEvent({required this.username,required this.password});
 }
 
 //-----SignUpEvent------//

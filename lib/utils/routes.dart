@@ -15,7 +15,7 @@ import 'package:jobmingle/presentaion/screen/user/register/user_register_view.da
 class Routers{
     Map<String,Widget Function(BuildContext )> routes= {
           '/': (context) => SplashPage(),
-          '/onboarding':(context) => Onboarding(select: false,),
+          '/onboarding':(context) => Onboarding(),
           '/home': (context) => HomePage(),
           '/login': (context) => LoginPage(),
           '/register': (context) => RegisterPage(),

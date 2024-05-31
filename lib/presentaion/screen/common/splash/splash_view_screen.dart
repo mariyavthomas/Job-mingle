@@ -1,17 +1,19 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/auth_company/auth_company_bloc.dart';
-import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
-// Import another Bloc
 
-import 'package:jobmingle/presentaion/screen/common/naviagating_screen/navigating_screen.dart';
-import 'package:jobmingle/presentaion/screen/user/home/home_screen_view.dart';
+import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
+import 'package:jobmingle/presentaion/screen/common/onboarding/onboarding.dart';
+
+
+
+import 'package:jobmingle/presentaion/screen/user/login/login_view_screen.dart';
 
 import 'package:lottie/lottie.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
-
+ 
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -19,32 +21,16 @@ class SplashPage extends StatelessWidget {
         BlocListener<LoginauthBloc, LoginauthState>(
           listener: (context, state) {
             if (state is Authenticated) {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
+             Navigator.pushNamedAndRemoveUntil(context, '/BottamNavigation', (route) => false);
             } else if (state is UnAuthenticated) {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => NaviagtingScreen()),
+                MaterialPageRoute(builder: (context) => Onboarding()),
               );
             }
           },
         ),
-        BlocListener<AuthCompanyBloc, AuthCompanyState>(
-          listener: (context, state) {
-            if (state is Authenticatedcompany) {
-              Navigator.pushNamed(context, '/CompanyHome');
-               
-            }
-            else if(state is UnAuthenticatedcompany){
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => NaviagtingScreen()),
-              );
-            }
-          },
-        ),
+        
       ],
       child: Scaffold(
         body: Container(
@@ -56,6 +42,7 @@ class SplashPage extends StatelessWidget {
               Container(
                 child: Lottie.asset('lib/assests/images/splash.json', height: 200),
               ),
+              
             ],
           ),
         ),

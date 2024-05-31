@@ -7,6 +7,7 @@ import 'package:jobmingle/domin/models/user_model.dart';
 class buttonregister extends StatelessWidget {
   const buttonregister({
     super.key,
+    required this.formkey,
     required this.loading,
     required TextEditingController fullnamecontroller,
     required TextEditingController emailController,
@@ -21,21 +22,24 @@ class buttonregister extends StatelessWidget {
   final TextEditingController _emailController;
   final TextEditingController _passwordcontroller;
   final TextEditingController _phonenumbercontroller;
- final bool loading;
+  final GlobalKey<FormState>formkey;
+  final bool loading;
   @override
   Widget build(BuildContext context) {
-    return 
-    // loading ?
-    // CircularProgressIndicator():
-    InkResponse(
+    return
+      InkResponse(
       onTap: () {
-        Usermodel user = Usermodel(
+       if(formkey.currentState!.validate()){
+                Usermodel user = Usermodel(
+                  pic:_emailController.text,
             email: _emailController.text,
             password: _passwordcontroller.text,
             phone: _phonenumbercontroller.text,
             name: _fullnamecontroller.text);
         // _authbloc.add(SignupEvent(user:user));
         BlocProvider.of<LoginauthBloc>(context).add(SignUpEvent(user: user));
+       }
+       
       },
       child: Container(
         height: 50,
@@ -45,9 +49,20 @@ class buttonregister extends StatelessWidget {
           color: Color.fromARGB(200, 75, 110, 225),
         ),
         child: Center(
-          child: Text(
-            'Register',
-            style: Theme.of(context).textTheme.displayLarge,
+          child: BlocBuilder<LoginauthBloc, LoginauthState>(
+            builder: (context, state) {
+              if(state is Authloading){
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+
+              }
+              else{
+              return Text(
+                'Register',
+                style: Theme.of(context).textTheme.displayLarge,
+              );}
+            },
           ),
         ),
       ),

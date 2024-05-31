@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobmingle/utils/cutomtextformfil.dart';
+import 'package:jobmingle/utils/validator.dart';
 
 class Formfieldpassword extends StatelessWidget {
   const Formfieldpassword({
@@ -12,6 +13,7 @@ class Formfieldpassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
+      validator: (value) => Validator().passwordValidator(value),
         labeltext: 'Password',
         obscureText: true,
         controller: _passwordcontroller,

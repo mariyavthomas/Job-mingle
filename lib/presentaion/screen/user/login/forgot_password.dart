@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jobmingle/infrastructure/helper_class/userrep/resetrepo.dart';
+import 'package:jobmingle/infrastructure/Repo/resetrepo.dart';
 import 'package:jobmingle/utils/cutomtextformfil.dart';
+import 'package:jobmingle/utils/validator.dart';
 
 // ignore: must_be_immutable
 class Forgotpassword extends StatelessWidget {
@@ -26,6 +27,7 @@ class Forgotpassword extends StatelessWidget {
             ),
           ),
           CustomTextFormField(
+            validator: (value) => Validator().emailValidator(value),
               labeltext: 'Email ID',
               controller: _emailController,
               hintText: "Enter the Email"),

@@ -14,12 +14,12 @@ class LoginPageCompany extends StatefulWidget {
 }
 
 class _LoginPageCompanyState extends State<LoginPageCompany> {
-  TextEditingController _emailController = TextEditingController();
+  TextEditingController _usernameController = TextEditingController();
   TextEditingController _passwordcontroller = TextEditingController();
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _usernameController .dispose();
     _passwordcontroller.dispose();
     super.dispose();
   }
@@ -61,7 +61,7 @@ class _LoginPageCompanyState extends State<LoginPageCompany> {
             width: double.infinity,
             child: LoginComapny(
                 loading: loading,
-                emailController: _emailController,
+                usernameController : _usernameController ,
                 passwordcontroller: _passwordcontroller),
           ),
         )

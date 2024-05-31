@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class Onboarding extends StatelessWidget {
-  Onboarding({super.key,required this.select
+  Onboarding({super.key,
  });
 
-bool select;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +22,7 @@ bool select;
               InkWell(
                 onTap: () {
                  Navigator.pushNamed(
-                        context, select ? '/Scomp' : '/register');
+                        context,  '/register');
                 },
                 child: Container(
                   height: 50,
@@ -57,7 +57,7 @@ bool select;
               InkWell(
                 onTap: () {
                  Navigator.pushNamed(
-                        context, select ? '/Lcomp' : '/login');
+                        context, '/login');
                 },
                 child: Container(
                   height: 50,

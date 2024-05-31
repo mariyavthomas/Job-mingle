@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/auth_company/auth_company_bloc.dart';
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
+import 'package:jobmingle/application/profile/profile_bloc.dart';
+import 'package:jobmingle/infrastructure/Repo/profile_repo.dart';
 import 'package:jobmingle/utils/routes.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,20 +24,23 @@ void main() async {
   // await initializeDependencies();
   runApp(const MyApp());
 }
-
+ //final save_key=FirebaseFirestore.instance.collection('user').doc().id;
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
+   
   @override
   Widget build(BuildContext context) {
+    
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => LoginauthBloc()..add(CheckLoginStatusEvent()),
           
         ),
-        BlocProvider(create: (context)=>AuthCompanyBloc()..add(CheckLoginStatusEventCompany()))
-        // BlocProvider(create: (context) => GoogleAthBloc(AuthRepo()))
+        BlocProvider(create: (context)=>AuthCompanyBloc()..add(CheckLoginStatusEventCompany())
+        ),
+        BlocProvider(create: (context)=>ProfileBloc(UserProfileRepo())..add(GetUserEvent())),
+       
       ],
       child: MaterialApp(
         theme: ThemeData(

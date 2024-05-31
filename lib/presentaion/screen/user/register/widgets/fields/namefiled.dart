@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jobmingle/utils/cutomtextformfil.dart';
+import 'package:jobmingle/utils/validator.dart';
 
 class Formfieldname extends StatelessWidget {
   const Formfieldname({
@@ -12,6 +13,7 @@ class Formfieldname extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
+      validator: (value) => Validator().nameValidator(value),
         labeltext: 'Full Name',
         controller: _fullnamecontroller,
         hintText: "Full Name");

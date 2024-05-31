@@ -15,7 +15,10 @@ class CompanyHomeScreen extends StatelessWidget {
                 Navigator.pushNamedAndRemoveUntil(
                     context, '/Lcomp', (route) => false);
       
-      }, icon: Icon(Icons.logout))]),
+      }, icon: Icon(Icons.logout))],
+      title: Text('Company'),),
+      
+      
     );
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
 
-
 // ignore: must_be_immutable
 class CustomTextFormField extends StatelessWidget {
   final bool readOnly;
@@ -11,7 +10,7 @@ class CustomTextFormField extends StatelessWidget {
 
   final String hintText;
   final bool obscureText;
-  final String? Function(String?)? validator;
+
   final InputBorder? enabledBorder;
   final InputBorder? focusedBorder;
   final TextStyle? errorStyle;
@@ -21,9 +20,11 @@ class CustomTextFormField extends StatelessWidget {
   final TextStyle? style;
   final maxlines;
   final String labeltext;
-   CustomTextFormField({
+  final FormFieldValidator<String>? validator;
+  CustomTextFormField({
     Key? key,
     this.hintstyle,
+    this.validator,
     this.errorStyle,
     this.readOnly = false,
     this.style,
@@ -32,7 +33,6 @@ class CustomTextFormField extends StatelessWidget {
     this.type = TextInputType.text,
     required this.hintText,
     this.obscureText = false,
-    this.validator,
     this.enabledBorder,
     this.focusedBorder,
     this.prefixIcon,
@@ -46,8 +46,8 @@ class CustomTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<LoginauthBloc, LoginauthState>(
       builder: (context, state) {
-        if(state is ObsecureState){
-          _obscureText=state.obscure;
+        if (state is ObsecureState) {
+          _obscureText = state.obscure;
         }
         return Column(
           children: [
@@ -74,23 +74,26 @@ class CustomTextFormField extends StatelessWidget {
                 suffixIcon: obscureText
                     ? IconButton(
                         icon: Icon(
-                          _obscureText ? Icons.visibility_off : Icons.visibility,
+                          _obscureText
+                              ? Icons.visibility_off
+                            : Icons.visibility,
                           color: Colors.black,
                         ),
                         onPressed: () {
-                    
-                          BlocProvider.of<LoginauthBloc>(context).add(ObsecuretextEvent(obscure: _obscureText));
+                          BlocProvider.of<LoginauthBloc>(context)
+                              .add(ObsecuretextEvent(obscure: _obscureText));
                         },
                       )
                     : suffixIcon,
               ),
               obscureText: obscureText && _obscureText,
-              validator: validator,
+              validator:validator,
             ),
-            SizedBox(height: 10,)
+            SizedBox(
+              height: 10,
+            )
           ],
         );
-        
       },
     );
   }

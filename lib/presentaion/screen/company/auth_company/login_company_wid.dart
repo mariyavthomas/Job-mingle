@@ -7,18 +7,19 @@ import 'package:jobmingle/presentaion/screen/company/auth_company/button/google_
 import 'package:jobmingle/presentaion/screen/user/login/forgot_password.dart';
 import 'package:jobmingle/presentaion/screen/user/register/widgets/button_widgets/buttonwithgooge_widgets.dart';
 import 'package:jobmingle/utils/cutomtextformfil.dart';
+import 'package:jobmingle/utils/validator.dart';
 import 'package:lottie/lottie.dart';
 
 class LoginComapny extends StatelessWidget {
   const LoginComapny({
     super.key,
     required this.loading,
-    required TextEditingController emailController,
+    required TextEditingController usernameController ,
     required TextEditingController passwordcontroller,
-  })  : _emailController = emailController,
+  })  : _usernameController  = usernameController ,
         _passwordcontroller = passwordcontroller;
 
-  final TextEditingController _emailController;
+  final TextEditingController _usernameController ;
   final TextEditingController _passwordcontroller;
   final bool loading;
 
@@ -35,13 +36,15 @@ class LoginComapny extends StatelessWidget {
         height: 20,
       ),
       CustomTextFormField(
-          labeltext: 'Email ID',
-          controller: _emailController,
-          hintText: "Enter the Email"),
+        validator:  (value) => Validator().nameValidator(value),
+          labeltext: 'User Name',
+          controller: _usernameController ,
+          hintText: "Enter the User Name"),
       SizedBox(
         height: 20,
       ),
       CustomTextFormField(
+        validator: (value) => Validator().passwordValidator(value),
           labeltext: 'Password',
           obscureText: true,
           controller: _passwordcontroller,
@@ -70,7 +73,7 @@ class LoginComapny extends StatelessWidget {
               onTap: () {
                 // Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
                 BlocProvider.of<AuthCompanyBloc>(context).add(LoginComapanyEvent(
-                    email: _emailController.text.trim(),
+                    username: _usernameController .text.trim(),
                     password: _passwordcontroller.text.trim()));
               },
               child: Container(
@@ -110,7 +113,7 @@ class LoginComapny extends StatelessWidget {
           Text('New here?'),
           TextButton(
               onPressed: () {
-              //  Navigator.pushNamed(context, '/register');
+              Navigator.pushNamed(context, '/Scomp');
               },
               child: Text('Register now'))
         ],

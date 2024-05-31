@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jobmingle/infrastructure/helper_class/userrep/googleloginrepo.dart';
+import 'package:jobmingle/infrastructure/Repo/googleloginrepo.dart';
 
 class buttongoogle_widget extends StatelessWidget {
   buttongoogle_widget({

@@ -51,7 +51,7 @@ class AuthCompanyBloc extends Bloc<AuthCompanyEvent, AuthCompanyState> {
             'companyname': event.company.companyname,
             'phone': event.company.phone,
             
-            'uid': user.uid,
+          'uid': user.uid,
             'CreatedAt': DateTime.now()
           });
           emit(Authenticatedcompany(user:user));
@@ -74,13 +74,13 @@ class AuthCompanyBloc extends Bloc<AuthCompanyEvent, AuthCompanyState> {
       }
     });
 
- //---------->Login<--------------//
+    //---------->Login<--------------//
 
     on<LoginComapanyEvent>((event, emit) async {
       emit(AuthCompanyLoading());
       try {
         UserCredential? userCredential = await _auth.signInWithEmailAndPassword(
-            email: event.email, password: event.password);
+            email: event.username, password: event.password);
         final user = userCredential.user;
         if (user != null) {
           emit(Authenticatedcompany(user: user));

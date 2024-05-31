@@ -21,7 +21,7 @@ class _LoginPageState extends State<LoginPage> {
     _passwordcontroller.dispose();
     super.dispose();
   }
-
+ 
   bool loading = false;
   @override
   Widget build(BuildContext context) {
@@ -58,6 +58,7 @@ class _LoginPageState extends State<LoginPage> {
             height: double.infinity,
             width: double.infinity,
             child: logincolum(
+             
                 loading: loading,
                 emailController: _emailController,
                 passwordcontroller: _passwordcontroller),
