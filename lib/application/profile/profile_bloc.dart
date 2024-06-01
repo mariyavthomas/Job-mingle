@@ -13,6 +13,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc(UserProfileRepo userProfileRepo) : super(ProfileInitial()) {
     on<GetUserEvent>(_profileget);
   //  on<ProfileEditEvent>(_profileediting);
+  on<Uploadimageevent>(_uploadimage);
     
   }
 
@@ -37,4 +38,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   //        print('error occure$e');
   //   }
   // }
+
+  FutureOr<void> _uploadimage(Uploadimageevent event, Emitter<ProfileState> emit)async
+   {
+  emit(UserProfileLoadingState());
+  try{
+   //String userimage= await _;
+   //emit(UploadpicSuccess(userimage: userimage));
+  }
+  catch (e){
+   //emit(UploadimagefailureEvent(error: e.toString()) );
+  }
+  }
 }

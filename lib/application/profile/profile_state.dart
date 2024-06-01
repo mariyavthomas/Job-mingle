@@ -22,3 +22,14 @@ class UserProfileLoaedState extends ProfileState{
   @override
   List<Object>get props=>[user];
 }
+class UploadpicSuccess extends ProfileState{
+  final String userimage;
+  UploadpicSuccess({required this.userimage});
+  @override
+  List<Object>get props=>[userimage];
+}
+class UploadimagefailureEvent extends ProfileEvent
+{
+  String error;
+  UploadimagefailureEvent({  required this.error});
+}

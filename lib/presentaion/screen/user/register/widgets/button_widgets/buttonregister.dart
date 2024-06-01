@@ -31,7 +31,7 @@ class buttonregister extends StatelessWidget {
       onTap: () {
        if(formkey.currentState!.validate()){
                 Usermodel user = Usermodel(
-                  pic:_emailController.text,
+             pic:_emailController.text,
             email: _emailController.text,
             password: _passwordcontroller.text,
             phone: _phonenumbercontroller.text,
