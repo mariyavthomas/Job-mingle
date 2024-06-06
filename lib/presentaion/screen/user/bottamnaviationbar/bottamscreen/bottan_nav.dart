@@ -6,7 +6,7 @@ import 'package:jobmingle/application/profile/profile_bloc.dart';
 import 'package:jobmingle/presentaion/screen/user/applies/applies_screen.dart';
 import 'package:jobmingle/presentaion/screen/user/bottamnaviationbar/widgets/drawer.dart';
 import 'package:jobmingle/presentaion/screen/user/home/home_screen_view.dart';
-import 'package:jobmingle/presentaion/screen/user/profile/profile.dart';
+import 'package:jobmingle/presentaion/screen/user/profile/screen/profile.dart';
 import 'package:jobmingle/utils/customcolor.dart';
 
 class BottamNavigation extends StatefulWidget {

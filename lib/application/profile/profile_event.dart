@@ -20,10 +20,3 @@ class GetUserEvent extends ProfileEvent{}
 
 // List<Object> get props=>[name,phone,profileBloc,uid];
 // }
-class Uploadimageevent extends ProfileEvent{
-  final String file;
-  final String uid;
-     Uploadimageevent({ required this.file, required this.uid});
-@override
-  List<Object>get props=>[file,uid];
-}
