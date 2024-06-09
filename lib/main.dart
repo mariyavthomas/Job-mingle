@@ -2,10 +2,13 @@ import 'dart:io';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobmingle/application/Update_pic/update_pic_bloc.dart';
+import 'package:jobmingle/application/Update_pic/update_pic_event.dart';
 
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
 import 'package:jobmingle/application/profile/profile_bloc.dart';
 import 'package:jobmingle/infrastructure/Repo/profile_repo.dart';
+import 'package:jobmingle/infrastructure/Repo/uploadimgerepo.dart';
 import 'package:jobmingle/utils/routes.dart';
 
 
@@ -38,7 +41,8 @@ class MyApp extends StatelessWidget {
           
         ),
        
-        BlocProvider(create: (context)=>ProfileBloc(UserProfileRepo())..add(GetUserEvent())),
+        BlocProvider<ProfileBloc>(create: (context)=>ProfileBloc(UserProfileRepo())..add(GetUserEvent())),
+        BlocProvider<UpdatePicBloc>(create: (context)=>UpdatePicBloc(ImageRepo())),
        
       ],
       child: MaterialApp(

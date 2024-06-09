@@ -16,6 +16,11 @@ class CustomColor{
   static Color bluelight(){
     return Color.fromARGB(197, 141, 162, 231);
   }
-
+static Color lightblue(){
+    return Color.fromARGB(197, 190, 203, 247);
+  }
+  static Color darkgry(){
+    return const Color.fromARGB(255, 109, 108, 108);
+  }
   
 }

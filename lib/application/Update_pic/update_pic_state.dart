@@ -1,20 +1,15 @@
-part of 'update_pic_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:image_picker/image_picker.dart';
 
-sealed class UpdatePicState extends Equatable {
-  const UpdatePicState();
-  
+class UpdatePicState extends Equatable {
+   XFile? file;
+
+  UpdatePicState([this.file]);
+
+  UpdatePicState copyWith({XFile? file}) {
+    return UpdatePicState(file ?? this.file);
+  }
+
   @override
-  List<Object> get props => [];
-}
-
-final class UpdatePicInitial extends UpdatePicState {}
-class UploadPictureFailure extends UpdatePicState{}
-class UploadPictureLoading extends UpdatePicState{
-  
-}
-class UploadPictureSuccess  extends UpdatePicState{
-  final String userimage;
-  UploadPictureSuccess(this.userimage);
-   @override
-  List<Object> get props => [userimage];
+  List<Object?> get props => [file];
 }

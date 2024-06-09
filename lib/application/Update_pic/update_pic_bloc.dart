@@ -1,13 +1,41 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:jobmingle/application/Update_pic/update_pic_event.dart';
+import 'package:jobmingle/application/Update_pic/update_pic_state.dart';
+import 'package:jobmingle/infrastructure/Repo/uploadimgerepo.dart';
 
-part 'update_pic_event.dart';
-part 'update_pic_state.dart';
 
 class UpdatePicBloc extends Bloc<UpdatePicEvent, UpdatePicState> {
-  UpdatePicBloc() : super(UpdatePicInitial()) {
-    on<UpdatePicEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+  final ImageRepo imageunile;
+  UpdatePicBloc(this.imageunile) : super(UpdatePicState()) {
+    on<UploadCameraPictureEvent>(_imagecamera);
+    on<UploadgalleryPictureEvent>(_imagegallery);
+    on<SaveEvent>(_saveEvent);
+    on<Uploadfirebaseimage>(_uploadfirebase);
+
+  }
+
+  FutureOr<void> _imagecamera(UploadCameraPictureEvent event, Emitter<UpdatePicState> emit) async{
+  XFile ?file= await imageunile.getimagefromcamera();
+   emit(state.copyWith(file: file));
+  }
+
+  FutureOr<void> _imagegallery(UploadgalleryPictureEvent event, Emitter<UpdatePicState> emit)async {
+  XFile ? file= await imageunile.getimagefrimgallary();
+  emit(state.copyWith(file: file));
+
+  }
+
+  FutureOr<void> _saveEvent(SaveEvent event, Emitter<UpdatePicState> emit) {
+    emit(state.copyWith(file: null));
+  }
+
+  FutureOr<void> _uploadfirebase(Uploadfirebaseimage event, Emitter<UpdatePicState> emit) async{
+    await imageunile.uploadImageToFirebase(event.file, event.uid);
+    emit(state.copyWith(file: null));
   }
 }

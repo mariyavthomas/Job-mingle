@@ -1,17 +1,41 @@
+
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:jobmingle/application/Update_pic/update_pic_bloc.dart';
+import 'package:jobmingle/application/Update_pic/update_pic_event.dart';
+import 'package:jobmingle/application/Update_pic/update_pic_state.dart';
 import 'package:jobmingle/application/profile/profile_bloc.dart';
+import 'package:jobmingle/infrastructure/Repo/uploadimgerepo.dart';
+import 'package:jobmingle/presentaion/screen/user/profile/screen/intriduction.dart';
+import 'package:jobmingle/presentaion/screen/user/profile/screen/picture.dart';
 import 'package:jobmingle/utils/customcolor.dart';
 
 import '../../bottamnaviationbar/widgets/drawer.dart';
 
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   ProfilePage({super.key});
-  bool isedit = true;
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  @override
+  void initState() {
+ 
+    super.initState();
+  }
+
+  ImageRepo imagefire = ImageRepo();
+   String? pickedImage;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+      
         body: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
             if (state is UserProfileLoaedState) {
@@ -34,99 +58,54 @@ class ProfilePage extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
-                        showModalBottomSheet(
-                            context: context,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(20.0)),
-                            ),
-                            builder: (BuildContext context) {
-                              // ignore: unused_label
-
-                              return Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    SizedBox(height: 16.0),
-                                    Align(
-                                      alignment: Alignment.topLeft,
-                                      child: Text(
-                                        'Upload Profile Picture Via',
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            color: CustomColor.blckcolor(),
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    SizedBox(height: 24.0),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        SizedBox(
-                                          width: 230,
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text(
-                                            'Gallery',
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    200, 75, 110, 225)),
-                                          ),
-                                        ),
-                                        //SizedBox(width: 100),
-                                        ElevatedButton(
-                                          style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStatePropertyAll(
-                                                      Color.fromARGB(
-                                                          200, 75, 110, 225))),
-                                          onPressed: () {},
-                                          child: Text('Camera'),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              );
-                            });
+                       
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePicture()));
                       },
-                      child: CircleAvatar(
-                        maxRadius: 40,
-                        backgroundColor: Color.fromARGB(255, 176, 176, 176),
-                        child: Icon(
-                          Icons.person_add,
-                          size: 40,
-                          color: CustomColor.graycolor(),
-                        ),
+                      child: BlocBuilder<UpdatePicBloc, UpdatePicState>(
+                        builder: (context, state) {
+                          return CircleAvatar(
+                            maxRadius: 40,
+                            backgroundImage: state.file != null
+                                ? FileImage(File(state.file!.path))
+                                : null,
+                            backgroundColor: Color.fromARGB(255, 176, 176, 176),
+                            child: state.file != null
+                                ? SizedBox()
+                                : Icon(
+                                    Icons.person_add,
+                                    size: 40,
+                                    color: CustomColor.graycolor(),
+                                  ),
+                          );
+                        },
                       ),
                     ),
                     SizedBox(
                       height: 16,
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Introduction(name: state.user.name,)));
+                      },
                       child: Column(
                         children: [
                           Row(
                             children: [
                               SizedBox(
-                                width: 120,
+                                width: 150,
                               ),
-                              Text(
-                                state.user.name.toUpperCase(),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              Center(
+                                child: Text(
+                                  state.user.name.toUpperCase(),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold, fontSize: 20),
+                                ),
                               ),
                               SizedBox(
-                                width: 50,
+                                width: 160,
                               ),
                               Icon(
-                                Icons.edit_square,
+                                Icons.edit,
                                 color: CustomColor.bluelight(),
                               )
                             ],
@@ -283,3 +262,4 @@ class ProfilePage extends StatelessWidget {
     );
   }
 }
+

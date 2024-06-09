@@ -1,15 +1,24 @@
-part of 'update_pic_bloc.dart';
+import 'dart:io';
 
-sealed class UpdatePicEvent extends Equatable {
-  const UpdatePicEvent();
+import 'package:equatable/equatable.dart';
+import 'package:image_picker/image_picker.dart';
 
+abstract class UpdatePicEvent extends Equatable {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
-class UploadPicture extends UpdatePicEvent{
-  final String file;
-  final String userid;
-  UploadPicture(this.file,this.userid);
-  @override
-  List<Object> get props => [file,userid];
+
+class UploadCameraPictureEvent extends UpdatePicEvent {}
+
+class UploadgalleryPictureEvent extends UpdatePicEvent {}
+
+class SaveEvent extends UpdatePicEvent {}
+
+class LoadSavedImageEvent extends UpdatePicEvent {}
+
+class Uploadfirebaseimage extends UpdatePicEvent{
+  
+  XFile file;
+  String uid;
+  Uploadfirebaseimage({required this.file,required this.uid});
 }
