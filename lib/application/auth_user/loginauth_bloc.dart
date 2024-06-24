@@ -45,7 +45,7 @@ class LoginauthBloc extends Bloc<LoginauthEvent, LoginauthState> {
         final userCredential = await _auth.createUserWithEmailAndPassword(
             email: event.user.email.toString(),
             password: event.user.password.toString());
-
+    
         final user = userCredential.user;
         if (user != null) {
           FirebaseFirestore.instance.collection('users').doc(user.uid).set({

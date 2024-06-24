@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
+
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
 
 class HomePage extends StatefulWidget {

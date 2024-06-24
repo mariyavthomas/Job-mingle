@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/profile/profile_bloc.dart';
+import 'package:jobmingle/presentaion/screen/user/alljobs/Screen/all_job.dart';
 import 'package:jobmingle/presentaion/screen/user/applies/applies_screen.dart';
 import 'package:jobmingle/presentaion/screen/user/bottamnaviationbar/widgets/drawer.dart';
 import 'package:jobmingle/presentaion/screen/user/home/home_screen_view.dart';
@@ -36,6 +37,7 @@ class _BottamNavigationState extends State<BottamNavigation> {
     HomePage(),
     AppliesScreen(),
     ProfilePage(),
+    AllJobs()
   ];
 
   //List<String> _appTitles = ['jjj', 'Settings', 'Profile',"Profile"];
@@ -79,7 +81,7 @@ class _BottamNavigationState extends State<BottamNavigation> {
               icon: Icons.person,
             ),
             BorderBottomNavigationItems(
-              icon: Icons.more_horiz,
+              icon: Icons.shopping_bag,
             ),
             BorderBottomNavigationItems(
               icon: Icons.person,
