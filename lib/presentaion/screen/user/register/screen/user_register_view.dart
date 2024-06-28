@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
+import 'package:jobmingle/domin/models/user_model.dart';
+import 'package:jobmingle/presentaion/screen/location/screen/location.dart';
 
-import 'widgets/colum_widgets.dart/register_colum_widgets.dart';
+import '../widgets/colum_widgets.dart/register_colum_widgets.dart';
 
 class RegisterPage extends StatefulWidget {
   RegisterPage({super.key});
@@ -65,7 +67,9 @@ class _RegisterPageState extends State<RegisterPage> {
         });
         Future.delayed(Duration(seconds: 2), () {
           Navigator.pushNamedAndRemoveUntil(
-              context, '/onboarding', (route) => false);
+              context, '/onboading', (route) => false);
+        //Navigator.push(context, MaterialPageRoute(builder: (context)=>Location()));
+         
         });
       }
       return Scaffold(

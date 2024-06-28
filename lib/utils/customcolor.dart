@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomColor{
   static Color bluecolor(){
-    return Color.fromARGB(198, 22, 70, 227);
+    return Colors.blue[900]!;
   }
    static Color graycolor(){
     return Color.fromARGB(199, 107, 107, 107);

@@ -5,10 +5,12 @@ class Usermodel {
   String name;
   String phone;
   String pic;
+  String ? location;
   Usermodel(
       {required this.email,
       required this.password,
       this.uid,
+      this.location,
       required this.name,
       required this.pic,
       required this.phone});
@@ -19,7 +21,8 @@ class Usermodel {
       "Phone": phone,
       "Password": password,
       "uid":uid,
-      "pic":pic
+      "pic":pic,
+      "location":location,
     };
   }
 
@@ -33,7 +36,8 @@ class Usermodel {
         password: json["password"] ?? "",
         name: json["name"] ?? "",
         phone: json["phone"] ?? "",
-        pic: json['pic'] ??""
+        pic: json['pic'] ??"",
+        location: json['location'] ?? ""
         );
   }
 }
