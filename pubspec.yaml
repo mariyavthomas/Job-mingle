@@ -63,6 +63,9 @@ dependencies:
   permission_handler: ^11.0.1
   geolocator: ^11.1.0
   fluttertoast: ^8.2.5
+  url_launcher: ^6.2.4
+  file_picker: ^8.0.0+1
+  easy_pdf_viewer: ^1.0.8
   
   
 

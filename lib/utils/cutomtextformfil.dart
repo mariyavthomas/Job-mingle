@@ -17,14 +17,14 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final type;
-  final borderside;
+  
   final TextStyle? style;
   final maxlines;
   final String labeltext;
   final FormFieldValidator<String>? validator;
   CustomTextFormField({
     Key? key,
-    this.borderside,
+   // this.borderside,
     this.hintstyle,
     this.validator,
     this.errorStyle,
@@ -66,12 +66,12 @@ class CustomTextFormField extends StatelessWidget {
                 hintText: hintText,
                 enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
-                    borderSide:borderside),
+                   ),
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
                       12,
                     ),
-                    borderSide:borderside),
+                  ),
                 prefixIcon: prefixIcon,
                 suffixIcon: obscureText
                     ? IconButton(

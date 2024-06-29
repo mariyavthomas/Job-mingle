@@ -75,8 +75,8 @@ class _RegisterPageState extends State<RegisterPage> {
       return Scaffold(
         body: SafeArea(
           child: Container(
-            height: double.infinity,
-            width: double.infinity,
+            // height: double.infinity,
+            // width: double.infinity,
             child: CustomScrollView(
               slivers: [
                 SliverFillRemaining(

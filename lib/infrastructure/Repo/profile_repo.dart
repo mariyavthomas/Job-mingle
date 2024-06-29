@@ -31,6 +31,13 @@ class UserProfileRepo {
       return null;
     }
   }
+
+  //-----pdfuploadtheuser---------//
+
+  Future<String?>uploadpdf()async{
+   
+  }
+
   // Future<void>updateUser(Usermodel usermodel,BuildContext context)async{
   //   try{
   //     print("hai");

@@ -39,6 +39,7 @@ class logincolum extends StatelessWidget {
           height: 20,
         ),
         CustomTextFormField(
+          
           validator: (value) => Validator().emailValidator(value),
             labeltext: 'Email ID',
             controller: _emailController,
