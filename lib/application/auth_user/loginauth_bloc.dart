@@ -60,7 +60,15 @@ class LoginauthBloc extends Bloc<LoginauthEvent, LoginauthState> {
             'education':'',
             'experence':'',
             'profileheadlines':'',
-            'profilesummery':''
+            'profilesummery':'',
+            'course': '',
+            'courseStaringyear':'',
+            'courseendingyear':'',
+            'coursetype':'',
+            'higereducation':'',
+            'specialization':'',
+            'universitynamecollegename':'',
+            'grade':'',
 
 
             

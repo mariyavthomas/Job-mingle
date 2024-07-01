@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobmingle/application/profile/profile_bloc.dart';
+import 'package:jobmingle/presentaion/screen/user/profile/screen/neweducation.dart';
 
 import 'package:jobmingle/utils/customcolor.dart';
 import 'package:jobmingle/utils/cutomtextformfil.dart';
@@ -71,10 +74,11 @@ class _IntroductionState extends State<Introduction> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomTextFormField(
-                        controller: _fullnamecontroller,
-                        validator: (value) => Validator().nameValidator(value),
-                        hintText: 'Name',
-                        labeltext: 'Full Name *',),
+                      controller: _fullnamecontroller,
+                      validator: (value) => Validator().nameValidator(value),
+                      hintText: 'Name',
+                      labeltext: 'Full Name *',
+                    ),
                   ),
 
                   SizedBox(
@@ -83,64 +87,161 @@ class _IntroductionState extends State<Introduction> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                        //height: 200,
-                        width: 500,
-                        child: CustomTextFormField(
-                          maxlines:5,
-                          minlines: 10,
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
+                      //height: 200,
+                      width: 500,
+                      child: CustomTextFormField(
+                        maxlines: 5,
+                        minlines: 10,
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                            12,
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(
-                              12,
-                            ),
-                          ),
-                          validator: (value) =>
-                              Validator().nameValidator(value),
-                          counterText: '$_currentLength / $_maxLengthheadline ',
-                          controller: _headlineController,
-                          hintText: 'ProfileHeadline', labeltext: "Skills"
-                          ,
-                        )),
+                        ),
+                        validator: (value) =>
+                            Validator().nameValidator(value),
+                        counterText: '$_currentLength / $_maxLengthheadline ',
+                        controller: _headlineController,
+                        hintText: 'ProfileHeadline',
+                        labeltext: "Skills",
+                      ),
+                    ),
                   ),
-                  Text("Write a concise headline introducing yourself to employers"),
+                  Text(
+                      "Write a concise headline introducing yourself to employers"),
                   SizedBox(
                     height: 30,
                   ),
-                  Container(
-                    height: 100,
-                    width: 485,
-                    decoration: BoxDecoration(
-                        color: CustomColor.lightblue(),
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Column(
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                "Education",
-                                style:
-                                    TextStyle(color: CustomColor.graycolor()),
+                  BlocBuilder<ProfileBloc, ProfileState>(
+                    builder: (context, state) {
+                      if (state is EducationSucessfuly) {
+                        return Container(
+                          height: 100,
+                          width: 485,
+                          decoration: BoxDecoration(
+                              color: CustomColor.lightblue(),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 10),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text(
+                                        "Education",
+                                        style: TextStyle(
+                                            color: CustomColor.graycolor()),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 170,
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      AddnewEducation1()));
+                                        },
+                                        icon: Icon(
+                                          Icons.edit,
+                                          color: CustomColor.bluecolor(),
+                                        ))
+                                  ],
+                                ),
+                                Text(state.education.grade!)
+                              ],
+                            ),
+                          ),
+                        );
+                      } else if (state is ProfileInitial) {
+                        return Container(
+                          height: 50,
+                          width: 485,
+                          decoration: BoxDecoration(
+                              color: CustomColor.lightblue(),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Education",
+                                      style: TextStyle(
+                                          color: CustomColor.graycolor()),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 200,
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AddnewEducation1()));
+                                      },
+                                      icon: Icon(
+                                        Icons.edit,
+                                        color: CustomColor.bluecolor(),
+                                      ))
+                                ],
                               ),
-                            ),
-                            SizedBox(
-                              width: 250,
-                            ),
-                            IconButton(
-                                onPressed: () {
-                                 // Navigator.push(context, MaterialPageRoute(builder: (context)=>AddnewEducation()));
-                                },
-                                icon: Icon(
-                                  Icons.edit,
-                                  color: CustomColor.bluecolor(),
-                                ))
-                          ],
-                        )
-                      ],
-                    ),
+                            ],
+                          ),
+                        );
+                      } else if (state is ProfileFailer) {
+                        return Text('Failed to load education data');
+                      } else {
+                        return Container(
+                          height: 50,
+                          width: 485,
+                          decoration: BoxDecoration(
+                              color: CustomColor.lightblue(),
+                              borderRadius: BorderRadius.circular(10)),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      "Education",
+                                      style: TextStyle(
+                                          color: CustomColor.graycolor()),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 200,
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AddnewEducation1()));
+                                      },
+                                      icon: Icon(
+                                        Icons.edit,
+                                        color: CustomColor.bluecolor(),
+                                      ))
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    },
                   ),
                   // Align(
                   //   alignment: Alignment.topRight,

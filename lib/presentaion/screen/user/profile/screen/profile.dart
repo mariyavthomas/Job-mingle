@@ -40,6 +40,7 @@ class _ProfilePageState extends State<ProfilePage> {
         body: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
             if (state is UserProfileLoaedState) {
+              // ignore: unused_local_variable
               String ? useruid= state.user.uid;
               return ListView(children: [
                 Column(
@@ -93,7 +94,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Introduction(
-                                      name: state.user.name,
+                                      name: state.user.name!,
                                     )));
                       },
                       child: Column(
@@ -105,14 +106,14 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                               Center(
                                 child: Text(
-                                  state.user.name.toUpperCase(),
+                                  state.user.name!.toUpperCase(),
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20),
                                 ),
                               ),
                               SizedBox(
-                                width: 160,
+                                width: 100,
                               ),
                               Icon(
                                 Icons.edit,
@@ -165,7 +166,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       SizedBox(
                                         width: 15,
                                       ),
-                                      Text(state.user.email),
+                                      Text(state.user.email!),
                                     ],
                                   ),
                                   SizedBox(
@@ -180,7 +181,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       SizedBox(
                                         width: 15,
                                       ),
-                                      Text(state.user.phone),
+                                      Text(state.user.phone!),
                                     ],
                                   ),
                                 ],

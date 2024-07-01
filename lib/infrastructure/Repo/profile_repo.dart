@@ -68,16 +68,50 @@ class UserProfileRepo {
     }
   }
 
-  Future<void> updateIntroducation(String username,String education,String profilrheadlines,String experience) async {
+  Future<void> updateIntroducation(String username, String education,
+      String profilrheadlines, String experience) async {
     try {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
-          .update({'name': username,'education':education,'profileheadlines':profilrheadlines,'experence':education});
+          .update({
+        'name': username,
+        'education': education,
+        'profileheadlines': profilrheadlines,
+        'experence': education
+      });
 
       print("Name Update Sucessfully");
     } catch (e) {
       print('Error updating name: $e');
+    }
+  }
+
+  Future<void> educationadd(
+      String ?higereducation,
+      String ?universityname,
+      String ?course,
+      String ?specialization,
+      String ?coursetype,
+      String? courseStaringyear,
+      String ?courseendingyear,
+      String? grade) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({
+        'higereducation': higereducation,
+        'universityname': universityname,
+        'course': course,
+        'specialization': specialization,
+        'coursetype': coursetype,
+        'courseStaringyear': courseStaringyear,
+        'courseendingyear': courseendingyear,
+        'grade': grade
+      });
+    } catch (e) {
+      print('Error updating education: $e');
     }
   }
 }

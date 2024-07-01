@@ -1,19 +1,29 @@
 class Usermodel {
-  String email;
-  String password;
+  String ?email;
+  String ?password;
   String? uid;
-  String name;
-  String phone;
-  String pic;
+  String ?name;
+  String? phone;
+  String? pic;
   String? location;
   String? resume;
   String? profileheadlines;
   String? education;
   String? profilesummery;
   String? experence;
+  String ?higereducation;
+  String ?universitynamecollegename;
+  String ? course;
+  String ?specialization;
+  String ?coursetype;
+  String ?courseStaringyear;
+  String ?courseendingyear;
+  String ?grade;
   Usermodel(
-      {required this.email,
-      required this.password,
+      {
+
+      this.email,
+      this.password,
       this.experence,
       this.education,
       this.profileheadlines,
@@ -21,9 +31,18 @@ class Usermodel {
       this.uid,
       this.resume,
       this.location,
-      required this.name,
-      required this.pic,
-      required this.phone});
+      this.name,
+      this.pic,
+      this.phone,
+      this.course,
+      this.courseStaringyear,
+      this.courseendingyear,
+      this.coursetype,
+      this.grade,
+      this.higereducation,
+      this.specialization,
+      this.universitynamecollegename
+      });
   Map<String, dynamic> toJson() {
     return {
       "Full name": name,
@@ -38,6 +57,15 @@ class Usermodel {
       'profileheadlines':profileheadlines,
       'profilesummery':profilesummery,
       'education':education,
+      'course':course,
+      'courseStaringyear':courseStaringyear,
+      'courseendingyear':courseendingyear,
+      'coursetype':coursetype,
+      'higereducation':higereducation,
+      'specialization':specialization,
+      'universitynamecollegename':universitynamecollegename,
+      'grade':grade
+
     };
   }
 
@@ -58,6 +86,14 @@ class Usermodel {
         pic: json['pic'] ?? "",
         location: json['location'] ?? "",
         resume: json['resume'] ?? "",
+        course: json['course'] ?? "",
+        courseStaringyear: json['courseStaringyear'] ?? "",
+        courseendingyear: json['courseendingyear'] ?? "",
+        coursetype: json['coursetype'] ?? "",
+        grade: json['grade'] ?? "",
+        higereducation: json['higereducation'] ?? "",
+        specialization: json['specialization'] ?? ""
+
        
         );
   }

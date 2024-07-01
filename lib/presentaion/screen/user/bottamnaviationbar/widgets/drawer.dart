@@ -40,7 +40,7 @@ ClipRRect drawer() {
                                   Padding(
                                     padding: const EdgeInsets.only(top: 15),
                                     child: Text(
-                                      state.user.name.toUpperCase(),
+                                      state.user.name!.toUpperCase(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 12),

@@ -37,7 +37,8 @@ class _BottamNavigationState extends State<BottamNavigation> {
     HomePage(),
     AppliesScreen(),
     ProfilePage(),
-    AllJobs()
+    AllJobs(),
+   ProfilePage(),
   ];
 
   //List<String> _appTitles = ['jjj', 'Settings', 'Profile',"Profile"];

@@ -13,6 +13,7 @@ class Formfieldpassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
+      maxlines: 1,
       validator: (value) => Validator().passwordValidator(value),
         labeltext: 'Password',
         obscureText: true,

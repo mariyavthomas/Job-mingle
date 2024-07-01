@@ -48,6 +48,7 @@ class logincolum extends StatelessWidget {
           height: 20,
         ),
         CustomTextFormField(
+          maxlines: 1,
           validator: (value) => Validator().passwordValidator(value),
             labeltext: 'Password',
             obscureText: true,

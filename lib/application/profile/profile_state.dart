@@ -36,7 +36,11 @@ class ProfileFailer extends ProfileState{
 }
 
 class UserupdateintroducationState extends ProfileState{
-  
+ 
+}
+class EducationSucessfuly extends ProfileState{
+ Usermodel education;
+ EducationSucessfuly({required this.education});
 }
 
 

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:jobmingle/domin/models/user_model.dart';
 import 'package:jobmingle/infrastructure/Repo/profile_repo.dart';
 import 'package:equatable/equatable.dart';
+import 'package:jobmingle/presentaion/screen/user/profile/screen/neweducation.dart';
 part 'profile_event.dart';
 part 'profile_state.dart';
 
@@ -16,6 +17,7 @@ final  UserProfileRepo userprofilrrepo;
   //  on<ProfileEditEvent>(_profileediting);
   on<PickAndUploadPdf>(_uploadpdf);
   on<UpdateIntroducation>(_introductiondetails);
+  on<Educationadd>(_educationadd);
   
     
   }
@@ -62,6 +64,16 @@ final  UserProfileRepo userprofilrrepo;
        print(event.username);
     }catch(e){
    print(e);
+    }
+  }
+
+  FutureOr<void> _educationadd(Educationadd event, Emitter<ProfileState> emit) async{
+    try{
+     await UserProfileRepo().educationadd(event.higereducation, event.universityname, event.course, event.specialization, event.coursetype, event.courseStaringyear, event.courseendingcontroller, event.grade);
+     var user =await UserProfileRepo().getuser();
+     emit(EducationSucessfuly(education:  user!));
+    }catch(e){
+
     }
   }
 }
