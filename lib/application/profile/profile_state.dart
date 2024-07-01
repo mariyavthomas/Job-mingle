@@ -42,7 +42,10 @@ class EducationSucessfuly extends ProfileState{
  Usermodel education;
  EducationSucessfuly({required this.education});
 }
-
+class IntroductionSuccessfully extends ProfileState{
+  Usermodel introduction;
+  IntroductionSuccessfully({ required this.introduction});
+}
 
 
 

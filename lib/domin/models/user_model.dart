@@ -92,7 +92,8 @@ class Usermodel {
         coursetype: json['coursetype'] ?? "",
         grade: json['grade'] ?? "",
         higereducation: json['higereducation'] ?? "",
-        specialization: json['specialization'] ?? ""
+        specialization: json['specialization'] ?? "",
+        universitynamecollegename: json['universitynamecollegename'] ?? "",
 
        
         );

@@ -7,9 +7,11 @@ import 'package:jobmingle/application/Update_pic/update_pic_event.dart';
 
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
 import 'package:jobmingle/application/get_all_job/get_all_jobs_bloc.dart';
+import 'package:jobmingle/application/pdf/pdfdownload_bloc.dart';
 import 'package:jobmingle/application/profile/profile_bloc.dart';
 import 'package:jobmingle/infrastructure/Repo/alljobrepo.dart';
 import 'package:jobmingle/infrastructure/Repo/profile_repo.dart';
+import 'package:jobmingle/infrastructure/Repo/resumeRepo.dart';
 import 'package:jobmingle/infrastructure/Repo/uploadimgerepo.dart';
 import 'package:jobmingle/utils/routes.dart';
 
@@ -46,7 +48,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<ProfileBloc>(create: (context)=>ProfileBloc(UserProfileRepo())..add(GetUserEvent())),
         BlocProvider<UpdatePicBloc>(create: (context)=>UpdatePicBloc(ImageRepo())),
         BlocProvider<GetAllJobsBloc>(create: (context)=>GetAllJobsBloc(AllJobRepo())),
-       
+       BlocProvider<PdfdownloadBloc>(create: (context)=>PdfdownloadBloc(UploadResumeRepo()))
+
       ],
       child: MaterialApp(
         theme: ThemeData(

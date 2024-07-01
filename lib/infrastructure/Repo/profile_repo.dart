@@ -37,23 +37,14 @@ class UserProfileRepo {
 
   //-----pdfuploadtheuser---------//
 
-  Future<String?> uploadPdf(PlatformFile file) async {
+  Future<String?> uploadPdf(File file,String fileName) async {
     try {
-      if (file.bytes == null) {
-        // Access the file as a stream and read bytes
-        File localFile = File(file.path!);
-        Uint8List bytes = await localFile.readAsBytes();
-        Reference ref = _storage.ref().child('pdfs/${file.name}');
-        UploadTask uploadTask = ref.putData(bytes);
-        TaskSnapshot snapshot = await uploadTask;
-        return await snapshot.ref.getDownloadURL();
-      } else {
-        // Directly upload using file.bytes if available
-        Reference ref = _storage.ref().child('pdfs/${file.name}');
-        UploadTask uploadTask = ref.putData(file.bytes!);
-        TaskSnapshot snapshot = await uploadTask;
-        return await snapshot.ref.getDownloadURL();
-      }
+       final refernce= FirebaseStorage.instance.ref().child("pdfs");
+       final uploadTask=refernce.putFile(file);
+       await uploadTask.whenComplete((){});
+       final downloadLink=await refernce.getDownloadURL();
+       print(downloadLink);
+       return downloadLink;
     } catch (e) {
       print('Error uploading PDF: $e');
       throw Exception('Error uploading PDF: $e');
@@ -68,17 +59,17 @@ class UserProfileRepo {
     }
   }
 
-  Future<void> updateIntroducation(String username, String education,
-      String profilrheadlines, String experience) async {
+  Future<void> updateIntroducation(String username, 
+      String profilrheadlines, ) async {
     try {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .update({
         'name': username,
-        'education': education,
+        
         'profileheadlines': profilrheadlines,
-        'experence': education
+        
       });
 
       print("Name Update Sucessfully");
@@ -89,7 +80,7 @@ class UserProfileRepo {
 
   Future<void> educationadd(
       String ?higereducation,
-      String ?universityname,
+      String ?universitynamecollegename,
       String ?course,
       String ?specialization,
       String ?coursetype,
@@ -102,7 +93,7 @@ class UserProfileRepo {
           .doc(FirebaseAuth.instance.currentUser!.uid)
           .update({
         'higereducation': higereducation,
-        'universityname': universityname,
+        'universitynamecollegename': universitynamecollegename,
         'course': course,
         'specialization': specialization,
         'coursetype': coursetype,

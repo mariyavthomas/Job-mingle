@@ -21,18 +21,18 @@ class GetUserEvent extends ProfileEvent{}
 // List<Object> get props=>[name,phone,profileBloc,uid];
 // }
 class PickAndUploadPdf extends ProfileEvent{
-  final PlatformFile file;
+  final File file;
   final String uid;
-  PickAndUploadPdf({required this.file,required this.uid});
+  final String fileName;
+  PickAndUploadPdf({required this.file,required this.uid,required this.fileName});
 }
 
 // ignore: must_be_immutable
 class UpdateIntroducation extends ProfileEvent{
   String username;
-  String education;
-  String experence;
+ 
   String profileheadlines;
- UpdateIntroducation({required this.education, required this.experence,required this.profileheadlines,required this.username});
+ UpdateIntroducation({ required this.profileheadlines,required this.username});
 
 }
 // ignore: must_be_immutable

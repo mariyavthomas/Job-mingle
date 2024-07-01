@@ -15,5 +15,9 @@ class ApplyjobFailure extends ApplyjobState{
   List<Object> get props => [error];
 }
 class Appleyedjob extends ApplyjobState{
+  AppleyedjobModel appledjob;
+  Appleyedjob({required this.appledjob});
+}
+class ApplyjobLoading extends ApplyjobState{
   
 }

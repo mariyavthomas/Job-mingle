@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ final  UserProfileRepo userprofilrrepo;
   FutureOr<void> _uploadpdf(PickAndUploadPdf event, Emitter<ProfileState> emit) async{
     emit(UserProfileLoadingState());
     try{
-      String? pdfUrl = await userprofilrrepo.uploadPdf(event.file);
+      String? pdfUrl = await userprofilrrepo.uploadPdf(event.file,event.fileName);
       emit(Pdfuploadsuccess(downloadUrl: pdfUrl!));
     }catch(e){
           print("Error uploading PDF: $e");
@@ -58,9 +59,12 @@ final  UserProfileRepo userprofilrrepo;
 
   FutureOr<void> _introductiondetails(UpdateIntroducation event, Emitter<ProfileState> emit)async {
     emit(UserProfileLoadingState());
+    print('helo');
     try{
-       await UserProfileRepo().updateIntroducation(event.username, event.education, event.profileheadlines, event.experence);
+       await UserProfileRepo().updateIntroducation(event.username,  event.profileheadlines,);
        var user =await UserProfileRepo().getuser();
+       print("helo");
+       emit(IntroductionSuccessfully(introduction: user!));
        print(event.username);
     }catch(e){
    print(e);
@@ -71,7 +75,7 @@ final  UserProfileRepo userprofilrrepo;
     try{
      await UserProfileRepo().educationadd(event.higereducation, event.universityname, event.course, event.specialization, event.coursetype, event.courseStaringyear, event.courseendingcontroller, event.grade);
      var user =await UserProfileRepo().getuser();
-     emit(EducationSucessfuly(education:  user!));
+     emit(EducationSucessfuly(education: user!));
     }catch(e){
 
     }

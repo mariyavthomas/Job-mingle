@@ -7,4 +7,7 @@ sealed class ApplyjobEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class Applyjob extends ApplyjobEvent{}
+class Applyjob extends ApplyjobEvent{
+ final AppleyedjobModel applyjob;
+  Applyjob({required this.applyjob});
+}
