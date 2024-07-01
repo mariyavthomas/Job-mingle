@@ -55,7 +55,16 @@ class LoginauthBloc extends Bloc<LoginauthEvent, LoginauthState> {
             'phone': event.user.phone,
             'uid': user.uid,
             'pic':imageurl,
-            'CreatedAt': DateTime.now()
+            'CreatedAt': DateTime.now(),
+            'resume':'',
+            'education':'',
+            'experence':'',
+            'profileheadlines':'',
+            'profilesummery':''
+
+
+            
+            
           });
           emit(Authenticated(user: user));
         } else {

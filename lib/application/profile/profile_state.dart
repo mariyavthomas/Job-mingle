@@ -22,3 +22,24 @@ class UserProfileLoaedState extends ProfileState{
   @override
   List<Object>get props=>[user];
 }
+class Pdfuploadsuccess extends ProfileState{
+  final String downloadUrl;
+  Pdfuploadsuccess({ required this.downloadUrl});
+  @override
+  List<Object> get props => [downloadUrl];
+}
+class ProfileFailer extends ProfileState{
+  final String error;
+  ProfileFailer({required this.error});
+  @override
+  List<Object> get props => [error];
+}
+
+class UserupdateintroducationState extends ProfileState{
+  
+}
+
+
+
+
+

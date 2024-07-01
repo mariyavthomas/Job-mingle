@@ -20,3 +20,17 @@ class GetUserEvent extends ProfileEvent{}
 
 // List<Object> get props=>[name,phone,profileBloc,uid];
 // }
+class PickAndUploadPdf extends ProfileEvent{
+  final PlatformFile file;
+  final String uid;
+  PickAndUploadPdf({required this.file,required this.uid});
+}
+
+class UpdateIntroducation extends ProfileEvent{
+  String username;
+  String education;
+  String experence;
+  String profileheadlines;
+ UpdateIntroducation({required this.education, required this.experence,required this.profileheadlines,required this.username});
+
+}

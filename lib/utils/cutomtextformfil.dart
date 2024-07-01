@@ -17,21 +17,24 @@ class CustomTextFormField extends StatelessWidget {
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final type;
-  
+  final  String? counterText;
   final TextStyle? style;
   final maxlines;
+  final minlines;
   final String labeltext;
   final FormFieldValidator<String>? validator;
   CustomTextFormField({
     Key? key,
    // this.borderside,
     this.hintstyle,
+    this.counterText,
     this.validator,
     this.errorStyle,
+    this.minlines,
     this.readOnly = false,
     this.style,
     required this.controller,
-    this.maxlines = 1,
+    this.maxlines,
     this.type = TextInputType.text,
     required this.hintText,
     this.obscureText = false,
@@ -54,24 +57,20 @@ class CustomTextFormField extends StatelessWidget {
         return Column(
           children: [
             TextFormField(
-              readOnly: readOnly,
+            // readOnly: readOnly,
               style: Theme.of(context).textTheme.bodySmall,
               maxLines: maxlines,
               keyboardType: type,
               controller: controller,
+              
               decoration: InputDecoration(
                 labelText: labeltext,
                 errorStyle: TextStyle(color: Colors.red),
                 hintStyle: Theme.of(context).textTheme.bodySmall,
                 hintText: hintText,
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                   ),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(
-                      12,
-                    ),
-                  ),
+                enabledBorder: enabledBorder,
+                focusedBorder: focusedBorder,
+                 
                 prefixIcon: prefixIcon,
                 suffixIcon: obscureText
                     ? IconButton(

@@ -1,11 +1,12 @@
-
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
+
 import 'package:jobmingle/application/Update_pic/update_pic_bloc.dart';
-import 'package:jobmingle/application/Update_pic/update_pic_event.dart';
+
 import 'package:jobmingle/application/Update_pic/update_pic_state.dart';
 import 'package:jobmingle/application/profile/profile_bloc.dart';
 import 'package:jobmingle/infrastructure/Repo/uploadimgerepo.dart';
@@ -25,20 +26,21 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   @override
   void initState() {
- 
     super.initState();
   }
 
   ImageRepo imagefire = ImageRepo();
-   String? pickedImage;
+  String? pickedImage;
+  
+        
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-      
         body: BlocBuilder<ProfileBloc, ProfileState>(
           builder: (context, state) {
             if (state is UserProfileLoaedState) {
+              String ? useruid= state.user.uid;
               return ListView(children: [
                 Column(
                   children: [
@@ -58,8 +60,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     InkWell(
                       onTap: () {
-                       
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ProfilePicture()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfilePicture()));
                       },
                       child: BlocBuilder<UpdatePicBloc, UpdatePicState>(
                         builder: (context, state) {
@@ -85,7 +89,12 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>Introduction(name: state.user.name,)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Introduction(
+                                      name: state.user.name,
+                                    )));
                       },
                       child: Column(
                         children: [
@@ -98,7 +107,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                 child: Text(
                                   state.user.name.toUpperCase(),
                                   style: TextStyle(
-                                      fontWeight: FontWeight.bold, fontSize: 20),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20),
                                 ),
                               ),
                               SizedBox(
@@ -177,44 +187,81 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                           ),
-                          Card(
-                            child: Container(
-                              height: 150,
-                              width: 370,
-                              child: Column(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          "Resume",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20),
-                                        ),
-                                        SizedBox(
-                                          width: 200,
-                                        ),
-                                        Text(
-                                          "Update",
-                                          style: TextStyle(color: Colors.blue),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  Center(
-                                      child: IconButton(
-                                          onPressed: () {},
-                                          icon: Icon(
-                                            Icons.upload,
-                                            color: Colors.grey,
-                                            size: 50,
-                                          )))
-                                ],
-                              ),
-                            ),
-                          ),
+                         Card(
+  child: Container(
+    height: 150,
+    width: 370,
+    child: Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            children: [
+              Text(
+                "Resume",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
+              SizedBox(width: 200),
+              BlocBuilder<ProfileBloc, ProfileState>(
+                builder: (context, state) {
+                  if (state is Pdfuploadsuccess) {
+                    return Row(
+                      children: [
+                        Text(
+                          state.downloadUrl.split('/').last,
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                        Icon(Icons.description, color: Colors.blue),
+                      ],
+                    );
+                  } else {
+                    return Text(
+                      "Update",
+                      style: TextStyle(color: Colors.blue),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
+        BlocBuilder<ProfileBloc, ProfileState>(
+          builder: (context, state) {
+            if (state is Pdfuploadsuccess) {
+              return Center(
+                child: IconButton(
+                  onPressed: null,
+                  icon: Icon(
+                    Icons.upload_sharp,
+                    color: Colors.green,
+                    size: 50,
+                  ),
+                ),
+              );
+            } else {
+              return Center(
+                child: IconButton(
+                  onPressed: () {
+                    //_pickupanduploadcv(context, useruid!);
+                  },
+                  icon: Icon(
+                    Icons.upload,
+                    color: Colors.grey,
+                    size: 50,
+                  ),
+                ),
+              );
+            }
+          },
+        ),
+      ],
+    ),
+  ),
+),
+
                           Card(
                             child: Container(
                               height: 100,
@@ -261,5 +308,28 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
+  Future<void>_pickupanduploadcv(BuildContext context ,String uid) async{
+    try{
+   FilePickerResult ? result =await FilePicker.platform.pickFiles(type: FileType.custom,allowedExtensions:['jpg', 'pdf', 'doc']);
+    if(result !=null && result.files.isNotEmpty){
+      PlatformFile file =result.files.first;
+      print('mariya');
+      print(file);
+      final profileBloc =BlocProvider.of<ProfileBloc>(context);
+      final profileState= profileBloc.state;
+      if(profileState is UserProfileLoaedState){
+        final String? uid =profileState.user.uid;
+        profileBloc.add(PickAndUploadPdf(file: file, uid: uid!));
+      }
+      else{
+         throw Exception('User not loaded');
+      }
+  
+      
+    }
+    }
+    catch(e){
+       print("Error picking and uploading PDF: $e");
+    }
+  }
 }
-
