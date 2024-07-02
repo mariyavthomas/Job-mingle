@@ -75,8 +75,9 @@ class _AllJobsState extends State<AllJobs> {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state is JobLoaded) {
-              if (state.jobs.isEmpty) {
+            } else if (state is JobLoaded || state is FilteredJobLoaded) {
+              final jobs= state is JobLoaded ? state.jobs :(state as FilteredJobLoaded).filteredjobs;
+              if (jobs.isEmpty) {
                 return Center(
                   child: Text('No jobs found.'),
                 );
@@ -84,13 +85,14 @@ class _AllJobsState extends State<AllJobs> {
               return Container(
                 child: ListView.builder(
                   padding: EdgeInsets.only(),
-                  itemCount: state.jobs.length,
+                  itemCount: jobs.length,
                   itemBuilder: (BuildContext context, int index) {
-                    final JobModel job = state.jobs[index];
+                    final JobModel job = jobs[index];
                     return Padding(
                       padding: const EdgeInsets.only(top: 15),
                       child: InkWell(
                         onTap: () {
+                          context.read<GetAllJobsBloc>().add(FilterJobsByName(selectedJob: job));
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>DetailsJob(job: job,)));
                         },
                         child: Container(

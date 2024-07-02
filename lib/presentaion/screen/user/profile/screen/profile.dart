@@ -27,13 +27,15 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  @override
-  void initState() {
-    super.initState();
-  }
+ 
 
   ImageRepo imagefire = ImageRepo();
   String? pickedImage;
+  @override
+  void initState() {
+ context.read<ProfileBloc>().add(GetUserEvent());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +120,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 ),
                               ),
                               SizedBox(
-                                width: 100,
+                                width: 10,
                               ),
                               Icon(
                                 Icons.edit,

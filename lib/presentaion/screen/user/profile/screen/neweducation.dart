@@ -5,6 +5,7 @@ import 'package:jobmingle/domin/models/user_model.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/screen/intriduction.dart';
 import 'package:jobmingle/utils/customcolor.dart';
 import 'package:jobmingle/utils/cutomtextformfil.dart';
+import 'package:jobmingle/utils/validator.dart';
 
 class AddnewEducation1 extends StatefulWidget {
   const AddnewEducation1({super.key});
@@ -39,6 +40,7 @@ String? selectcoursetype;
 String? selectvalueducation;
 
 class _AddnewEducationState extends State<AddnewEducation1> {
+ 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -82,6 +84,7 @@ class _AddnewEducationState extends State<AddnewEducation1> {
                     height: 10,
                   ),
                   DropdownButtonFormField<String>(
+                    validator: (value) => Validator().educationlevel(value),
                       decoration: InputDecoration(
                         labelText: 'Select Education Level',
                         
@@ -102,19 +105,20 @@ class _AddnewEducationState extends State<AddnewEducation1> {
                       SizedBox(
                         height: 20,
                       ),
-                      CustomTextFormField(controller: universityinstitutenamecontroller, hintText: "", labeltext: 'University / Institute name *'),
+                      CustomTextFormField(controller: universityinstitutenamecontroller, hintText: "", labeltext: 'University / Institute name *',validator: (value) => Validator().universityname(value),),
                       SizedBox(
                         height: 20,
                       ),
-                      CustomTextFormField(controller: coursecontroller, hintText: '', labeltext: 'Course *'),
+                      CustomTextFormField(controller: coursecontroller, hintText: '', labeltext: 'Course *',validator: (value) => Validator().course(value),),
                       SizedBox(
                         height: 20,
                       ),
-                       CustomTextFormField(controller: specializationcontroller, hintText: '', labeltext: 'Specialization *'),
+                       CustomTextFormField(controller: specializationcontroller, hintText: '', labeltext: 'Specialization *',validator: (value) => Validator().specislization(value),),
                        SizedBox(
                         height: 20,
                       ),
                         DropdownButtonFormField<String>(
+                          validator: (value) => Validator().coursetype(value),
                       decoration: InputDecoration(
                         labelText: 'Course Type *',
                         
@@ -144,20 +148,22 @@ class _AddnewEducationState extends State<AddnewEducation1> {
                     children: [
                        SizedBox(
                         width: 150,
-                        child: CustomTextFormField(controller: coursestartingcontroller, hintText: "", labeltext: "Starting Year *")),
+                        child: CustomTextFormField(
+                         
+                          controller: coursestartingcontroller, hintText: "", labeltext: "Starting Year *",validator: (value) => Validator().coursestating(value),)),
                         SizedBox(
                           width: 30,
                         ),
                       SizedBox(
                          width: 150,
-                        child: CustomTextFormField(controller: courseendingcontroller, hintText: "", labeltext: "Ending Year *")),
+                        child: CustomTextFormField(controller: courseendingcontroller, hintText: "", labeltext: "Ending Year *",validator: (value) => Validator().courseending(value),)),
 
                     ],
                    ),
                    SizedBox(
                     height: 20,
                    ),
-                   CustomTextFormField(controller: gradingsystemcontroller, hintText: '% Marks of 100 Maximum', labeltext: 'Grading system *'),
+                   CustomTextFormField(controller: gradingsystemcontroller, hintText: '% Marks of 100 Maximum', labeltext: 'Grading system *',validator: (value) => Validator().grade(value),),
                    SizedBox(
                     height: 30,
                    ),

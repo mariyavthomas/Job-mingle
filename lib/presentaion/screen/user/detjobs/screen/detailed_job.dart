@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/applyjob/applyjob_bloc.dart';
+import 'package:jobmingle/application/get_all_job/get_all_jobs_bloc.dart';
 import 'package:jobmingle/domin/models/appleyjob_model.dart';
 import 'package:jobmingle/domin/models/jobmodel.dart';
 import 'package:jobmingle/utils/customcolor.dart';
@@ -397,11 +398,46 @@ class _DetailsJobState extends State<DetailsJob> {
                     Divider(
                       color: Colors.black,
                     ),
-                    SizedBox(
+
+                    BlocBuilder<GetAllJobsBloc, GetAllJobsState>(
+              builder: (context, state) {
+                if (state is GetAllJobsInitial) {
+                  return const Center(child: CircularProgressIndicator());
+                } else if (state is FilteredJobLoaded) {
+                  print("Filtered jobs loaded: ${state.filteredjobs.length}");
+                  return ListView.builder(
+                    itemCount: state.filteredjobs.length,
+                    itemBuilder: (context, index) {
+                      final job = state.filteredjobs[index];
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: ListTile(
+                            title: Text(job.companyname),
+                            subtitle: Text(job.jobtitle),
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                } else if (state is JobLoaded) {
+                  return Center(child: Text("Failed to load jobs"));
+                } else {
+                  return Center(child: Text("No jobs found"));
+                }
+              },
+            ),
+                                SizedBox(
                       height: height * 0.1,
-                    )
-                  ],
-                ),
+                    ),
+          ],
+        ),
+         
+                
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Row(
@@ -464,8 +500,7 @@ class _DetailsJobState extends State<DetailsJob> {
                             WidgetsBinding.instance.addPostFrameCallback((_) {
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(SnackBar(
-                                content:
-                                    Text('  Successfully Applyed Job '),
+                                content: Text('  Successfully Applyed Job '),
                                 backgroundColor: Colors.green,
                               ));
                               WidgetsBinding.instance.addPostFrameCallback((_) {

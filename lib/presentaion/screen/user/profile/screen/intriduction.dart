@@ -32,6 +32,7 @@ class _IntroductionState extends State<Introduction> {
   @override
   void initState() {
     super.initState();
+    //context.read<ProfileBloc>().add(GetUserEvent());
     _fullNameController = TextEditingController(text: widget.name);
     _headlineController = TextEditingController(text: "Looking for jobs requiring following skills:");
 

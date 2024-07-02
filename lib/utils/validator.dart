@@ -58,16 +58,73 @@ class Validator {
 }
 
 
-// String? confirmPasswordValidator(String? value, String? originalPassword) {
-//   if (value == null || value.isEmpty) {
-//     return 'Please confirm your password';
-//   }
+//----------EducationLevel ---------//
 
-//   if (value != originalPassword) {
-//     return 'Passwords do not match';
-//   }
+String? educationlevel(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your Education Level';
+    }
 
-//   return null;
-// }
+    return null;
+  }
+
+//---------Universityname------//
+String? universityname(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your University Name/ College Name';
+    }
+
+    return null;
+  }
+  //----------Course-----------//
+  String? course(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your Course';
+    }
+
+    return null;
+  }
+  //-----Specislization------///
+  String? specislization(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your Specislization';
+    }
+
+    return null;
+  }
+
+  //------CourseType-------//
+   String? coursetype(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your Course Type';
+    }
+
+    return null;
+  }
+//----- CouseDuration -----//
+ String? coursestating(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your Course Staring Year';
+    }
+
+    return null;
+  }
+
+   String? courseending(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your Course Ending Year';
+    }
+
+    return null;
+  }
+//-------grade------///
+ String? grade(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your grade';
+    }
+
+    return null;
+  }
+  
 
 }
