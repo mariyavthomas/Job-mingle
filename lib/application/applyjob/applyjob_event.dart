@@ -1,13 +1,22 @@
 part of 'applyjob_bloc.dart';
 
-sealed class ApplyjobEvent extends Equatable {
-  const ApplyjobEvent();
+class ApplyjobEvent extends Equatable {
+  ApplyjobEvent();
 
   @override
   List<Object> get props => [];
+
+  get applyjob => null;
 }
 
-class Applyjob extends ApplyjobEvent{
- final AppleyedjobModel applyjob;
-  Applyjob({required this.applyjob});
+class ApplyjobUser extends ApplyjobEvent {
+  final AppliedJobModel applyjob;
+
+  ApplyjobUser({required this.applyjob});
+
+  @override
+  List<Object> get props => [applyjob];
 }
+
+class LoadAppliedJobs extends ApplyjobEvent {}
+ 

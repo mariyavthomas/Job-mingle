@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/Update_pic/update_pic_bloc.dart';
 import 'package:jobmingle/application/Update_pic/update_pic_event.dart';
+import 'package:jobmingle/application/applyjob/applyjob_bloc.dart';
 
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
 import 'package:jobmingle/application/get_all_job/get_all_jobs_bloc.dart';
@@ -48,7 +49,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<ProfileBloc>(create: (context)=>ProfileBloc(UserProfileRepo())..add(GetUserEvent())),
         BlocProvider<UpdatePicBloc>(create: (context)=>UpdatePicBloc(ImageRepo())),
         BlocProvider<GetAllJobsBloc>(create: (context)=>GetAllJobsBloc(AllJobRepo())),
-       BlocProvider<PdfdownloadBloc>(create: (context)=>PdfdownloadBloc(UploadResumeRepo()))
+       BlocProvider<PdfdownloadBloc>(create: (context)=>PdfdownloadBloc(UploadResumeRepo())),
+       BlocProvider<ApplyjobBloc>(create: (context)=>ApplyjobBloc())
 
       ],
       child: MaterialApp(

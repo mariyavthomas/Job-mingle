@@ -1,11 +1,16 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobmingle/application/applyjob/applyjob_bloc.dart';
+import 'package:jobmingle/domin/models/appleyjob_model.dart';
 import 'package:jobmingle/domin/models/jobmodel.dart';
 import 'package:jobmingle/utils/customcolor.dart';
 import 'package:url_launcher/url_launcher.dart';
+
 class DetailsJob extends StatefulWidget {
   DetailsJob({super.key, required this.job});
 
@@ -16,25 +21,50 @@ class DetailsJob extends StatefulWidget {
 }
 
 class _DetailsJobState extends State<DetailsJob> {
-  
-void whatsapp({required String message}) async{
-   var contact = "";
-   final String encodedmessage=Uri.encodeComponent(message);
-   var androidUrl = "whatsapp://send?phone=$contact&text=$encodedmessage";
-   var iosUrl = "https://wa.me/$contact?text=${Uri.parse('Hi, I need some help')}";
-   
-   try{
-      if(Platform.isIOS){
-         await launchUrl(Uri.parse(iosUrl));
-      }
-      else{
-         await launchUrl(Uri.parse(androidUrl));
-      }
-   } on Exception{
-    //  EasyLoading.showError('WhatsApp is not installed.');
-  }
-}
+  late User? _currentuser;
+  late Map<String, dynamic> _userData;
+  void whatsapp({required String message}) async {
+    var contact = "";
+    final String encodedmessage = Uri.encodeComponent(message);
+    var androidUrl = "whatsapp://send?phone=$contact&text=$encodedmessage";
+    var iosUrl =
+        "https://wa.me/$contact?text=${Uri.parse('Hi, I need some help')}";
 
+    try {
+      if (Platform.isIOS) {
+        await launchUrl(Uri.parse(iosUrl));
+      } else {
+        await launchUrl(Uri.parse(androidUrl));
+      }
+    } on Exception {
+      //  EasyLoading.showError('WhatsApp is not installed.');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _currentuser = FirebaseAuth.instance.currentUser;
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    if (_currentuser != null) {
+      try {
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(_currentuser!.uid)
+            .get();
+
+        setState(() {
+          _userData = (userDoc.data() as Map<String, dynamic>?) ??
+              {}; // Extract user data from document
+        });
+      } catch (e) {
+        print('Error fetching user data: $e');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +72,7 @@ void whatsapp({required String message}) async{
     double width = MediaQuery.of(context).size.width;
     // ignore: unused_local_variable
     double height = MediaQuery.of(context).size.height;
+
     return DefaultTabController(
       length: 3, // Number of tabs
       child: Scaffold(
@@ -302,17 +333,17 @@ void whatsapp({required String message}) async{
                                     MaterialStatePropertyAll(Colors.green)),
                             onPressed: () {
                               // Define job details
-              String jobTitle = widget.job.jobtitle;
-              String company = widget.job.companyname;
+                              String jobTitle = widget.job.jobtitle;
+                              String company = widget.job.companyname;
 
-              String location = widget.job.city;
-              String description =widget.job.jobdecripation ;
-              String jobaddress = widget.job.jobaddress;
-              String message="jobTitle:$jobTitle \n"
-                             "Company:$company \n "
-                             "Location:$location\n "
-                             "Description:$description \n"
-                             "jobaddress :$jobaddress \n";
+                              String location = widget.job.city;
+                              String description = widget.job.jobdecripation;
+                              String jobaddress = widget.job.jobaddress;
+                              String message = "jobTitle:$jobTitle \n"
+                                  "Company:$company \n "
+                                  "Location:$location\n "
+                                  "Description:$description \n"
+                                  "jobaddress :$jobaddress \n";
 
                               whatsapp(message: message);
                               // launchwhatsapp(number:"+917591991563", message: "hello");
@@ -342,30 +373,33 @@ void whatsapp({required String message}) async{
                     ),
                     Text(
                         "Don't pay money to HR of not mentioned in job details"),
-                        
-                        SizedBox(
-                          height:  height *0.01,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(color: CustomColor.bluelight(),borderRadius:BorderRadius.circular(5) ),
-                          height: height *0.1,
-                         child: Column(
-                          children: [
-                            Text("Simpilar Job"),
-                            SizedBox(
-                              height: height *0.01,
-                            ),
-                            Text("We picked out a few more jobs that are similar to this one. Apply for more jonbs to increase change of getting hired. ",style: TextStyle(color: Colors.grey),)
-                          ],
-                         ),
-                        ),
-                        Divider(
-                          color: Colors.black,
-                        ),
-                        SizedBox(
-                          height: height *0.1,
-                        )
-                   
+                    SizedBox(
+                      height: height * 0.01,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                          color: CustomColor.bluelight(),
+                          borderRadius: BorderRadius.circular(5)),
+                      height: height * 0.1,
+                      child: Column(
+                        children: [
+                          Text("Simpilar Job"),
+                          SizedBox(
+                            height: height * 0.01,
+                          ),
+                          Text(
+                            "We picked out a few more jobs that are similar to this one. Apply for more jonbs to increase change of getting hired. ",
+                            style: TextStyle(color: Colors.grey),
+                          )
+                        ],
+                      ),
+                    ),
+                    Divider(
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      height: height * 0.1,
+                    )
                   ],
                 ),
                 Align(
@@ -374,7 +408,9 @@ void whatsapp({required String message}) async{
                     children: [
                       ElevatedButton(
                           style: ButtonStyle(
-                            side: MaterialStatePropertyAll(BorderSide(color: Colors.green,)),
+                              side: MaterialStatePropertyAll(BorderSide(
+                                color: Colors.green,
+                              )),
                               backgroundColor:
                                   MaterialStatePropertyAll(Colors.white),
                               minimumSize: MaterialStateProperty.all(
@@ -382,23 +418,84 @@ void whatsapp({required String message}) async{
                               maximumSize: MaterialStateProperty.all(
                                 Size(170, 45),
                               )),
-                          onPressed: () {},
-                          child: Text("Apply",style: TextStyle(color: Colors.green),)),
-                          SizedBox(
-                            width:  width * 0.09,
-                          ),
-                           ElevatedButton(
+                          onPressed: () {
+                            final applyjob = AppliedJobModel(
+                                companyuid: widget.job.companyuid!,
+                                education: widget.job.qualification,
+                                experience: widget.job.experience,
+                                jobid: widget.job.jobid,
+                                skills: widget.job.skill,
+                                userid: _currentuser!.uid,
+                                username: _currentuser!.displayName ?? "",
+                                companyname: widget.job.companyname,
+                                experiencecomp: widget.job.experience,
+                                interviewtime: widget.job.interviewtime,
+                                jobaddress: widget.job.jobaddress,
+                                jobtiming: widget.job.jobtime,
+                                jobtitle: widget.job.jobtitle,
+                                qualification: widget.job.qualification,
+                                salary: widget.job.salary!,
+                                companycontactperson:
+                                    widget.job.contactpersonname,
+                                companyphonenumber:
+                                    widget.job.contactpersonnumber,
+                                conpanycontactpersonumber:
+                                    widget.job.companyemail,
+                                usercourse: _userData['course'] ?? "",
+                                usercourseendingyear:
+                                    _userData['courseendingyear'] ?? "",
+                                usercousestaringyear:
+                                    _userData['courseStaringyear'] ?? "",
+                                userexperence: _userData['experence'] ?? "",
+                                usergrade: _userData['grade'] ?? "",
+                                userhigereducation:
+                                    _userData['higereducation'] ?? "",
+                                usermailid: _userData['email'] ?? "",
+                                userphonenumber: _userData['phone'] ?? "",
+                                userresume: _userData['resume'] ?? "",
+                                userspecialice:
+                                    _userData['specialization'] ?? "",
+                                useruniversity:
+                                    _userData['universitynamecollegename'] ??
+                                        "");
+                            context
+                                .read<ApplyjobBloc>()
+                                .add(ApplyjobUser(applyjob: applyjob));
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content:
+                                    Text('  Successfully Applyed Job '),
+                                backgroundColor: Colors.green,
+                              ));
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                Future.delayed(Duration(seconds: 2), () {
+                                  // Navigator.pop(context);
+                                });
+                              });
+                            });
+                          },
+                          child: Text(
+                            "Apply",
+                            style: TextStyle(color: Colors.green),
+                          )),
+                      SizedBox(
+                        width: width * 0.09,
+                      ),
+                      ElevatedButton(
                           style: ButtonStyle(
-                            
-                              backgroundColor:
-                                  MaterialStatePropertyAll(CustomColor.bluecolor()),
+                              backgroundColor: MaterialStatePropertyAll(
+                                  CustomColor.bluecolor()),
                               minimumSize: MaterialStateProperty.all(
                                   Size(130, 45)), // Set the minimum size
                               maximumSize: MaterialStateProperty.all(
                                 Size(130, 45),
                               )),
                           onPressed: () {},
-                          child: Text("Similar Job",style: TextStyle(color: Colors.white),))
+                          child: Text(
+                            "Similar Job",
+                            style: TextStyle(color: Colors.white),
+                          ))
                     ],
                   ),
                 )

@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
+import 'package:jobmingle/utils/customcolor.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -44,16 +45,52 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+     // ignore: unused_local_variable
+    double width = MediaQuery.of(context).size.width;
+    // ignore: unused_local_variable
+    double height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        // drawer: Drawer(),
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                //fetchpostion();
-              },
-              icon: Icon(Icons.location_on)),
+         drawer: Drawer(),
+        appBar: PreferredSize(
+        preferredSize: Size.fromHeight(height * 0.08),
+        child: AppBar(
+          backgroundColor: CustomColor.bluecolor(),
+          title: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: height * 0.02),
+              Container(
+                height: height * 0.045,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Search...",
+                    border: InputBorder.none,
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: height * 0.008,
+                      vertical: height * 0.008,
+                    ),
+                    suffixIcon: Icon(Icons.search, color: Colors.grey),
+                  ),
+                  onSubmitted: (query) {
+                    // Handle the search query here
+                    print('Search query: $query');
+                  },
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
+            IconButton(onPressed: () {}, icon: Icon(Icons.notifications_active)),
+          ],
         ),
+      ),
         body: Center(
           child: Container(
             child: IconButton(

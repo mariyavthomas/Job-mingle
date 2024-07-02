@@ -14,10 +14,16 @@ class ApplyjobFailure extends ApplyjobState{
    @override
   List<Object> get props => [error];
 }
-class Appleyedjob extends ApplyjobState{
-  AppleyedjobModel appledjob;
-  Appleyedjob({required this.appledjob});
+class AppleyedjobSuccess extends ApplyjobState{
+   final AppliedJobModel appledjob;
+  AppleyedjobSuccess({required this.appledjob});
 }
 class ApplyjobLoading extends ApplyjobState{
   
+}
+class AppliedJobLoaded extends ApplyjobState{
+  final List<AppliedJobModel>appliedjob;
+  AppliedJobLoaded(this.appliedjob);
+   @override
+  List<Object> get props => [appliedjob];
 }
