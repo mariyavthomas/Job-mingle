@@ -35,7 +35,8 @@ class UpdatePicBloc extends Bloc<UpdatePicEvent, UpdatePicState> {
   }
 
   FutureOr<void> _uploadfirebase(Uploadfirebaseimage event, Emitter<UpdatePicState> emit) async{
-    await imageunile.uploadImageToFirebase(event.file, event.uid);
+     emit(UpdateLoading());
+        await imageunile.uploadImageToFirebase(event.file, event.uid);
     emit(state.copyWith(file: null));
   }
 }

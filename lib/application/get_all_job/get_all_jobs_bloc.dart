@@ -25,12 +25,12 @@ class GetAllJobsBloc extends Bloc<GetAllJobsEvent, GetAllJobsState> {
   }
 
   FutureOr<void> _filterjobname(FilterJobsByName event, Emitter<GetAllJobsState> emit) async{
-    emit(JobLoadingState());
+    //emit(JobLoadingState());
     try{
      if(state is JobLoaded){
       final currentstate= state as JobLoaded;
       final filteredjobs= currentstate.jobs.where((jobs){
-     return jobs.jobtitle ==event.selectedJob.jobtitle;
+     return jobs.jobtitle ==event.jobtitle;
       }).toList();
       emit(FilteredJobLoaded(filteredjobs: filteredjobs));
      }

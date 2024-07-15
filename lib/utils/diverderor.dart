@@ -22,7 +22,7 @@ class Divideror{
           width: 10,
         ),
         SizedBox(
-          width: 140,
+          width: 110,
           child: Divider(
             thickness: 2,
              color: CustomColor.graycolor(),

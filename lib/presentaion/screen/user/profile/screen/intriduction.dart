@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/profile/profile_bloc.dart';
+
+import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
 
 import 'package:jobmingle/domin/models/user_model.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/screen/neweducation.dart';
@@ -263,6 +264,7 @@ class _IntroductionState extends State<Introduction> {
                             context.read<ProfileBloc>().add(UpdateIntroducation(
                                 profileheadlines: userintro.profileheadlines!,
                                 username: userintro.name!));
+                                 
                             WidgetsBinding.instance.addPostFrameCallback((_) {
                               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                                 content: Text(' Profile Successfully Updated '),
@@ -271,7 +273,9 @@ class _IntroductionState extends State<Introduction> {
                               WidgetsBinding.instance.addPostFrameCallback((_) {
                                 Future.delayed(Duration(seconds: 2), () {
                                   Navigator.pop(context);
+                                  context.read<ProfileBloc>().add(GetUserEvent());
                                 });
+
                               });
                             });
                           }

@@ -67,8 +67,8 @@ class _RegisterPageState extends State<RegisterPage> {
         });
         Future.delayed(Duration(seconds: 2), () {
           Navigator.pushNamedAndRemoveUntil(
-              context, '/onboading', (route) => false);
-        //Navigator.push(context, MaterialPageRoute(builder: (context)=>Location()));
+              context, '/onboarding', (route) => false);
+       
          
         });
       }

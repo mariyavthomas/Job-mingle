@@ -1,39 +1,44 @@
-import 'dart:io';
-import 'dart:typed_data';
 
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:file_picker/file_picker.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:jobmingle/domin/models/user_model.dart';
-import 'package:jobmingle/presentaion/screen/user/profile/screen/neweducation.dart';
+
 
 class UserProfileRepo {
   // ignore: unused_field
   final FirebaseStorage _storage = FirebaseStorage.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Future<Usermodel?> getuser() async {
-    User? user = FirebaseAuth.instance.currentUser;
+  Future<Usermodel?> getUser() async {
+  User? user = FirebaseAuth.instance.currentUser;
 
-    try {
-      final data = await FirebaseFirestore.instance
-          .collection('users')
-          .where('uid', isEqualTo: user!.uid)
-          .get();
-      print(data);
-      if (data.docs.isNotEmpty) {
-        return Usermodel.fromJson(data.docs.first.data());
-      } else {
-        print("No user foun");
-        return null;
-      }
-    } catch (e) {
-      print(e.toString());
+  // Check if the user is not null before proceeding
+  if (user == null) {
+    print("No current user signed in");
+    return null;
+  }
+
+  try {
+    final data = await FirebaseFirestore.instance
+        .collection('users')
+        .where('uid', isEqualTo: user.uid)
+        .get();
+    
+    print(data);
+
+    if (data.docs.isNotEmpty) {
+      return Usermodel.fromJson(data.docs.first.data());
+    } else {
+      print("No user found");
       return null;
     }
+  } catch (e) {
+    print("Error fetching user: ${e.toString()}");
+    return null;
   }
+}
 
   //-----pdfuploadtheuser---------//
 
@@ -53,7 +58,7 @@ class UserProfileRepo {
 
   Future<void> updateUserPdf(String uid, String pdfUrl) async {
     try {
-      await _firestore.collection('users').doc(uid).update({'resume': pdfUrl});
+      await _firestore.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).set({'resume': pdfUrl});
     } catch (e) {
       throw Exception('Error updating user with PDF URL: $e');
     }
@@ -91,7 +96,7 @@ class UserProfileRepo {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(FirebaseAuth.instance.currentUser!.uid)
-          .update({
+          .set({
         'higereducation': higereducation,
         'universitynamecollegename': universitynamecollegename,
         'course': course,
@@ -105,4 +110,31 @@ class UserProfileRepo {
       print('Error updating education: $e');
     }
   }
+
+  Future<void>aboutme( String profilesummery)async{
+    try{
+    await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).update({
+     'profilesummery':profilesummery
+    });
+    }catch(e){
+     print('Error updating education: $e');
+    }
+
+  }
+  Future<void>personalInfo(String dob,String language,String gender,String email,String phone)async{
+try{
+  await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).update({
+    'dob':dob,
+    'language':language,
+    'gender':gender,
+    'email':email,
+    'phone':phone
+  });
+}catch(e){
+print('Error updating education: $e');
+}
+  }
+  
+  
+   
 }

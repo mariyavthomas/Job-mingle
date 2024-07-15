@@ -11,8 +11,8 @@ class FetchJobs extends GetAllJobsEvent{
   
 }
 class FilterJobsByName extends GetAllJobsEvent{
-  final JobModel selectedJob;
-  FilterJobsByName({required this.selectedJob});
+   String jobtitle;
+  FilterJobsByName({required this.jobtitle});
   @override
-  List<Object> get props =>[selectedJob];
+  List<Object> get props =>[jobtitle];
 }

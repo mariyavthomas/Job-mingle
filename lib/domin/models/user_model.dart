@@ -7,7 +7,7 @@ class Usermodel {
   String? pic;
   String? location;
   String? resume;
-  String? profileheadlines;
+  String ? profileheadlines;
   String? education;
   String? profilesummery;
   String? experence;
@@ -19,6 +19,9 @@ class Usermodel {
   String ?courseStaringyear;
   String ?courseendingyear;
   String ?grade;
+  String ?gender;
+  String ?language;
+  String ?dob;
   Usermodel(
       {
 
@@ -29,6 +32,9 @@ class Usermodel {
       this.profileheadlines,
       this.profilesummery,
       this.uid,
+      this.dob,
+      this.gender,
+      this.language,
       this.resume,
       this.location,
       this.name,
@@ -64,7 +70,10 @@ class Usermodel {
       'higereducation':higereducation,
       'specialization':specialization,
       'universitynamecollegename':universitynamecollegename,
-      'grade':grade
+      'grade':grade,
+      'gender':gender,
+      'dob':dob,
+      'language':language
 
     };
   }
@@ -74,6 +83,9 @@ class Usermodel {
   factory Usermodel.fromJson(Map<String, dynamic> json) {
     // final data= document.data()!;
     return Usermodel(
+       dob: json['dob'] ?? "",
+       gender: json['gender'] ?? "",
+       language: json['language'] ?? "",
         uid: json['uid'] ?? "",
         experence: json['experence'] ?? "",
         education: json['education'],

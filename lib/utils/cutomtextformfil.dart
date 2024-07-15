@@ -23,15 +23,17 @@ class CustomTextFormField extends StatelessWidget {
   final minlines;
   final String labeltext;
   final FormFieldValidator<String>? validator;
+  final onTap;
   CustomTextFormField({
     Key? key,
    // this.borderside,
+   this.onTap,
     this.hintstyle,
     this.counterText,
     this.validator,
     this.errorStyle,
     this.minlines,
-    this.readOnly = false,
+    this.readOnly =false,
     this.style,
     required this.controller,
     this.maxlines,
@@ -62,7 +64,7 @@ class CustomTextFormField extends StatelessWidget {
               maxLines: maxlines,
               keyboardType: type,
               controller: controller,
-              
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: InputDecoration(
                 labelText: labeltext,
                 errorStyle: TextStyle(color: Colors.red),
@@ -87,8 +89,10 @@ class CustomTextFormField extends StatelessWidget {
                       )
                     : suffixIcon,
               ),
+              onTap: onTap,
               obscureText: obscureText && _obscureText,
               validator:validator,
+              readOnly: readOnly,
             ),
             SizedBox(
               height: 10,

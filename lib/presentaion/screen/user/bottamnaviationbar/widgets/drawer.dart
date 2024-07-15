@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/profile/profile_bloc.dart';
+
+import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/screen/profile.dart';
 import 'package:jobmingle/utils/customcolor.dart';
 

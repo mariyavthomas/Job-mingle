@@ -25,7 +25,7 @@ class PostErrorState extends GetAllJobsState{
 }
 
 class FilteredJobLoaded extends GetAllJobsState{
-  final List<JobModel>filteredjobs;
+  final List<JobModel> filteredjobs;
   FilteredJobLoaded({required this.filteredjobs});
  @override
   List<Object> get props => [filteredjobs];

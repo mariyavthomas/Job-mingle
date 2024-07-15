@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/profile/profile_bloc.dart';
+import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
 import 'package:jobmingle/domin/models/user_model.dart';
-import 'package:jobmingle/presentaion/screen/user/profile/screen/intriduction.dart';
 import 'package:jobmingle/utils/customcolor.dart';
 import 'package:jobmingle/utils/cutomtextformfil.dart';
 import 'package:jobmingle/utils/validator.dart';
@@ -31,7 +30,7 @@ List<String> education = [
   'ClassXII',
   'Class X'
 ];
-List<String>coursetype=[
+List<String> coursetype = [
   'Full Time',
   'Part Time',
   'Correspondence/Distance Learning'
@@ -40,7 +39,6 @@ String? selectcoursetype;
 String? selectvalueducation;
 
 class _AddnewEducationState extends State<AddnewEducation1> {
- 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -84,10 +82,10 @@ class _AddnewEducationState extends State<AddnewEducation1> {
                     height: 10,
                   ),
                   DropdownButtonFormField<String>(
-                    validator: (value) => Validator().educationlevel(value),
+                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) => Validator().educationlevel(value),
                       decoration: InputDecoration(
                         labelText: 'Select Education Level',
-                        
                       ),
                       value: selectvalueducation,
                       items: education.map((String level) {
@@ -102,26 +100,41 @@ class _AddnewEducationState extends State<AddnewEducation1> {
                           higereducationcontroller.text = selectvalueducation!;
                         });
                       }),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextFormField(controller: universityinstitutenamecontroller, hintText: "", labeltext: 'University / Institute name *',validator: (value) => Validator().universityname(value),),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      CustomTextFormField(controller: coursecontroller, hintText: '', labeltext: 'Course *',validator: (value) => Validator().course(value),),
-                      SizedBox(
-                        height: 20,
-                      ),
-                       CustomTextFormField(controller: specializationcontroller, hintText: '', labeltext: 'Specialization *',validator: (value) => Validator().specislization(value),),
-                       SizedBox(
-                        height: 20,
-                      ),
-                        DropdownButtonFormField<String>(
-                          validator: (value) => Validator().coursetype(value),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextFormField(
+                    controller: universityinstitutenamecontroller,
+                    hintText: "",
+                    labeltext: 'University / Institute name *',
+                    validator: (value) => Validator().universityname(value),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextFormField(
+                    controller: coursecontroller,
+                    hintText: '',
+                    labeltext: 'Course *',
+                    validator: (value) => Validator().course(value),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CustomTextFormField(
+                    controller: specializationcontroller,
+                    hintText: '',
+                    labeltext: 'Specialization *',
+                    validator: (value) => Validator().specislization(value),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  DropdownButtonFormField<String>(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                      validator: (value) => Validator().coursetype(value),
                       decoration: InputDecoration(
                         labelText: 'Course Type *',
-                        
                       ),
                       value: selectcoursetype,
                       items: coursetype.map((String course) {
@@ -136,65 +149,92 @@ class _AddnewEducationState extends State<AddnewEducation1> {
                           coursetypecontroller.text = selectcoursetype!;
                         });
                       }),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 230),
-                      child: Text('Course Duration *'),
-                    ),
-                   Row(
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 230),
+                    child: Text('Course Duration *'),
+                  ),
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                       SizedBox(
-                        width: 150,
-                        child: CustomTextFormField(
-                         
-                          controller: coursestartingcontroller, hintText: "", labeltext: "Starting Year *",validator: (value) => Validator().coursestating(value),)),
-                        SizedBox(
-                          width: 30,
-                        ),
                       SizedBox(
-                         width: 150,
-                        child: CustomTextFormField(controller: courseendingcontroller, hintText: "", labeltext: "Ending Year *",validator: (value) => Validator().courseending(value),)),
-
+                          width: 150,
+                          child: CustomTextFormField(
+                            controller: coursestartingcontroller,
+                            hintText: "",
+                            labeltext: "Starting Year *",
+                            validator: (value) =>
+                                Validator().coursestating(value),
+                          )),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      SizedBox(
+                          width: 150,
+                          child: CustomTextFormField(
+                            controller: courseendingcontroller,
+                            hintText: "",
+                            labeltext: "Ending Year *",
+                            validator: (value) =>
+                                Validator().courseending(value),
+                          )),
                     ],
-                   ),
-                   SizedBox(
+                  ),
+                  SizedBox(
                     height: 20,
-                   ),
-                   CustomTextFormField(controller: gradingsystemcontroller, hintText: '% Marks of 100 Maximum', labeltext: 'Grading system *',validator: (value) => Validator().grade(value),),
-                   SizedBox(
+                  ),
+                  CustomTextFormField(
+                    
+                    controller: gradingsystemcontroller,
+                    hintText: '% Marks of 100 Maximum',
+                    labeltext: 'Grading system *',
+                    validator: (value) => Validator().grade(value),
+                  ),
+                  SizedBox(
                     height: 30,
-                   ),
-                  ElevatedButton(onPressed: (){
-                    if(formkey.currentState!.validate()){
-                      final usereducation =Usermodel(
-                        course: coursecontroller.text,
-                        courseStaringyear: coursestartingcontroller.text,
-                        courseendingyear: courseendingcontroller.text,
-                        coursetype: coursetypecontroller.text,
-                        higereducation: higereducationcontroller.text,
-                        grade: gradingsystemcontroller.text,
-                        specialization: specializationcontroller.text,
-                        universitynamecollegename: universityinstitutenamecontroller.text
-                      );
-                      context.read<ProfileBloc>().add(Educationadd(grade: usereducation.grade, course: usereducation.course, courseStaringyear: usereducation.courseStaringyear, courseendingcontroller: usereducation.courseendingyear, coursetype: usereducation.coursetype, higereducation: usereducation.higereducation, specialization: usereducation.specialization, universityname: usereducation.universitynamecollegename));
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: Text(' Education Successfully Updated '),
-            backgroundColor: Colors.green,
-          ));
-           WidgetsBinding.instance.addPostFrameCallback((_) {
-           Future.delayed(Duration(seconds: 2), () {
-          
-         Navigator.pop(context);
-        });
-         });
-        });
-                   
-                    }
-                  }, child: Text("Save"))
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        if (formkey.currentState!.validate()) {
+                          final usereducation = Usermodel(
+                              course: coursecontroller.text,
+                              courseStaringyear: coursestartingcontroller.text,
+                              courseendingyear: courseendingcontroller.text,
+                              coursetype: coursetypecontroller.text,
+                              higereducation: higereducationcontroller.text,
+                              grade: gradingsystemcontroller.text,
+                              specialization: specializationcontroller.text,
+                              universitynamecollegename:
+                                  universityinstitutenamecontroller.text);
+                          context.read<ProfileBloc>().add(Educationadd(
+                              grade: usereducation.grade,
+                              course: usereducation.course,
+                              courseStaringyear:
+                                  usereducation.courseStaringyear,
+                              courseendingcontroller:
+                                  usereducation.courseendingyear,
+                              coursetype: usereducation.coursetype,
+                              higereducation: usereducation.higereducation,
+                              specialization: usereducation.specialization,
+                              universityname:
+                                  usereducation.universitynamecollegename));
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text(' Education Successfully Updated '),
+                              backgroundColor: Colors.green,
+                            ));
+                            WidgetsBinding.instance.addPostFrameCallback((_) {
+                              Future.delayed(Duration(seconds: 2), () {
+                                context.read<ProfileBloc>().add(GetUserEvent());
+                                Navigator.pop(context);
+                              });
+                            });
+                          });
+                        }
+                      },
+                      child: Text("Save"))
                 ],
               ),
             ),

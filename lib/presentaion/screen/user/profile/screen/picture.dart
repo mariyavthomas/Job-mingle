@@ -1,18 +1,19 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/Update_pic/update_pic_bloc.dart';
 import 'package:jobmingle/application/Update_pic/update_pic_event.dart';
 import 'package:jobmingle/application/Update_pic/update_pic_state.dart';
+import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
+import 'package:jobmingle/domin/models/user_model.dart';
 import 'package:jobmingle/infrastructure/Repo/uploadimgerepo.dart';
 import 'package:jobmingle/utils/customcolor.dart';
 
 // ignore: must_be_immutable
 class ProfilePicture extends StatelessWidget {
   ProfilePicture({super.key});
+  
   ImageRepo imagefire = ImageRepo();
   String? pickedImage;
   @override
@@ -58,6 +59,7 @@ class ProfilePicture extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 19),
                     child: CircleAvatar(
+                    //  backgroundImage: NetworkImage(!),
                       maxRadius: 102,
                       backgroundColor: Colors.grey,
                       child: GestureDetector(
@@ -98,13 +100,15 @@ class ProfilePicture extends StatelessWidget {
                                                 MainAxisAlignment.start,
                                             children: [
                                               SizedBox(
-                                                width: 230,
+                                                width: 150,
+
                                               ),
                                               TextButton(
                                                 onPressed: () async {
                                                   // ignore: unused_local_variable
                                                   context.read<UpdatePicBloc>().add(
                                                       UploadCameraPictureEvent());
+                                                   //   context.read<ProfileBloc>().add(GetUserEvent());
                                                   // context
                                                   //     .read<UpdatePicBloc>()
                                                   //     .add(SaveEvent());
@@ -196,6 +200,10 @@ class ProfilePicture extends StatelessWidget {
                           style: ButtonStyle(),
                           onPressed: () {
                             context.read<UpdatePicBloc>().add(Uploadfirebaseimage(file: state.file!, uid: FirebaseAuth.instance.currentUser!.uid));
+                           WidgetsBinding.instance.addPostFrameCallback((timeStamp) { 
+                               context.read<ProfileBloc>().add(GetUserEvent());
+                           });
+                            
                             Navigator.pop(context);
                           },
                           child: Text(

@@ -9,6 +9,7 @@ sealed class PdfdownloadState extends Equatable {
 
 final class ResumedownloadInitial extends PdfdownloadState {}
 class Uloadloading extends PdfdownloadState{}
+ // ignore: must_be_immutable
  class Resumeuploadsuccess extends PdfdownloadState{
    final String downloadUrl;
    String filename;
@@ -24,3 +25,4 @@ class Uloadloading extends PdfdownloadState{}
   String error;
   Resumeuploadfailer({required this.error});
  }
+

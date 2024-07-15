@@ -1,21 +1,21 @@
 import 'dart:io';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/Update_pic/update_pic_bloc.dart';
-import 'package:jobmingle/application/Update_pic/update_pic_event.dart';
 import 'package:jobmingle/application/applyjob/applyjob_bloc.dart';
-
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
 import 'package:jobmingle/application/get_all_job/get_all_jobs_bloc.dart';
 import 'package:jobmingle/application/pdf/pdfdownload_bloc.dart';
-import 'package:jobmingle/application/profile/profile_bloc.dart';
+import 'package:jobmingle/application/profilef/personlinfo/personinfo_bloc.dart';
+import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
+import 'package:jobmingle/application/profilef/profilesummert/aboutme_bloc.dart';
 import 'package:jobmingle/infrastructure/Repo/alljobrepo.dart';
 import 'package:jobmingle/infrastructure/Repo/profile_repo.dart';
 import 'package:jobmingle/infrastructure/Repo/resumeRepo.dart';
 import 'package:jobmingle/infrastructure/Repo/uploadimgerepo.dart';
 import 'package:jobmingle/utils/routes.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,28 +30,36 @@ void main() async {
         ))
       : await Firebase.initializeApp();
   // await initializeDependencies();
+ await FirebaseAppCheck.instance.activate(
+ androidProvider: AndroidProvider.playIntegrity,
+ //appleProvider: AppleProvider.deviceCheck
+ ); 
   runApp(const MyApp());
 }
- //final save_key=FirebaseFirestore.instance.collection('user').doc().id;
+
+//final save_key=FirebaseFirestore.instance.collection('user').doc().id;
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-   
+
   @override
   Widget build(BuildContext context) {
-    
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => LoginauthBloc()..add(CheckLoginStatusEvent()),
-          
         ),
-       
-        BlocProvider<ProfileBloc>(create: (context)=>ProfileBloc(UserProfileRepo())..add(GetUserEvent())),
-        BlocProvider<UpdatePicBloc>(create: (context)=>UpdatePicBloc(ImageRepo())),
-        BlocProvider<GetAllJobsBloc>(create: (context)=>GetAllJobsBloc(AllJobRepo())),
-       BlocProvider<PdfdownloadBloc>(create: (context)=>PdfdownloadBloc(UploadResumeRepo())),
-       BlocProvider<ApplyjobBloc>(create: (context)=>ApplyjobBloc())
-
+        BlocProvider<ProfileBloc>(
+            create: (context) =>
+                ProfileBloc(UserProfileRepo())..add(GetUserEvent())),
+        BlocProvider<UpdatePicBloc>(
+            create: (context) => UpdatePicBloc(ImageRepo())),
+        BlocProvider<GetAllJobsBloc>(
+            create: (context) => GetAllJobsBloc(AllJobRepo())),
+        BlocProvider<PdfdownloadBloc>(
+            create: (context) => PdfdownloadBloc(UploadResumeRepo())),
+        BlocProvider<ApplyjobBloc>(create: (context) => ApplyjobBloc()),
+        BlocProvider<AboutmeBloc>(create: (context)=>AboutmeBloc(UserProfileRepo())),
+        BlocProvider<PersoninfoBloc>(create: (context)=>PersoninfoBloc())
       ],
       child: MaterialApp(
         theme: ThemeData(

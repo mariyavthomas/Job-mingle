@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:jobmingle/presentaion/screen/user/home/home_screen_view.dart';
+import 'package:jobmingle/presentaion/screen/user/home/screen/home_screen_view.dart';
 
 class AuthRepoGoogleComapany {
   final _auth = FirebaseAuth.instance;
