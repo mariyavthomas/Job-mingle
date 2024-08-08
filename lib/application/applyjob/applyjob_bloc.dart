@@ -22,8 +22,10 @@ class ApplyjobBloc extends Bloc<ApplyjobEvent, ApplyjobState> {
     emit(ApplyjobLoading());
 
     try {
-      await _firestore.collection('applyjob').doc(event.applyjob.appyuid).set({
-        "appyuid": event.applyjob.appyuid,
+      String applyuid =
+          FirebaseFirestore.instance.collection("applyjob").doc().id;
+      await _firestore.collection('applyjob').doc(applyuid).set({
+        "appyuid": applyuid,
         'companyname': event.applyjob.companyname,
         'experiencecomp': event.applyjob.experiencecomp,
         'interviewtime': event.applyjob.interviewtime,
@@ -53,23 +55,43 @@ class ApplyjobBloc extends Bloc<ApplyjobEvent, ApplyjobState> {
         'companyphonenumber': event.applyjob.companyphonenumber,
         'companycontactperson': event.applyjob.companycontactperson,
         'conpanycontactpersonumber': event.applyjob.conpanycontactpersonumber,
+        'city': event.applyjob.city,
+        'country': event.applyjob.country,
+        'state': event.applyjob.state,
+        'jobPostedDate': event.applyjob.jobPostedDate,
+        'pic': event.applyjob.pic,
+        'userprofileheadlines': event.applyjob.userprofileheadlines,
+        'userprofilesummery': event.applyjob.userprofilesummery,
+        'usergender': event.applyjob.usergender,
+        'userlanguage': event.applyjob.userlanguage,
+        'userdob': event.applyjob.userdob,
+        'useruserjobtitle': event.applyjob.useruserjobtitle,
+        'useraddress': event.applyjob.useraddress,
+        'userhometown': event.applyjob.userhometown,
+        'userpincode': event.applyjob.userpincode,
+        'userworkstatus': event.applyjob.userworkstatus,
+        'usercurrentcity': event.applyjob.usercurrentcity,
+        'usercurrentcategory': event.applyjob.usercurrentcategory,
+        'usercurrentdeparment': event.applyjob.usercurrentdeparment,
+        'usercurrentindustry': event.applyjob.usercurrentindustry,
+        'usercurrentjobrole': event.applyjob.usercurrentjobrole
       });
-      emit(AppleyedjobSuccess(appledjob:event.applyjob));
+      emit(AppleyedjobSuccess(appledjob: event.applyjob));
     } catch (e) {
       emit(ApplyjobFailure(error: e.toString()));
     }
   }
 
-  FutureOr<void> _getappliedjob(LoadAppliedJobs event, Emitter<ApplyjobState> emit)async {
+  FutureOr<void> _getappliedjob(
+      LoadAppliedJobs event, Emitter<ApplyjobState> emit) async {
     emit(ApplyjobLoading());
-    
-    try{
-      final appliedjobs = await ApplyJobRepo().getallAppliedJob();
-     print(appliedjobs.length);
-    emit(AppliedJobLoaded(appliedjobs));
-    }catch(e){
-      emit(ApplyjobFailure(error: e.toString()));
 
+    try {
+      final appliedjobs = await ApplyJobRepo().getallAppliedJob();
+      print(appliedjobs.length);
+      emit(AppliedJobLoaded(appliedjobs));
+    } catch (e) {
+      emit(ApplyjobFailure(error: e.toString()));
     }
   }
 }

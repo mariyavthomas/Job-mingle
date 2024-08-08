@@ -40,7 +40,7 @@ class AuthRepoGoogle {
         Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
-            builder: (context) => BottamNavigation(),
+            builder: (context) => MyBottom(),
           ),
           (route) => false,
         );

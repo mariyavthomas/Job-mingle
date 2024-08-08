@@ -3,46 +3,44 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/get_all_job/get_all_jobs_bloc.dart';
 import 'package:jobmingle/domin/models/jobmodel.dart';
 import 'package:jobmingle/presentaion/screen/user/detjobs/screen/detailed_job.dart';
-import 'package:jobmingle/utils/customcolor.dart';
 
 class Jobdetails extends StatelessWidget {
-  const Jobdetails({
-    super.key,
-    required this.job,
-    required this.height,
-    required this.width,
-  });
-
   final JobModel job;
   final double height;
   final double width;
 
+  const Jobdetails({
+    Key? key,
+    required this.job,
+    required this.height,
+    required this.width,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 15),
-      child: InkWell(
-        onTap: () {
-           context.read<GetAllJobsBloc>().add(FilterJobsByName(jobtitle:job.jobtitle));
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DetailsJob(job: job),
-            ),
-          ).then((_) {
-            context.read<GetAllJobsBloc>().add(FetchJobs());
-          });
-        },
+    return InkWell(
+      onTap: () {
+         context.read<GetAllJobsBloc>().add(FilterJobsByName(jobtitle:job.jobtitle));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DetailsJob(job: job),
+          ),
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey.shade300),
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.white,
+          ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Divider(
-                  color: Colors.black,
-                  thickness: 1,
-                ),
                 ListTile(
                   leading: Container(
                     height: height * 0.09,
@@ -56,22 +54,22 @@ class Jobdetails extends StatelessWidget {
                     ),
                   ),
                   title: Text(
-                    job.jobtitle.toUpperCase(),
+                    job.jobtitle,
                     style: TextStyle(
-                      color: CustomColor.bluecolor(),
+                      color: Colors.blue.shade900,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   subtitle: Text(
-                    'Rs.${job.salary!}',
+                    'Rs. ${job.salary ?? ''}',
                     style: TextStyle(
                       color: Colors.black87,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   trailing: Icon(
-                    Icons.arrow_circle_right_outlined,
-                    color: CustomColor.bluecolor(),
+                    Icons.arrow_forward_ios,
+                    color: Colors.blue.shade900,
                     size: height * 0.04,
                   ),
                 ),
@@ -82,7 +80,7 @@ class Jobdetails extends StatelessWidget {
                     color: Colors.red,
                   ),
                   title: Text(
-                    "${job.country},${job.state},${job.city}",
+                    "${job.country}, ${job.state}, ${job.city}",
                     style: TextStyle(
                       color: Colors.black54,
                       fontWeight: FontWeight.bold,
@@ -104,10 +102,7 @@ class Jobdetails extends StatelessWidget {
                     ],
                   ),
                 ),
-                Divider(
-                  color: Colors.black,
-                  thickness: 1,
-                ),
+               
               ],
             ),
           ),

@@ -24,14 +24,19 @@ class _Profile_summeryState extends State<Profile_summery> {
           children: [
             Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Profile Summary",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
+                SizedBox(
+                  width: 10,
+                ),
+                Icon(
+                  Icons.summarize,
+                  color: Colors.grey,
+                ),
+                SizedBox(
+                  width: 25,
+                ),
+                Text(
+                  "Profile Summary",
+                  style: TextStyle(fontSize: 18),
                 ),
                 //https://chatgpt.com/c/8de65960-e59a-4c24-9101-4620b2298dc0
                 SizedBox(width: 100),
@@ -40,11 +45,9 @@ class _Profile_summeryState extends State<Profile_summery> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  ProfileSummery(
-                                      profilesummery: widget
-                                          .user
-                                          .profilesummery ?? '')));
+                              builder: (context) => ProfileSummery(
+                                  profilesummery:
+                                      widget.user.profilesummery ?? '')));
                     },
                     icon: Icon(
                       Icons.edit_square,
@@ -66,7 +69,8 @@ class _Profile_summeryState extends State<Profile_summery> {
                 } else if (state is AboutmeSuccess) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(state.profilesummery?.profilesummery ?? 'No profile summary available'),
+                    child: Text(state.profilesummery?.profilesummery ??
+                        'No profile summary available'),
                   );
                 } else if (state is AboutaddFailer) {
                   return Text('Failed to load profile: ${state.error}');

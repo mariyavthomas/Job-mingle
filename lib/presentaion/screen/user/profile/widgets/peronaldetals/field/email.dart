@@ -19,8 +19,8 @@ class _EmailState extends State<Email> {
   Widget build(BuildContext context) {
     return CustomTextFormField(
       validator: (value) => Validator().emailValidator(value),
-      enabledBorder: OutlineInputBorder(),
-      focusedBorder: OutlineInputBorder(),
+      // enabledBorder: OutlineInputBorder(),
+      // focusedBorder: OutlineInputBorder(),
       controller: widget.emailcontroller,
       hintText: 'Email',
       labeltext: "Enter the Email",

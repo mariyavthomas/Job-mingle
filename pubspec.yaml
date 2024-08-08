@@ -68,6 +68,20 @@ dependencies:
   easy_pdf_viewer: ^1.0.8
   firebase_app_check: ^0.2.1+8
   choice: ^2.3.2
+  staggered_grid_view_flutter: ^0.0.4
+  badges: ^3.1.2
+  sliver_app_bar_builder: ^1.1.0
+  icons_launcher: ^2.1.7
+  font_awesome_flutter: ^10.7.0
+  dio: ^5.5.0+1
+  uuid: ^4.2.2
+  google_fonts: ^6.2.0
+  loading_animations: ^2.2.0
+  flashy_tab_bar2: ^0.0.10
+  country_state_city_picker: ^1.2.8
+  number_system: ^0.0.6+8
+  select_searchable_list: ^0.1.05
+  select_form_field: ^2.2.0
   
   
 

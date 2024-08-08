@@ -11,9 +11,15 @@ import 'package:jobmingle/utils/validator.dart';
 
 class Introduction extends StatefulWidget {
   final String name;
-  final String ? profileheadlines;
+  final String? profileheadlines;
+  final String? jobtitle;
 
-  Introduction({super.key, required this.name, this.profileheadlines});
+  Introduction({
+    super.key,
+    required this.name,
+    this.profileheadlines,
+    required this.jobtitle,
+  });
 
   @override
   State<Introduction> createState() => _IntroductionState();
@@ -29,20 +35,28 @@ class _IntroductionState extends State<Introduction> {
 
   late TextEditingController _fullNameController;
   late TextEditingController _headlineController;
+  TextEditingController jobtitlecontroller = TextEditingController();
+  // TextEditingController currentcitycontroller = TextEditingController();
+  // TextEditingController workstatuscontroller = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     //context.read<ProfileBloc>().add(GetUserEvent());
     _fullNameController = TextEditingController(text: widget.name);
-    _headlineController = TextEditingController(text: "Looking for jobs requiring following skills:");
-
+    // currentcitycontroller = TextEditingController(text: widget.workstatus);
+    // workstatuscontroller = TextEditingController(text: widget.currentcity);
+    _headlineController = TextEditingController(
+        text: "Looking for jobs requiring following skills:");
+    jobtitlecontroller = TextEditingController(text: widget.jobtitle);
     _fullNameController.addListener(() {
       setState(() {
         _currentLength = _fullNameController.text.length;
       });
     });
-
+    jobtitlecontroller.addListener(() {
+      _currentLength = jobtitlecontroller.text.length;
+    });
     _headlineController.addListener(() {
       setState(() {
         _currentLength = _headlineController.text.length;
@@ -54,6 +68,7 @@ class _IntroductionState extends State<Introduction> {
   void dispose() {
     _fullNameController.dispose();
     _headlineController.dispose();
+    jobtitlecontroller.dispose();
     super.dispose();
   }
 
@@ -96,6 +111,24 @@ class _IntroductionState extends State<Introduction> {
                   SizedBox(height: 10),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
+                    child: CustomTextFormField(
+                      controller: jobtitlecontroller,
+                      validator: (value) => Validator().nameValidator(value),
+                      hintText: 'Profession',
+                      labeltext: ' Enter Profession  *',
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  // CustomTextFormField(
+                  //     controller: currentcitycontroller,
+                  //     hintText: "Enter the current city",
+                  //     labeltext: "Current City"),
+                  // CustomTextFormField(
+                  //     controller: workstatuscontroller,
+                  //     hintText: "Enter Work Exprience",
+                  //     labeltext: "Exprience"),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Container(
                       width: double.infinity,
                       child: CustomTextFormField(
@@ -115,7 +148,8 @@ class _IntroductionState extends State<Introduction> {
                       ),
                     ),
                   ),
-                  Text("Write a concise headline introducing yourself to employers"),
+                  Text(
+                      "Write a concise headline introducing yourself to employers"),
                   SizedBox(height: 30),
                   BlocBuilder<ProfileBloc, ProfileState>(
                     builder: (context, state) {
@@ -138,7 +172,8 @@ class _IntroductionState extends State<Introduction> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Text(
                                         "Education",
-                                        style: TextStyle(color: CustomColor.graycolor()),
+                                        style: TextStyle(
+                                            color: CustomColor.graycolor()),
                                       ),
                                     ),
                                     Spacer(),
@@ -147,7 +182,8 @@ class _IntroductionState extends State<Introduction> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                            builder: (context) => AddnewEducation1(),
+                                            builder: (context) =>
+                                                AddnewEducation1(),
                                           ),
                                         );
                                       },
@@ -158,13 +194,19 @@ class _IntroductionState extends State<Introduction> {
                                     ),
                                   ],
                                 ),
-                                Text('Higer Education : ${state.education.higereducation!}'),
+                                Text(
+                                    'Higer Education : ${state.education.higereducation!}'),
                                 Text('Course :${state.education.course}'),
-                                Text('Course Type :${state.education.coursetype}'),
-                                Text('Stating Year :${state.education.courseStaringyear}'),
-                                Text('Ending Year :${state.education.courseendingyear}'),
-                                Text('Grade of the Course :${state.education.grade}'),
-                                Text('University Name/College Name : ${state.education.universitynamecollegename}')
+                                Text(
+                                    'Course Type :${state.education.coursetype}'),
+                                Text(
+                                    'Stating Year :${state.education.courseStaringyear}'),
+                                Text(
+                                    'Ending Year :${state.education.courseendingyear}'),
+                                Text(
+                                    'Grade of the Course :${state.education.grade}'),
+                                Text(
+                                    'University Name/College Name : ${state.education.universitynamecollegename}')
                               ],
                             ),
                           ),
@@ -183,7 +225,8 @@ class _IntroductionState extends State<Introduction> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   "Education",
-                                  style: TextStyle(color: CustomColor.graycolor()),
+                                  style:
+                                      TextStyle(color: CustomColor.graycolor()),
                                 ),
                               ),
                               Spacer(),
@@ -220,7 +263,8 @@ class _IntroductionState extends State<Introduction> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   "Education",
-                                  style: TextStyle(color: CustomColor.graycolor()),
+                                  style:
+                                      TextStyle(color: CustomColor.graycolor()),
                                 ),
                               ),
                               Spacer(),
@@ -260,22 +304,30 @@ class _IntroductionState extends State<Introduction> {
                             final userintro = Usermodel(
                               name: _fullNameController.text,
                               profileheadlines: _headlineController.text,
+                              jobtitle: jobtitlecontroller.text,
+                              // currentcity: currentcitycontroller.text,
+                              // workstatus: workstatuscontroller.text
                             );
                             context.read<ProfileBloc>().add(UpdateIntroducation(
+                                // currentcity: userintro.currentcity!,
+                                // workstatus: userintro.workstatus!,
+                                jobtitle: userintro.jobtitle!,
                                 profileheadlines: userintro.profileheadlines!,
                                 username: userintro.name!));
-                                 
+
                             WidgetsBinding.instance.addPostFrameCallback((_) {
-                              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
                                 content: Text(' Profile Successfully Updated '),
                                 backgroundColor: Colors.green,
                               ));
                               WidgetsBinding.instance.addPostFrameCallback((_) {
                                 Future.delayed(Duration(seconds: 2), () {
                                   Navigator.pop(context);
-                                  context.read<ProfileBloc>().add(GetUserEvent());
+                                  context
+                                      .read<ProfileBloc>()
+                                      .add(GetUserEvent());
                                 });
-
                               });
                             });
                           }

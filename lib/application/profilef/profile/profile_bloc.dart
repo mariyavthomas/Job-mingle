@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:math';
 import 'package:bloc/bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:jobmingle/domin/models/user_model.dart';
+import 'package:jobmingle/infrastructure/Repo/get_data_user.dart';
 import 'package:jobmingle/infrastructure/Repo/profile_repo.dart';
 import 'package:equatable/equatable.dart';
 
@@ -11,27 +13,26 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-final  UserProfileRepo userprofilrrepo;
- final imageurl="https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fvectors%2Fblank-profile-picture-mystery-man-973460%2F&psig=AOvVaw0B6FsRF9gDGW8njle5S92J&ust=1717064531634000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCODKh6y8tIYDFQAAAAAdAAAAABAE";
+  final UserProfileRepo userprofilrrepo;
+  final imageurl =
+      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fpixabay.com%2Fvectors%2Fblank-profile-picture-mystery-man-973460%2F&psig=AOvVaw0B6FsRF9gDGW8njle5S92J&ust=1717064531634000&source=images&cd=vfe&opi=89978449&ved=0CBIQjRxqFwoTCODKh6y8tIYDFQAAAAAdAAAAABAE";
   ProfileBloc(this.userprofilrrepo) : super(ProfileInitial()) {
     on<GetUserEvent>(_profileget);
-  //  on<ProfileEditEvent>(_profileediting);
-  on<PickAndUploadPdf>(_uploadpdf);
-  on<UpdateIntroducation>(_introductiondetails);
-  on<Educationadd>(_educationadd);
-  
-  
-    
+    //  on<ProfileEditEvent>(_profileediting);
+    on<PickAndUploadPdf>(_uploadpdf);
+    on<UpdateIntroducation>(_introductiondetails);
+    on<Educationadd>(_educationadd);
+    on<Basicdetails>(_basicdetails);
   }
 
-  FutureOr<void> _profileget(GetUserEvent event, Emitter<ProfileState> emit)async {
+  FutureOr<void> _profileget(
+      GetUserEvent event, Emitter<ProfileState> emit) async {
     emit(UserProfileLoadingState());
-    try{
-      var user= await UserProfileRepo().getUser();
+    try {
+      var user = await UserProfileRepo().getUser();
       emit(UserProfileLoaedState(user: user!));
-    }
-    catch(e){
-         print("error $e");
+    } catch (e) {
+      print("error $e");
     }
   }
 
@@ -46,43 +47,63 @@ final  UserProfileRepo userprofilrrepo;
   //   }
   // }
 
-
-  FutureOr<void> _uploadpdf(PickAndUploadPdf event, Emitter<ProfileState> emit) async{
+  FutureOr<void> _uploadpdf(
+      PickAndUploadPdf event, Emitter<ProfileState> emit) async {
     emit(UserProfileLoadingState());
-    try{
-      String? pdfUrl = await userprofilrrepo.uploadPdf(event.file,event.fileName);
+    try {
+      String? pdfUrl =
+          await userprofilrrepo.uploadPdf(event.file, event.fileName);
       emit(Pdfuploadsuccess(downloadUrl: pdfUrl!));
-    }catch(e){
-          print("Error uploading PDF: $e");
+    } catch (e) {
+      print("Error uploading PDF: $e");
       emit(ProfileFailer(error: e.toString()));
     }
   }
 
-  FutureOr<void> _introductiondetails(UpdateIntroducation event, Emitter<ProfileState> emit)async {
+  FutureOr<void> _introductiondetails(
+      UpdateIntroducation event, Emitter<ProfileState> emit) async {
     emit(UserProfileLoadingState());
     print('helo');
-    try{
-       await UserProfileRepo().updateIntroducation(event.username,  event.profileheadlines,);
-       var user =await UserProfileRepo().getUser();
-       print("helo");
-    
-       emit(IntroductionSuccessfully(introduction: user!));
-         // emit(UserProfileLoadingState());
-       print(event.username);
-    }catch(e){
-   print(e);
+    try {
+      await UserProfileRepo().updateIntroducation(
+          event.username, event.profileheadlines, event.jobtitle);
+      var user = await UserProfileRepo().getUser();
+      print("helo");
+
+      emit(IntroductionSuccessfully(introduction: user!));
+      // emit(UserProfileLoadingState());
+      print(event.username);
+    } catch (e) {
+      print(e);
     }
   }
 
-  FutureOr<void> _educationadd(Educationadd event, Emitter<ProfileState> emit) async{
-    try{
-     await UserProfileRepo().educationadd(event.higereducation, event.universityname, event.course, event.specialization, event.coursetype, event.courseStaringyear, event.courseendingcontroller, event.grade);
-     var user =await UserProfileRepo().getUser();
-     emit(EducationSucessfuly(education: user!));
-    }catch(e){
-
-    }
+  FutureOr<void> _educationadd(
+      Educationadd event, Emitter<ProfileState> emit) async {
+    try {
+      await UserProfileRepo().educationadd(
+          event.higereducation,
+          event.universityname,
+          event.course,
+          event.specialization,
+          event.coursetype,
+          event.courseStaringyear,
+          event.courseendingcontroller,
+          event.grade);
+      var user = await UserProfileRepo().getUser();
+      emit(EducationSucessfuly(education: user!));
+    } catch (e) {}
   }
 
-
+  FutureOr<void> _basicdetails(
+      Basicdetails event, Emitter<ProfileState> emit) async {
+    emit(UserProfileLoadingState());
+    try {
+      await UserProfileRepo().basicdetails(event.workstatus, event.currentcity,event.currentcategory!,event.currentdeparment!,event.currentindustry!,event.jonroll!);
+      var user = await UserProfileRepo().getUser();
+      
+      emit(BasicdetailsState(basicdetails: user!));
+      emit(UserProfileLoaedState(user: user));
+    } catch (e) {}
+  }
 }

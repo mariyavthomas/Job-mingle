@@ -1,17 +1,26 @@
 import 'dart:io';
 import 'package:firebase_app_check/firebase_app_check.dart';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/Update_pic/update_pic_bloc.dart';
 import 'package:jobmingle/application/applyjob/applyjob_bloc.dart';
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
+import 'package:jobmingle/application/bloc/bottom_navigation_bar_bloc.dart';
+import 'package:jobmingle/application/favorite/favorite_bloc.dart';
+import 'package:jobmingle/application/filter_bloc/filter_bloc.dart';
+import 'package:jobmingle/application/gemini_bloc/gemini_bloc_bloc.dart';
+
 import 'package:jobmingle/application/get_all_job/get_all_jobs_bloc.dart';
 import 'package:jobmingle/application/pdf/pdfdownload_bloc.dart';
 import 'package:jobmingle/application/profilef/personlinfo/personinfo_bloc.dart';
 import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
 import 'package:jobmingle/application/profilef/profilesummert/aboutme_bloc.dart';
 import 'package:jobmingle/infrastructure/Repo/alljobrepo.dart';
+
+import 'package:jobmingle/infrastructure/Repo/favorite.dart';
+
 import 'package:jobmingle/infrastructure/Repo/profile_repo.dart';
 import 'package:jobmingle/infrastructure/Repo/resumeRepo.dart';
 import 'package:jobmingle/infrastructure/Repo/uploadimgerepo.dart';
@@ -59,7 +68,12 @@ class MyApp extends StatelessWidget {
             create: (context) => PdfdownloadBloc(UploadResumeRepo())),
         BlocProvider<ApplyjobBloc>(create: (context) => ApplyjobBloc()),
         BlocProvider<AboutmeBloc>(create: (context)=>AboutmeBloc(UserProfileRepo())),
-        BlocProvider<PersoninfoBloc>(create: (context)=>PersoninfoBloc())
+        BlocProvider<PersoninfoBloc>(create: (context)=>PersoninfoBloc()),
+       BlocProvider<FavoriteBloc>(create: (context)=>FavoriteBloc(FavoriteRepo(),)),
+       BlocProvider<GeminiBlocBloc>(create: (context)=>GeminiBlocBloc()),
+       BlocProvider<BottomNavigationBarBloc>(create: (context)=>BottomNavigationBarBloc()),
+       BlocProvider<FilterBloc>(create: (context)=>FilterBloc())
+
       ],
       child: MaterialApp(
         theme: ThemeData(

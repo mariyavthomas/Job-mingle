@@ -1,73 +1,69 @@
-import 'package:border_bottom_navigation_bar/border_bottom_navigation_bar.dart';
+import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
+import 'package:jobmingle/application/bloc/bottom_navigation_bar_bloc.dart';
 import 'package:jobmingle/presentaion/screen/user/alljobs/Screen/all_job.dart';
 import 'package:jobmingle/presentaion/screen/user/applies/screen/applies_screen.dart';
-import 'package:jobmingle/presentaion/screen/user/bottamnaviationbar/widgets/drawer.dart';
 import 'package:jobmingle/presentaion/screen/user/chat/screen/chat_screen.dart';
 import 'package:jobmingle/presentaion/screen/user/home/screen/home_screen_view.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/screen/profile.dart';
-import 'package:jobmingle/utils/customcolor.dart';
 
-class BottamNavigation extends StatefulWidget {
-  const BottamNavigation({super.key});
+List<FlashyTabBarItem> bottomNavItems = <FlashyTabBarItem>[
+  FlashyTabBarItem(
+    icon: const Icon(Icons.home),
+    title: const Text('Home'),
+  ),
+  FlashyTabBarItem(
+    icon: const Icon(Icons.shop),
+    title: const Text('All Jobs'),
+  ),
+  FlashyTabBarItem(
+    icon: const Icon(Icons.history_toggle_off),
+    title: const Text('My Activity'),
+  ),
+  FlashyTabBarItem(
+    icon: const Icon(Icons.chat),
+    title: const Text(' AI Chat'),
+  ),
+  FlashyTabBarItem(
+    icon: const Icon(Icons.person_3_outlined),
+    title: const Text('Profile'),
+  ),
+];
 
-  @override
-  State<BottamNavigation> createState() => _BottamNavigationState();
-}
+List<Widget> bottomNavScreen = <Widget>[
+  HomePage(),
+  AllJobs(),
+  AppliesScreen(),
+  GeminiFriend(),
+  ProfilePage(),
+];
 
-class _BottamNavigationState extends State<BottamNavigation> {
-  @override
-  void initState() {
-    super.initState();
-    // Access ProfileBloc correctly
-    Future.microtask(() {
-      context.read<ProfileBloc>().add(GetUserEvent());
-    });
-  }
-
-  int _currentIndex = 0;
-  List tabtarget = [
-    HomePage(),
-    AppliesScreen(),
-    ProfilePage(),
-    AllJobs(),
-    ChatScreen()
-  ];
+class MyBottom extends StatelessWidget {
+  const MyBottom({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        //drawer: drawer(),
-        bottomNavigationBar: BorderBottomNavigationBar(
-          height: 53,
-          currentIndex: _currentIndex,
-          borderRadiusValue: 25,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
-          selectedLabelColor: Colors.white,
-          unselectedLabelColor: Colors.grey,
-          selectedBackgroundColor: Colors.blue[900]!,
-          unselectedBackgroundColor: CustomColor.bluelight(),
-          unselectedIconColor: Colors.grey[600]!,
-          selectedIconColor: Colors.white,
-          customBottomNavItems: [
-            BorderBottomNavigationItems(icon: Icons.home),
-            BorderBottomNavigationItems(icon: Icons.near_me),
-            BorderBottomNavigationItems(icon: Icons.person),
-            BorderBottomNavigationItems(icon: Icons.shopping_bag),
-            BorderBottomNavigationItems(icon: Icons.chat),
-          ],
-        ),
-        body: Center(
-          child: tabtarget.elementAt(_currentIndex),
-        ),
-      ),
+    return BlocConsumer<BottomNavigationBarBloc, BottomNavigationBarState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Scaffold(
+          body: Center(
+            child: bottomNavScreen.elementAt(state.tabIndex),
+          ),
+          bottomNavigationBar: FlashyTabBar(
+            height: 70,
+            animationCurve: Curves.linear,
+            selectedIndex: state.tabIndex,
+            showElevation: true,
+            onItemSelected: (index) {
+              BlocProvider.of<BottomNavigationBarBloc>(context)
+                  .add(TabChange(tabIndex: index));
+            },
+            items: bottomNavItems,
+          ),
+        );
+      },
     );
   }
 }

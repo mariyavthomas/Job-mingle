@@ -15,7 +15,7 @@ class Routers{
           '/home': (context) => HomePage(),
           '/login': (context) => LoginPage(),
           '/register': (context) => RegisterPage(),
-         '/BottamNavigation':(context)=>BottamNavigation(),
+         '/BottamNavigation':(context)=>MyBottom(),
          '/profilePicture':(context)=>ProfilePicture(),
        //  '/location':(context)=>Location(currentUser: ),
           

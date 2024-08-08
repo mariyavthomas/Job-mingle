@@ -46,6 +46,10 @@ class IntroductionSuccessfully extends ProfileState{
   Usermodel introduction;
   IntroductionSuccessfully({ required this.introduction});
 }
+class BasicdetailsState extends ProfileState{
+  Usermodel basicdetails;
+  BasicdetailsState({required this.basicdetails});
+}
 
 
 

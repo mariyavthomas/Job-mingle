@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:jobmingle/infrastructure/Repo/resumeRepo.dart';
 
 part 'pdfdownload_event.dart';
@@ -18,7 +17,7 @@ class PdfdownloadBloc extends Bloc<PdfdownloadEvent, PdfdownloadState> {
   FutureOr<void> _uploadresume(UploadResume event, Emitter<PdfdownloadState> emit)async {
     emit(Uloadloading());
     try{
-     String? pdfUrl = await uploadResumeRepo.uploadresuem(event.file,event.filename);
+     String? pdfUrl = await uploadResumeRepo.uploadResume(event.file,event.filename);
      emit(Resumeuploadsuccess(
       downloadUrl: pdfUrl!,
       filename: event.filename,

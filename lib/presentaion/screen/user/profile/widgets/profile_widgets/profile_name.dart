@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:jobmingle/domin/models/user_model.dart';
 import 'package:jobmingle/utils/customcolor.dart';
@@ -36,9 +37,12 @@ class _Profile_nameState extends State<Profile_name> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => Introduction(
+                          jobtitle: widget.user.jobtitle,
                               name: widget.user.name!,
                               profileheadlines:
                                   widget.user.profileheadlines,
+                                  
+
                             )));
               },
               icon: Icon(

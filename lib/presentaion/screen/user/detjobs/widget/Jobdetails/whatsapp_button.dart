@@ -1,9 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
+import 'package:jobmingle/infrastructure/Repo/commanrepo.dart';
 import 'package:jobmingle/presentaion/screen/user/detjobs/screen/detailed_job.dart';
 import 'package:jobmingle/presentaion/screen/user/detjobs/widget/Jobdetails/report_button.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class WhatsappButton extends StatelessWidget {
   const WhatsappButton({
@@ -19,6 +17,7 @@ class WhatsappButton extends StatelessWidget {
   
   final double width;
   final double height;
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,7 @@ class WhatsappButton extends StatelessWidget {
                   "Description:$description \n"
                   "jobaddress :$jobaddress \n";
 
-              whatsapp(message: message);
+           CommanRepo().whatsapp(message: message);
               
             },
             icon: Icon(Icons.share),
@@ -54,22 +53,6 @@ class WhatsappButton extends StatelessWidget {
       ],
     );
   }
-  void whatsapp({required String message}) async {
-    var contact = "";
-    final String encodedmessage = Uri.encodeComponent(message);
-    var androidUrl = "whatsapp://send?phone=$contact&text=$encodedmessage";
-    var iosUrl =
-        "https://wa.me/$contact?text=${Uri.parse('Hi, I need some help')}";
-
-    try {
-      if (Platform.isIOS) {
-        await launchUrl(Uri.parse(iosUrl));
-      } else {
-        await launchUrl(Uri.parse(androidUrl));
-      }
-    } on Exception {
-      //  EasyLoading.showError('WhatsApp is not installed.');
-    }
-  }
+  
 }
 

@@ -20,12 +20,12 @@ class UpdatePicBloc extends Bloc<UpdatePicEvent, UpdatePicState> {
   }
 
   FutureOr<void> _imagecamera(UploadCameraPictureEvent event, Emitter<UpdatePicState> emit) async{
-  XFile ?file= await imageunile.getimagefromcamera();
+  XFile ?file= await imageunile.getImageFromGallery();
    emit(state.copyWith(file: file));
   }
 
   FutureOr<void> _imagegallery(UploadgalleryPictureEvent event, Emitter<UpdatePicState> emit)async {
-  XFile ? file= await imageunile.getimagefrimgallary();
+  XFile ? file= await imageunile.getImageFromCamera();
   emit(state.copyWith(file: file));
 
   }

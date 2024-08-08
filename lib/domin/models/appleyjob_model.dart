@@ -1,5 +1,3 @@
-
-
 class AppliedJobModel {
   String companyuid;
   String jobid;
@@ -16,7 +14,11 @@ class AppliedJobModel {
   String qualification;
   String experiencecomp;
   String jobtitle;
-  String ? appyuid;
+  String? appyuid;
+  String country;
+  String state;
+  String city;
+  String jobPostedDate;
   String userhigereducation;
   String userexperence;
   String userresume;
@@ -31,14 +33,48 @@ class AppliedJobModel {
   String companyphonenumber;
   String companycontactperson;
   String conpanycontactpersonumber;
- 
+  String pic;
+  String userprofileheadlines;
+  String userprofilesummery;
+  String usergender;
+  String userlanguage;
+  String userdob;
+  String useruserjobtitle;
+  String useraddress;
+  String userhometown;
+  String userpincode;
+  String userworkstatus;
+  String usercurrentcity;
+  String usercurrentcategory;
+  String usercurrentdeparment;
+  String usercurrentindustry;
+  String usercurrentjobrole;
 
   AppliedJobModel({
-   
+    required this.userprofileheadlines,
+    required this.userprofilesummery,
+    required this.usergender,
+    required this.userlanguage,
+    required this.userdob,
+    required this.useruserjobtitle,
+    required this.useraddress,
+    required this.userhometown,
+    required this.userworkstatus,
+    required this.userpincode,
+    required this.usercurrentcity,
+    required this.usercurrentcategory,
+    required this.usercurrentdeparment,
+    required this.usercurrentindustry,
+    required this.usercurrentjobrole,
+    required this.pic,
+    required this.jobPostedDate,
+    required this.city,
+    required this.country,
+    required this.state,
     required this.companyuid,
     required this.education,
     required this.experience,
-     this.appyuid,
+    this.appyuid,
     required this.jobid,
     required this.skills,
     required this.userid,
@@ -69,7 +105,42 @@ class AppliedJobModel {
 
   factory AppliedJobModel.fromJson(Map<String, dynamic> json) {
     return AppliedJobModel(
-      
+      userprofileheadlines: json['userprofileheadlines'] ?? "",
+      userprofilesummery: json['userprofilesummery'] ?? "",
+      usergender: json['usergender'] ?? "",
+      userlanguage: json['userlanguage'] ?? "",
+      userdob: json['userdob'] ?? "",
+      useruserjobtitle: json['useruserjobtitle'] ?? "",
+      useraddress: json['useraddress'] ?? "",
+      userhometown: json['userhometown'] ?? "",
+      userworkstatus: json['userworkstatus'] ?? "",
+      userpincode: json['userpincode'] ?? "",
+      usercurrentcity: json['usercurrentcity'] ?? "",
+      usercurrentcategory: json['usercurrentcategory'] ?? "",
+      usercurrentdeparment: json['usercurrentdeparment'] ?? "",
+      usercurrentindustry: json['usercurrentindustry'] ?? "",
+      usercurrentjobrole: json['usercurrentjobrole'] ?? "",
+      pic: json['pic'] ?? "",
+      jobPostedDate: json['jobPostedDate'] ?? "",
+      city: json['city'] ?? "",
+      country: json['country'] ?? "",
+      state: json['state'] ?? "",
+      companyuid: json['companyuid'] ?? "",
+      education: json['education'] ?? "",
+      experience: json['experience'] ?? "",
+      appyuid: json['appyuid'],
+      jobid: json['jobid'] ?? "",
+      skills: json['skills'] ?? "",
+      userid: json['userid'] ?? "",
+      username: json['username'] ?? "",
+      companyname: json['companyname'] ?? "",
+      experiencecomp: json['experiencecomp'] ?? "",
+      interviewtime: json['interviewtime'] ?? "",
+      jobaddress: json['jobaddress'] ?? "",
+      jobtiming: json['jobtiming'] ?? "",
+      jobtitle: json['jobtitle'] ?? "",
+      qualification: json['qualification'] ?? "",
+      salary: json['salary'] ?? "",
       companycontactperson: json['companycontactperson'] ?? "",
       companyphonenumber: json['companyphonenumber'] ?? "",
       conpanycontactpersonumber: json['conpanycontactpersonumber'] ?? "",
@@ -84,57 +155,61 @@ class AppliedJobModel {
       userresume: json['userresume'] ?? "",
       userspecialice: json['userspecialice'] ?? "",
       useruniversity: json['useruniversity'] ?? "",
-      //appyuid: json['appyuid'] ?? "",
-      companyname: json['companyname'] ?? "",
-      experiencecomp: json['experiencecomp'] ?? "",
-      interviewtime: json['interviewtime'] ?? "",
-      jobaddress: json['jobaddress'] ?? "",
-      jobtiming: json['jobtiming'] ?? "",
-      jobtitle: json['jobtitle'] ?? "",
-      qualification: json['qualification'] ?? "",
-      salary: json['salary'] ?? "",
-      companyuid: json['companyuid'] ?? "",
-      education: json['education'] ?? "",
-      experience: json['experience'] ?? "",
-      jobid: json['jobid'] ?? "",
-      skills: json['skills'] ?? "",
-      userid: json['userid'] ?? "",
-      username: json['username'] ?? "",
     );
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['userprofileheadlines'] = this.userprofileheadlines;
+    data['userprofilesummery'] = this.userprofilesummery;
+    data['usergender'] = this.usergender;
+    data['userlanguage'] = this.userlanguage;
+    data['userdob'] = this.userdob;
+    data['useruserjobtitle'] = this.useruserjobtitle;
+    data['useraddress'] = this.useraddress;
+    data['userhometown'] = this.userhometown;
+    data['userworkstatus'] = this.userworkstatus;
+    data['userpincode'] = this.userpincode;
+    data['usercurrentcity'] = this.usercurrentcity;
+    data['usercurrentcategory'] = this.usercurrentcategory;
+    data['usercurrentdeparment'] = this.usercurrentdeparment;
+    data['usercurrentindustry'] = this.usercurrentindustry;
+    data['usercurrentjobrole'] = this.usercurrentjobrole;
+    data['pic'] = this.pic;
+    data['jobPostedDate'] = this.jobPostedDate;
+    data['city'] = this.city;
+    data['country'] = this.country;
+    data['state'] = this.state;
     data['companyuid'] = this.companyuid;
     data['education'] = this.education;
     data['experience'] = this.experience;
+    data['appyuid'] = this.appyuid;
     data['jobid'] = this.jobid;
     data['skills'] = this.skills;
     data['userid'] = this.userid;
     data['username'] = this.username;
     data['companyname'] = this.companyname;
-    data['interviewtime'] = this.interviewtime;
     data['experiencecomp'] = this.experiencecomp;
+    data['interviewtime'] = this.interviewtime;
     data['jobaddress'] = this.jobaddress;
-    data['jobtitle'] = this.jobtitle;
     data['jobtiming'] = this.jobtiming;
+    data['jobtitle'] = this.jobtitle;
     data['qualification'] = this.qualification;
     data['salary'] = this.salary;
-    data['appyuid'] = this.appyuid;
-    data['userhigereducation'] = this.userhigereducation;
-    data['userexperence'] = this.userexperence;
-    data['userresume'] = this.userresume;
-    data['useruniversity'] = this.useruniversity;
-    data['usergrade'] = this.usergrade;
+    data['companycontactperson'] = this.companycontactperson;
+    data['companyphonenumber'] = this.companyphonenumber;
+    data['conpanycontactpersonumber'] = this.conpanycontactpersonumber;
     data['usercourse'] = this.usercourse;
-    data['usercousestaringyear'] = this.usercousestaringyear;
     data['usercourseendingyear'] = this.usercourseendingyear;
-    data['userspecialice'] = this.userspecialice;
+    data['usercousestaringyear'] = this.usercousestaringyear;
+    data['userexperence'] = this.userexperence;
+    data['usergrade'] = this.usergrade;
+    data['userhigereducation'] = this.userhigereducation;
     data['usermailid'] = this.usermailid;
     data['userphonenumber'] = this.userphonenumber;
-    data['companyphonenumber'] = this.companyphonenumber;
-    data['companycontactperson'] = this.companycontactperson;
-    data['conpanycontactpersonumber'] = this.conpanycontactpersonumber;
+    data['userresume'] = this.userresume;
+    data['userspecialice'] = this.userspecialice;
+    data['useruniversity'] = this.useruniversity;
     return data;
   }
 }

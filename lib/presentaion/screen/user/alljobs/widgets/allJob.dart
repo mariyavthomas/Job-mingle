@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobmingle/application/favorite/favorite_bloc.dart';
 import 'package:jobmingle/application/get_all_job/get_all_jobs_bloc.dart';
 import 'package:jobmingle/domin/models/jobmodel.dart';
 import 'package:jobmingle/presentaion/screen/user/alljobs/widgets/jobdetails.dart';
 
-class AllJob extends StatelessWidget {
+class AllJob extends StatefulWidget {
   const AllJob({
     super.key,
     required this.height,
@@ -13,8 +14,13 @@ class AllJob extends StatelessWidget {
 
   final double height;
   final double width;
-  
 
+  @override
+  State<AllJob> createState() => _AllJobState();
+}
+
+class _AllJobState extends State<AllJob> {
+ 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetAllJobsBloc, GetAllJobsState>(
@@ -23,8 +29,9 @@ class AllJob extends StatelessWidget {
           return Center(
             child: CircularProgressIndicator(),
           );
-        } else if (state is JobLoaded || state is FilteredJobLoaded) {
-          final jobs = state is JobLoaded ? state.jobs : (state as FilteredJobLoaded).filteredjobs;
+        } else if (state is JobLoaded ) {
+          final jobs = state.jobs;
+             
           if (jobs.isEmpty) {
             return Center(
               child: Text('No jobs found.'),
@@ -35,7 +42,7 @@ class AllJob extends StatelessWidget {
             itemCount: jobs.length,
             itemBuilder: (BuildContext context, int index) {
               final JobModel job = jobs[index];
-              return Jobdetails(job: job, height: height, width: width);
+              return Jobdetails(job: job, height: widget.height, width: widget.width);
             },
           );
         } else if (state is PostErrorState) {
@@ -50,4 +57,3 @@ class AllJob extends StatelessWidget {
     );
   }
 }
-

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/applyjob/applyjob_bloc.dart';
 import 'package:jobmingle/domin/models/appleyjob_model.dart';
 import 'package:jobmingle/presentaion/screen/user/applies/widgets/jobdetails.dart';
+import 'package:lottie/lottie.dart';
 
 class ApplyJobs extends StatelessWidget {
   const ApplyJobs({
@@ -27,7 +28,7 @@ class ApplyJobs extends StatelessWidget {
           print("hleo");
           if (state.appliedjob.isEmpty) {
             return Center(
-              child: Text('No jobs found.'),
+              child: Container(child: Lottie.asset('lib/assests/images/favemty.json'),),
             );
           }
           return ListView.builder(
@@ -41,7 +42,10 @@ class ApplyJobs extends StatelessWidget {
           );
         } else if (state is ApplyjobFailure) {
           return Center(
-            child: Text('Failed to load jobs.'),
+              child: Container(
+               // child: Lottie.asset('lib/assests/images/favemty.json'),
+                ),
+            
           );
         }
         return Center(

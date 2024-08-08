@@ -26,20 +26,43 @@ class _AllJobsState extends State<AllJobs> {
     double height = MediaQuery.of(context).size.height;
     return SafeArea(
       child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(height * 0.08), // Set the height of the AppBar
-          child: AppBar(
-            backgroundColor: CustomColor.bluecolor(),
-            title: TitleColum(height: height),
-            actions: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.favorite_border)),
-              IconButton(onPressed: () {}, icon: Icon(Icons.notifications_active)),
-            ],
-          ),
+        backgroundColor: const Color.fromARGB(255, 242, 242, 242),
+        body: Column(
+          children: [
+            TitleColum(height: height),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
+                children: [
+                  Text(
+                    'Jobs',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                  Spacer(),
+                  BlocBuilder<GetAllJobsBloc, GetAllJobsState>(
+                    builder: (context, state) {
+                      if (state is JobLoaded) {
+                        return Text(
+                          '${state.jobs.length} Jobs Available',
+                          style: TextStyle(color: Colors.grey),
+                        );
+                      }
+                      return SizedBox();
+                    },
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: AllJob(
+                // job: state.jobs[index],
+                width: width,
+                height: height,
+              ),
+            )
+          ],
         ),
-        body: AllJob(height: height, width: width),
       ),
     );
   }
 }
-

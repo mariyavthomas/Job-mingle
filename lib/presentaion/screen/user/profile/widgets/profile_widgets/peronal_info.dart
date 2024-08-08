@@ -8,9 +8,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 // ignore: must_be_immutable
 class Personal_Info extends StatefulWidget {
-   Personal_Info({
-    super.key,required this.user
-  });
+  Personal_Info({super.key, required this.user});
   Usermodel user;
   @override
   State<Personal_Info> createState() => _Personal_InfoState();
@@ -19,96 +17,94 @@ class Personal_Info extends StatefulWidget {
 class _Personal_InfoState extends State<Personal_Info> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 250,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: Colors.white,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(children: [
-              Icon(Icons.person_2_outlined,
-                  color: Colors.grey, size: 27),
+    return Card(
+      child: Container(
+        height: 350,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: Colors.white,borderRadius:BorderRadius.circular(10)
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(children: [
+                Icon(Icons.person_2_outlined, color: Colors.grey, size: 27),
+                SizedBox(
+                  width: 20,
+                ),
+                Text(
+                  "Personal Information",
+                  style: TextStyle(
+                    fontSize: 19,
+                  ),
+                ),
+                SizedBox(width: 50),
+                IconButton(
+                  icon: Icon(Icons.edit_square),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => PersonalInfo(
+                                  email: widget.user.email!,
+                                  phone: widget.user.phone!,
+                                  dob: widget.user.dob!,
+                                  gender: widget.user.gender!,
+                                  language: widget.user.language!,
+                                  address: widget.user.address!,
+                                  pincode: widget.user.pincode!,
+                                  hometown: widget.user.hometown!,
+                                )));
+                  },
+                  color: CustomColor.bluelight(),
+                )
+              ]),
+             
               SizedBox(
-                width: 20,
+                height: 10,
               ),
               Text(
-                "Personal Information",
-                style: TextStyle(
-                  fontSize: 19,
-                ),
+                "Gender",
+                style: TextStyle(color: Colors.grey),
               ),
-              SizedBox(width: 50),
-              IconButton(
-                icon: Icon(Icons.edit),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              PersonalInfo(
-                                email: widget.user.email!,
-                                phone: widget.user.phone!,
-                                dob: widget.user.dob!,
-                                gender:
-                                    widget.user.gender!,
-                                language:
-                                    widget.user.language!,
-                              )));
+              Text(widget.user.gender!),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Language",
+                style: TextStyle(color: Colors.grey),
+              ),
+              Text(widget.user.language!),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "Date of Birth",
+                style: TextStyle(color: Colors.grey),
+              ),
+              Text(widget.user.dob!),
+              SizedBox(
+                height: 10,
+              ),
+              Text("Address", style: TextStyle(color: Colors.grey)),
+              Text(widget.user.address!),
+              BlocBuilder<PersoninfoBloc, PersoninfoState>(
+                builder: (context, state) {
+                  if (state is Personinfosuccess) {
+                    return Container(
+                        child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [],
+                    ));
+                  }
+                  return Container();
                 },
-                color: CustomColor.bluelight(),
-              )
-            ]),
-            Text(
-              "Email",
-              style: TextStyle(color: Colors.grey),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(widget.user.email!),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Phone",
-              style: TextStyle(color: Colors.grey),
-            ),
-            Text(widget.user.phone!),
-            BlocBuilder<PersoninfoBloc, PersoninfoState>(
-              builder: (context, state) {
-                if (state is Personinfosuccess) {
-                  return Container(
-                      child: Column(
-                    mainAxisAlignment:
-                        MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Gender",
-                        style:
-                            TextStyle(color: Colors.grey),
-                      ),
-                      Text(state.personinf.gender!),
-                      Text(state.personinf.language!),
-                      Text(state.personinf.dob!),
-                    ],
-                  ));
-                }
-                return Container();
-              },
-            ),
-            Text(
-              "Gender",
-              style: TextStyle(color: Colors.grey),
-            ),
-            Text(widget.user.gender!),
-            Text(widget.user.language!),
-            Text(widget.user.dob!),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );

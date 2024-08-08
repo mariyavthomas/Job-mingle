@@ -1,17 +1,17 @@
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/pdf/pdfdownload_bloc.dart';
 import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
-
 import 'package:jobmingle/domin/models/user_model.dart';
+import 'package:jobmingle/presentaion/screen/user/profile/screen/profession_details.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/widgets/profile_widgets/education.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/widgets/profile_widgets/peronal_info.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/widgets/profile_widgets/profile_pic.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/widgets/profile_widgets/profile_summery.dart';
+import 'package:jobmingle/utils/customcolor.dart';
 
 // ignore: must_be_immutable
 class Profile_Listview extends StatefulWidget {
@@ -27,6 +27,8 @@ class Profile_Listview extends StatefulWidget {
 class _Profile_ListviewState extends State<Profile_Listview> {
   @override
   Widget build(BuildContext context) {
+    print(widget.user!.currentcity!);
+    print(widget.user!.workstatus);
     return ListView(
       children: [
         SizedBox(
@@ -43,28 +45,28 @@ class _Profile_ListviewState extends State<Profile_Listview> {
               SizedBox(
                 height: 16,
               ),
+              Container(
+                child: Text(widget.user!.jobtitle?.toUpperCase() ?? " "),
+              ),
               Column(
                 children: [
                   Container(
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Center(
-                        child: Text(widget.user?.profileheadlines ?? 'No profile headline'),
+                        child: Text(widget.user?.profileheadlines ??
+                            'No profile headline'),
                       ),
                     ),
                   ),
+                  if (widget.user != null)
+                    Profile_summery(
+                      user: widget.user!,
+                    ),
                   if (widget.user != null) Personal_Info(user: widget.user!),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  // Uncomment and update if you have Education widget implementation
-                  // if (widget.user != null) Education(user: widget.user),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  if (widget.user != null) Education(user: widget.user!),
                   Card(
                     child: Container(
-                      width: 370,
                       height: 150,
                       child: Column(
                         children: [
@@ -72,81 +74,88 @@ class _Profile_ListviewState extends State<Profile_Listview> {
                             padding: const EdgeInsets.all(8.0),
                             child: Row(
                               children: [
+                                SizedBox(width: 10),
+                                Icon(
+                                  Icons.document_scanner,
+                                  color: Colors.grey,
+                                ),
+                                SizedBox(width: 30),
                                 Text(
                                   "Resume",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
+                                  style: TextStyle(fontSize: 20),
                                 ),
-                                SizedBox(width: 200),
-                                BlocBuilder<ProfileBloc, ProfileState>(
-                                  builder: (context, state) {
-                                    if (state is Pdfuploadsuccess) {
-                                      return Row(
-                                        children: [
-                                          Text(
-                                            state.downloadUrl.split('/').last,
-                                            style: TextStyle(color: Colors.blue),
-                                          ),
-                                          Icon(Icons.description, color: Colors.blue),
-                                        ],
-                                      );
-                                    } else {
-                                      return Text(
-                                        "Update",
-                                        style: TextStyle(color: Colors.blue),
-                                      );
-                                    }
-                                  },
-                                ),
+                                Spacer(), // Using Spacer to push the next widget to the right end
+                                IconButton(
+                                    onPressed: () {
+                                      pickupanduploadcv(
+                                          context, widget.useruid!);
+                                    },
+                                    icon: Icon(
+                                      Icons.edit_square,
+                                      color: CustomColor.bluelight(),
+                                    ))
                               ],
                             ),
                           ),
-                          BlocBuilder<PdfdownloadBloc, PdfdownloadState>(
-                            builder: (context, state) {
-                              print(state);
-                              if(state is Uloadloading){
-                                return Center(child: CircularProgressIndicator());
-                              }
-                            else  if (state is Resumeuploadsuccess) {
-                                return Column(
+                          // Check if the user has uploaded a resume
+                          widget.user!.resume != null
+                              ? Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
                                       Icons.folder,
                                       color: Color.fromARGB(255, 234, 214, 32),
-                                      size: 40,
+                                      size: 70,
                                     ),
-                                    Text('Resume Uploaded')
+                                    Text(widget.user!.resume!),
                                   ],
-                                );
-                              } else {
-                                return Center(
-                                  child: IconButton(
-                                    onPressed: () {
-                                      pickupanduploadcv(context, widget.useruid!);
-                                    },
-                                    icon: Icon(
-                                      Icons.upload,
-                                      color: Colors.grey,
-                                      size: 40,
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                          ),
+                                )
+                              : BlocBuilder<PdfdownloadBloc, PdfdownloadState>(
+                                  builder: (context, state) {
+                                    print(state);
+                                    if (state is Uloadloading) {
+                                      return Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    } else if (state is Resumeuploadsuccess) {
+                                      return Column(
+                                        children: [
+                                          Icon(
+                                            Icons.folder,
+                                            color: Color.fromARGB(
+                                                255, 234, 214, 32),
+                                            size: 40,
+                                          ),
+                                          Text('Resume Uploaded')
+                                        ],
+                                      );
+                                    } else {
+                                      return Center(
+                                        child: IconButton(
+                                          onPressed: () {
+                                            pickupanduploadcv(
+                                                context, widget.useruid!);
+                                          },
+                                          icon: Icon(
+                                            Icons.upload,
+                                            color: Colors.grey,
+                                            size: 40,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                  },
+                                )
+                          // If no resume is uploaded, show an empty SizedBox
                         ],
                       ),
                     ),
                   ),
+                  
+                  if (widget.user != null) Professionaldetails(user: widget.user!),
                   SizedBox(
-                    height: 30,
+                    height: 10,
                   ),
-                  if (widget.user != null)
-                    Profile_summery(
-                      user: widget.user!,
-                    )
                 ],
               ),
             ],

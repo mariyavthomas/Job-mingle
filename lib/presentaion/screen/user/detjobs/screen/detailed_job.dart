@@ -2,67 +2,71 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:jobmingle/application/favorite/favorite_bloc.dart';
+import 'package:jobmingle/application/get_all_job/get_all_jobs_bloc.dart';
 import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
 import 'package:jobmingle/domin/models/jobmodel.dart';
 import 'package:jobmingle/presentaion/screen/user/detjobs/widget/Company/company_listview.dart';
 import 'package:jobmingle/presentaion/screen/user/detjobs/widget/Jobdetails/jobdetails.dart';
 import 'package:jobmingle/utils/customcolor.dart';
 
-
-// ignore: must_be_immutable
 class DetailsJob extends StatefulWidget {
-  DetailsJob({super.key, required this.job});
+   DetailsJob({super.key, required this.job,this.isFavorited});
 
-  JobModel job;
-
+  final JobModel job;
+  bool? isFavorited;
   @override
   State<DetailsJob> createState() => _DetailsJobState();
 }
 
 class _DetailsJobState extends State<DetailsJob> {
-   User? _currentuser;
-   late Map<String, dynamic> _userData;
+  User? _currentUser;
+  late Future<Map<String, dynamic>> _userDataFuture;
 
   @override
   void initState() {
     super.initState();
-    _currentuser = FirebaseAuth.instance.currentUser;
-    _fetchUserData();
+    _currentUser = FirebaseAuth.instance.currentUser;
+    _userDataFuture = _fetchUserData();
     context.read<ProfileBloc>().add(GetUserEvent());
-   // _userData;
   }
 
-  Future<void> _fetchUserData() async {
-    if (_currentuser != null) {
+  Future<Map<String, dynamic>> _fetchUserData() async {
+    if (_currentUser != null) {
       try {
         DocumentSnapshot userDoc = await FirebaseFirestore.instance
             .collection('users')
-            .doc(_currentuser!.uid)
+            .doc(_currentUser!.uid)
             .get();
 
-        setState(() {
-          _userData = (userDoc.data() as Map<String, dynamic>?) ??
-              {}; // Extract user data from document
-        });
+        return userDoc.data() as Map<String, dynamic>? ?? {};
       } catch (e) {
         print('Error fetching user data: $e');
+        return {};
       }
     }
+    return {};
   }
 
   @override
   Widget build(BuildContext context) {
-    print("mariya");
-    print(_currentuser?.displayName);
-    // ignore: unused_local_variable
     double width = MediaQuery.of(context).size.width;
-    // ignore: unused_local_variable
     double height = MediaQuery.of(context).size.height;
 
     return DefaultTabController(
-      length: 3, // Number of tabs
+      length: 2, // Adjusted to match the number of tabs
       child: Scaffold(
         appBar: AppBar(
+           leading:  IconButton(onPressed: (){
+              
+              WidgetsBinding.instance.addPostFrameCallback((timeStamp) { 
+               context.read<FavoriteBloc>().add(GetfavEvent());
+               context.read<GetAllJobsBloc>().add(FetchJobs());
+               Navigator.pop(context);
+              });
+              
+            }, icon: Icon(Icons.arrow_back)
+            ),
           title: Text(widget.job.companyname),
           backgroundColor: CustomColor.bluecolor(),
           bottom: TabBar(
@@ -70,18 +74,33 @@ class _DetailsJobState extends State<DetailsJob> {
               Tab(text: 'JOB DETAILS'),
               Tab(text: 'COMPANY DETAILS'),
             ],
+            
           ),
         ),
-        body: TabBarView(
-          children: [
-            AllJobdetails(
-                height: height,
-                width: width,
-                widget: widget,
-                currentuser: _currentuser,
-                userData: _userData),
-            CompanyListView(height: height, widget: widget)
-          ],
+        body: FutureBuilder<Map<String, dynamic>>(
+          future: _userDataFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return const Center(child: Text('Error loading user data'));
+            } else {
+              final userData = snapshot.data ?? {};
+              return TabBarView(
+                children: [
+                  AllJobdetails(
+                    height: height,
+                    width: width,
+                    widget: widget,
+                    currentuser: _currentUser,
+                    userData: userData,
+                    isFavorited: widget.isFavorited,
+                  ),
+                  CompanyListView(height: height, widget: widget),
+                ],
+              );
+            }
+          },
         ),
       ),
     );

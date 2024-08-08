@@ -14,8 +14,15 @@ class PersoninfoBloc extends Bloc<PersoninfoEvent, PersoninfoState> {
   }
 
   FutureOr<void> _savepersonalinfo(SavePersonalinfo event, Emitter<PersoninfoState> emit) async{
+     emit(Personalinfoloading());
     try{
-     await UserProfileRepo().personalInfo(event.dob!,event.gender!,event.language!,event.email!,event.phone!);
+     await UserProfileRepo().personalInfo(event.dob!,event.gender!,event.language!,event.email!,event.phone!,event.address!,event.pincode!,event.hometown!);
+     print("-----------------");
+     
+     var user =await UserProfileRepo().getUser();
+     emit(Personinfosuccess(personinf: user!));
+
+     print(event.gender);
     }catch(e){
 
     }

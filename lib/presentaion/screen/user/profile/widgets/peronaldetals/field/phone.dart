@@ -20,8 +20,8 @@ class _PhoneState extends State<Phone> {
       controller: widget.phonecontroller,
       hintText: 'Phone Number',
       labeltext: 'Enter Phone Number',
-      enabledBorder: OutlineInputBorder(),
-      focusedBorder: OutlineInputBorder(),
+      // enabledBorder: OutlineInputBorder(),
+      // focusedBorder: OutlineInputBorder(),
     );
   }
 }
