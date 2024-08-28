@@ -153,6 +153,7 @@ class _ApplyButtonState extends State<ApplyButton> {
     );
   }
 
+  // ignore: unused_element
   Future<void> _applyJob(BuildContext context, AppliedJobModel applyjob) async {
     final jobuid = applyjob.jobid;
     final useruid = FirebaseAuth.instance.currentUser?.uid;

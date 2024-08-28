@@ -1,166 +1,142 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:jobmingle/application/candidatestatus/candidatestatus_bloc.dart';
 import 'package:jobmingle/domin/models/appleyjob_model.dart';
-import 'package:jobmingle/utils/customcolor.dart';
+import 'package:jobmingle/domin/models/user_model.dart';
+import 'package:jobmingle/presentaion/screen/user/applies/widgets/detailwidgets.dart/first_container.dart';
+import 'package:jobmingle/presentaion/screen/user/applies/widgets/detailwidgets.dart/first_listtile.dart';
+import 'package:jobmingle/presentaion/screen/user/applies/widgets/detailwidgets.dart/firstrow.dart';
+import 'package:jobmingle/presentaion/screen/user/applies/widgets/detailwidgets.dart/fourth_row.dart';
+import 'package:jobmingle/presentaion/screen/user/applies/widgets/detailwidgets.dart/secondrow.dart';
+import 'package:jobmingle/presentaion/screen/user/applies/widgets/detailwidgets.dart/third_row.dart';
+
 
 class ScreenApplyDetailsjob extends StatefulWidget {
   const ScreenApplyDetailsjob({super.key, required this.job});
   final AppliedJobModel job;
-  
+
   @override
   State<ScreenApplyDetailsjob> createState() => _ScreenApplyDetailsjobState();
 }
 
 class _ScreenApplyDetailsjobState extends State<ScreenApplyDetailsjob> {
   @override
+  void initState() {
+    context.read<CandidatestatusBloc>().add(Fetchstatus());
+    super.initState();
+  }
+
+  late Usermodel user;
+
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
+    String status = widget.job.candidatestatus ?? 'Applied';
 
-    // Function to calculate the difference in days
-    // int calculateDaysSincePosted(DateTime postedDate) {
-    //   DateTime now = DateTime.now();
-    //   Duration difference = now.difference(postedDate);
-    //   return difference.inDays;
-    // }
+    Color statusColor;
+    IconData statusIcon;
 
-    // // Assuming 'postedDate' is a DateTime object in your job model
-    // DateTime jobPostedDate = widget.job.jobPostedDate as DateTime; // Replace with actual field from job model
-    // int daysSincePosted = calculateDaysSincePosted(jobPostedDate);
+    switch (status) {
+      case 'Shortlisted':
+        statusColor = Colors.green;
+        // ignore: deprecated_member_use
+        statusIcon = FontAwesomeIcons.checkCircle;
+        break;
+      case 'Rejected':
+        statusColor = Colors.red;
+        // ignore: deprecated_member_use
+        statusIcon = FontAwesomeIcons.timesCircle;
+        break;
+      default:
+        statusColor = Colors.orange;
+        statusIcon = FontAwesomeIcons.hourglassHalf;
+    }
 
     return Scaffold(
-        body: Stack(children: [
-      ListView(children: [
-        SizedBox(
-          height: 10,
-        ),
-        Align(
-          alignment: Alignment.bottomLeft,
-          child: Row(
+      body: Stack(
+        children: [
+          ListView(
             children: [
-              IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back,
-                    size: 30,
-                    color: CustomColor.bluecolor(),
-                  )),
-              Spacer(),
-              IconButton(
-                  onPressed: () {},
-                  icon: FaIcon(
-                    Icons.share,
-                    color: CustomColor.bluecolor(),
-                    size: 30,
-                  ))
+              SizedBox(height: 10),
+              Firstrow(),
+              SecondRow(
+                width: width,
+                height: height,
+                widget: widget,
+              ),
+              Firstlisttile(
+                widget: widget,
+              ),
+              ThirdRow(width: width, widget: widget),
+              SizedBox(height: height * 0.01),
+              FourthRow(width: width, widget: widget),
+              SizedBox(height: height * 0.03),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Divider(
+                  thickness: 1,
+                  color: Colors.black,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Your Application Status',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              FirstContainer(statusColor: statusColor, statusIcon: statusIcon, status: status),
+              SizedBox(
+                height: height * 0.4,
+              ),
+              // if (status == 'Shortlisted')
+              //   Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: ElevatedButton(
+              //       style: ElevatedButton.styleFrom(
+              //         primary: Colors.green, // Background color
+              //         onPrimary: Colors.white, // Text color
+              //         elevation: 10, // Shadow effect
+              //         padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+              //         shape: RoundedRectangleBorder(
+              //           borderRadius: BorderRadius.circular(12),
+              //         ),
+              //         side: BorderSide(
+              //           color: Colors.white, // Border color
+              //           width: 2, // Border width
+              //         ),
+              //       ),
+              //       onPressed: () {
+              //        Navigator.push(context, MaterialPageRoute(builder: (context)=>ChatsScreen(userModel:widget.job,)));
+              //       },
+              //       child: Row(
+              //         mainAxisSize: MainAxisSize.min,
+              //         children: [
+              //           Icon(
+              //             FontAwesomeIcons.solidComments,
+              //             color: Colors.white,
+              //             size: 20,
+              //           ),
+              //           SizedBox(width: 10),
+              //           Text(
+              //             "Chat with HR",
+              //             style: TextStyle(
+              //               fontSize: 16,
+              //               fontWeight: FontWeight.bold,
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              SizedBox(height: 20), // Add some spacing
             ],
           ),
-        ),
-        Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                  width: width * 0.15,
-                  height: height * 0.07,
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Color.fromARGB(255, 142, 146, 223),
-                      ),
-                      borderRadius: BorderRadius.circular(5),
-                      boxShadow: [
-                        BoxShadow(
-                            blurRadius: 150, color: CustomColor.bluecolor())
-                      ]),
-                  child: Center(
-                      child: FaIcon(
-                    Icons.business,
-                    size: 35,
-                    color: CustomColor.bluecolor(),
-                  ))),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 13),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "${widget.job.jobtitle}",
-                    style: TextStyle(
-                        color: CustomColor.blckcolor(),
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    widget.job.companyname,
-                    style: TextStyle(fontSize: 15, color: Colors.grey),
-                  )
-                ],
-              ),
-            ),
-          ],
-        ),
-        ListTile(
-          leading: Icon(
-            Icons.location_on,
-            color: CustomColor.bluecolor(),
-          ),
-          title: Text(
-              "${widget.job.country},${widget.job.state},${widget.job.city}"),
-        ),
-        Row(
-          children: [
-            SizedBox(
-              width: width * 0.05,
-            ),
-            Icon(
-              Icons.money,
-              color: CustomColor.bluecolor(),
-              size: 27,
-            ),
-            SizedBox(
-              width: width * 0.06,
-            ),
-            Text("Rs.${widget.job.salary} Annually")
-          ],
-        ),
-        SizedBox(
-          height: height * 0.01,
-        ),
-        Row(
-          children: [
-            SizedBox(
-              width: width * 0.05,
-            ),
-            Icon(
-              Icons.alarm,
-              color: CustomColor.bluecolor(),
-              size: 27,
-            ),
-            SizedBox(
-              width: width * 0.06,
-            ),
-            Text("${widget.job.experiencecomp}, Experience")
-          ],
-        ),
-        SizedBox(
-          height: height * 0.01,
-        ),
-        // Display days since posted
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15.0),
-        //   child: Text(
-        //  // 'Posted ${daysSincePosted} days ago',
-        //     style: TextStyle(
-        //       fontSize: 16.0,
-        //       fontWeight: FontWeight.w500,
-        //       color: Colors.grey[700],
-        //     ),
-        //   ),
-        // ),
-      ])
-    ]));
+        ],
+      ),
+    );
   }
 }
+

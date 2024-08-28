@@ -18,6 +18,7 @@ class FilterRepo {
           final data = await FirebaseFirestore.instance.collection('jobss').get();
           
           data.docs.forEach((element) {
+            // ignore: unnecessary_cast
             var data = element.data() as Map<String, dynamic>;
             String jobTitle = data['jobtitle'].toString().trim().toLowerCase();
             print("Comparing with job title: $jobTitle"); // Log each job title

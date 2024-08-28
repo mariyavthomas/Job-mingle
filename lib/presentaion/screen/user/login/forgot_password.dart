@@ -12,8 +12,9 @@ class Forgotpassword extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Forgot Password'),
-        backgroundColor: Color.fromARGB(200, 75, 110, 225),
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text('Forgot Password',style: TextStyle(color: Colors.black),),
+        backgroundColor:Colors.white,
         elevation: 0,
       ),
       body: Column(
@@ -26,11 +27,17 @@ class Forgotpassword extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          CustomTextFormField(
-            validator: (value) => Validator().emailValidator(value),
-              labeltext: 'Email ID',
-              controller: _emailController,
-              hintText: "Enter the Email"),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: CustomTextFormField(
+              focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+              enabledBorder:OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
+              
+              validator: (value) => Validator().emailValidator(value),
+                labeltext: 'Email ID',
+                controller: _emailController,
+                hintText: "Enter the Email"),
+          ),
           MaterialButton(
             onPressed: () {
               pass.resetPassword(context, _emailController.text);

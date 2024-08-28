@@ -2,16 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/favorite/favorite_bloc.dart';
-import 'package:jobmingle/application/get_all_job/get_all_jobs_bloc.dart';
 import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
 import 'package:jobmingle/domin/models/jobmodel.dart';
 import 'package:jobmingle/presentaion/screen/user/detjobs/widget/Company/company_listview.dart';
 import 'package:jobmingle/presentaion/screen/user/detjobs/widget/Jobdetails/jobdetails.dart';
-import 'package:jobmingle/utils/customcolor.dart';
+import 'package:jobmingle/presentaion/screen/user/detjobs/widget/appbar/customappbar.dart';
 
+// ignore: must_be_immutable
 class DetailsJob extends StatefulWidget {
-   DetailsJob({super.key, required this.job,this.isFavorited});
+  DetailsJob({super.key, required this.job, this.isFavorited});
 
   final JobModel job;
   bool? isFavorited;
@@ -56,27 +55,9 @@ class _DetailsJobState extends State<DetailsJob> {
     return DefaultTabController(
       length: 2, // Adjusted to match the number of tabs
       child: Scaffold(
-        appBar: AppBar(
-           leading:  IconButton(onPressed: (){
-              
-              WidgetsBinding.instance.addPostFrameCallback((timeStamp) { 
-               context.read<FavoriteBloc>().add(GetfavEvent());
-               context.read<GetAllJobsBloc>().add(FetchJobs());
-               Navigator.pop(context);
-              });
-              
-            }, icon: Icon(Icons.arrow_back)
-            ),
-          title: Text(widget.job.companyname),
-          backgroundColor: CustomColor.bluecolor(),
-          bottom: TabBar(
-            tabs: [
-              Tab(text: 'JOB DETAILS'),
-              Tab(text: 'COMPANY DETAILS'),
-            ],
-            
-          ),
-        ),
+        appBar: PreferredSize(
+            preferredSize: Size(10, 50),
+            child: DetailPageAppbar(widget: widget)),
         body: FutureBuilder<Map<String, dynamic>>(
           future: _userDataFuture,
           builder: (context, snapshot) {

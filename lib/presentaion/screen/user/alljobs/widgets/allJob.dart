@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/favorite/favorite_bloc.dart';
 import 'package:jobmingle/application/get_all_job/get_all_jobs_bloc.dart';
 import 'package:jobmingle/domin/models/jobmodel.dart';
 import 'package:jobmingle/presentaion/screen/user/alljobs/widgets/jobdetails.dart';
+import 'package:jobmingle/utils/customcolor.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class AllJob extends StatefulWidget {
   const AllJob({
@@ -20,30 +21,32 @@ class AllJob extends StatefulWidget {
 }
 
 class _AllJobState extends State<AllJob> {
- 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GetAllJobsBloc, GetAllJobsState>(
       builder: (context, state) {
         if (state is JobLoadingState) {
           return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (state is JobLoaded ) {
+              child: LoadingAnimationWidget.stretchedDots(
+                  color: CustomColor.bluelight(), size: 90));
+        } else if (state is JobLoaded) {
           final jobs = state.jobs;
-             
+
           if (jobs.isEmpty) {
             return Center(
               child: Text('No jobs found.'),
             );
           }
-          return ListView.builder(
-            padding: EdgeInsets.only(),
-            itemCount: jobs.length,
-            itemBuilder: (BuildContext context, int index) {
-              final JobModel job = jobs[index];
-              return Jobdetails(job: job, height: widget.height, width: widget.width);
-            },
+          return SizedBox(
+            child: ListView.builder(
+              padding: EdgeInsets.only(),
+              itemCount: jobs.length,
+              itemBuilder: (BuildContext context, int index) {
+                final JobModel job = jobs[index];
+                return Jobdetails(
+                    job: job, height: widget.height, width: widget.width);
+              },
+            ),
           );
         } else if (state is PostErrorState) {
           return Center(
@@ -51,7 +54,7 @@ class _AllJobState extends State<AllJob> {
           );
         }
         return Center(
-          child: Text('Unknown state.'),
+          child: Text(''),
         );
       },
     );

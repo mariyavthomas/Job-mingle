@@ -21,6 +21,7 @@ class Uloadloading extends PdfdownloadState{}
   List<Object> get props => [downloadUrl, filename, uploadDate];
 
  }
+ // ignore: must_be_immutable
  class Resumeuploadfailer extends PdfdownloadState{
   String error;
   Resumeuploadfailer({required this.error});

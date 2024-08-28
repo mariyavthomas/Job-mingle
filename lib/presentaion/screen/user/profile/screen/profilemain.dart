@@ -5,7 +5,7 @@ import 'package:jobmingle/infrastructure/Repo/uploadimgerepo.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/widgets/profile_widgets/listview.dart';
 import 'package:jobmingle/utils/customcolor.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:loading_animations/loading_animations.dart';
+
 
 
 class ProfilePage extends StatefulWidget {

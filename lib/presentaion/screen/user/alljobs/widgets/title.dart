@@ -46,7 +46,9 @@ class _TitleColumState extends State<TitleColum> {
               // Debounce to avoid too many searches
               Future.delayed(Duration(milliseconds: 300), () {
                 try {
-                  context.read<GetAllJobsBloc>().add(SearchJobEvent(searchtext: value));
+                  context
+                      .read<GetAllJobsBloc>()
+                      .add(SearchJobEvent(searchtext: value));
                 } catch (e) {
                   print("Error adding event: $e"); // Debugging
                 }
@@ -61,7 +63,9 @@ class _TitleColumState extends State<TitleColum> {
                       icon: Icon(Icons.clear, color: Colors.grey),
                       onPressed: () {
                         searchController.clear();
-                        context.read<GetAllJobsBloc>().add(SearchJobEvent(searchtext: ''));
+                        context
+                            .read<GetAllJobsBloc>()
+                            .add(SearchJobEvent(searchtext: ''));
                       },
                     )
                   : null,

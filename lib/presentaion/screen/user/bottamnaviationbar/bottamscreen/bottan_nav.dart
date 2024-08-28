@@ -1,12 +1,12 @@
 import 'package:flashy_tab_bar2/flashy_tab_bar2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/bloc/bottom_navigation_bar_bloc.dart';
+import 'package:jobmingle/application/bottom_navigation_bar/bottom_navigation_bar_bloc.dart';
+import 'package:jobmingle/presentaion/screen/user/chatai/screen/chat_screen.dart';
 import 'package:jobmingle/presentaion/screen/user/alljobs/Screen/all_job.dart';
 import 'package:jobmingle/presentaion/screen/user/applies/screen/applies_screen.dart';
-import 'package:jobmingle/presentaion/screen/user/chat/screen/chat_screen.dart';
 import 'package:jobmingle/presentaion/screen/user/home/screen/home_screen_view.dart';
-import 'package:jobmingle/presentaion/screen/user/profile/screen/profile.dart';
+import 'package:jobmingle/presentaion/screen/user/profile/screen/profilemain.dart';
 
 List<FlashyTabBarItem> bottomNavItems = <FlashyTabBarItem>[
   FlashyTabBarItem(

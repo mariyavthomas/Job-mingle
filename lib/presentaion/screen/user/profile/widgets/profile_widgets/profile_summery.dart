@@ -6,6 +6,7 @@ import 'package:jobmingle/domin/models/user_model.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/screen/addprofile_summert.dart';
 import 'package:jobmingle/utils/customcolor.dart';
 
+// ignore: must_be_immutable
 class Profile_summery extends StatefulWidget {
   Profile_summery({super.key, required this.user});
   Usermodel user;

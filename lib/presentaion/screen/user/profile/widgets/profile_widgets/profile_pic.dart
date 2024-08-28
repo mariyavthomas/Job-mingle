@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/Update_pic/update_pic_bloc.dart';
 import 'package:jobmingle/application/Update_pic/update_pic_state.dart';
-import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
 import 'package:jobmingle/domin/models/user_model.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/screen/picture.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/widgets/profile_widgets/profile_name.dart';
@@ -22,7 +21,7 @@ class Profile_Image extends StatefulWidget {
 class _Profile_ImageState extends State<Profile_Image> {
   @override
   void initState() {
-    // TODO: implement initState
+  
     super.initState();
     //context.read<ProfileBloc>().add(GetUserEvent());
   }
@@ -40,7 +39,7 @@ class _Profile_ImageState extends State<Profile_Image> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ProfilePicture()));
+                          builder: (context) => ProfilePicture(user: widget.user!,)));
                 },
                 child: CircleAvatar(
                   maxRadius: 60,
@@ -52,7 +51,7 @@ class _Profile_ImageState extends State<Profile_Image> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ProfilePicture()));
+                          builder: (context) => ProfilePicture(user: widget.user!,)));
                 },
                 child: BlocBuilder<UpdatePicBloc, UpdatePicState>(
                   builder: (context, state) {

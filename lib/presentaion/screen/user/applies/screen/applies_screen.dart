@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/applyjob/applyjob_bloc.dart';
+import 'package:jobmingle/application/candidatestatus/candidatestatus_bloc.dart';
 import 'package:jobmingle/presentaion/screen/user/applies/widgets/applyjobs.dart';
 import 'package:jobmingle/presentaion/screen/user/applies/widgets/closedjob.dart';
 import 'package:jobmingle/utils/customcolor.dart';
@@ -17,6 +18,7 @@ class _AppliesScreenState extends State<AppliesScreen> {
   void initState() {
     super.initState();
     context.read<ApplyjobBloc>().add(LoadAppliedJobs());
+    context.read<CandidatestatusBloc>().add(Fetchstatus());
   }
 
   @override
@@ -30,7 +32,7 @@ class _AppliesScreenState extends State<AppliesScreen> {
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
             return <Widget>[
               SliverAppBar(
-                backgroundColor:CustomColor.bluecolor(),
+                backgroundColor: CustomColor.bluecolor(),
                 pinned: true,
                 floating: true,
                 expandedHeight: 170.0,
@@ -45,7 +47,7 @@ My Activity''',
                 bottom: TabBar(
                   tabs: [
                     Tab(text: "Applications"),
-                    Tab(text: "Closed Jobs"),
+                    Tab(text: "Simplar Jobs"),
                   ],
                 ),
               ),
@@ -53,19 +55,12 @@ My Activity''',
           },
           body: TabBarView(
             children: [
-             
               ApplyJobs(height: height, width: width),
-               ClosedJobs(),
-              
+              SimplarJobs(height: height, width: width),
             ],
           ),
         ),
       ),
     );
   }
-
-  
-
-
-  
 }

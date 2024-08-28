@@ -66,6 +66,7 @@ class Educationadd extends ProfileEvent {
       required this.universityname});
 }
 
+// ignore: must_be_immutable
 class Basicdetails extends ProfileEvent {
   String workstatus;
   String currentcity;

@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:jobmingle/domin/models/jobmodel.dart';
-import 'package:jobmingle/infrastructure/Repo/alljobrepo.dart';
 import 'package:jobmingle/infrastructure/Repo/filterrepo.dart';
 
 part 'filter_event.dart';

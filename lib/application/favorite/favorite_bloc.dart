@@ -46,6 +46,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   FutureOr<void> _removeFav(RemoveFavEvent event, Emitter<FavoriteState> emit) async {
     try {
     
+    // ignore: unused_local_variable
     final fav=  await _favoriteRepo.removeFav(event.favuid);
       
       emit(FavoriteInitial());
@@ -73,6 +74,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
 
   FutureOr<void> _isFavorited(IsFavoriteEvent event, Emitter<FavoriteState> emit) async{
     try{
+       // ignore: unused_local_variable
        final favorites = await _favoriteRepo.getFavList();
       final isfav= await _favoriteRepo.isInFav(event.jobuid);
       emit(IsFavoriteState(isfav));

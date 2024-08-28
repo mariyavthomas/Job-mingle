@@ -38,14 +38,17 @@ class ProfileFailer extends ProfileState{
 class UserupdateintroducationState extends ProfileState{
  
 }
+// ignore: must_be_immutable
 class EducationSucessfuly extends ProfileState{
  Usermodel education;
  EducationSucessfuly({required this.education});
 }
+// ignore: must_be_immutable
 class IntroductionSuccessfully extends ProfileState{
   Usermodel introduction;
   IntroductionSuccessfully({ required this.introduction});
 }
+// ignore: must_be_immutable
 class BasicdetailsState extends ProfileState{
   Usermodel basicdetails;
   BasicdetailsState({required this.basicdetails});

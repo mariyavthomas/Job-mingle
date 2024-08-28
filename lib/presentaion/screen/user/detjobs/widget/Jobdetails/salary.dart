@@ -77,6 +77,7 @@ class _SalaryState extends State<Salary> {
   }
 
   void _toggleFavorite() {
+    // ignore: unused_local_variable
     final jobUid = widget.widget.job.jobuid;
     final userUid = FirebaseAuth.instance.currentUser?.uid;
 

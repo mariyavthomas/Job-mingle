@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
 import 'package:jobmingle/domin/models/user_model.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/screen/neweducation.dart';
 import 'package:jobmingle/utils/customcolor.dart';
@@ -16,7 +14,7 @@ class Education extends StatefulWidget {
 class _EducationState extends State<Education> {
   @override
   void initState() {
-    // TODO: implement initState
+   
     super.initState();
     // context.read<ProfileBloc>().add(GetUserEvent());
   }

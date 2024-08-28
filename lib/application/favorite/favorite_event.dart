@@ -1,3 +1,6 @@
+// ignore: duplicate_ignore
+// ignore_for_file: must_be_immutable
+
 part of 'favorite_bloc.dart';
 
 sealed class FavoriteEvent extends Equatable {
@@ -17,7 +20,7 @@ class AddfavEvent extends FavoriteEvent{
    @override
   List<Object> get props => [job];
 }
-// ignore: must_be_immutable
+
 class RemoveFavEvent extends FavoriteEvent{
   final String favuid;
   RemoveFavEvent({required this.favuid});
@@ -25,14 +28,14 @@ class RemoveFavEvent extends FavoriteEvent{
   List<Object> get props => [];
 }
 
-// ignore: must_be_immutable
+
 class IsFavoriteEvent extends FavoriteEvent{
  final String jobuid;
   IsFavoriteEvent( {required this.jobuid});
   @override
   List<Object> get props => [jobuid];
 } 
-// ignore: must_be_immutable
+
 class SearchEvent extends FavoriteEvent{
   String searchQuery;
   SearchEvent({required this.searchQuery});

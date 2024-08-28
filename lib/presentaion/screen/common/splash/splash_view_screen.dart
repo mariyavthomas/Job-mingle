@@ -1,19 +1,14 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
 import 'package:jobmingle/presentaion/screen/common/onboarding/onboarding.dart';
 
-
-
-import 'package:jobmingle/presentaion/screen/user/login/login_view_screen.dart';
-
 import 'package:lottie/lottie.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
- 
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -21,7 +16,8 @@ class SplashPage extends StatelessWidget {
         BlocListener<LoginauthBloc, LoginauthState>(
           listener: (context, state) {
             if (state is Authenticated) {
-             Navigator.pushNamedAndRemoveUntil(context, '/BottamNavigation', (route) => false);
+              Navigator.pushNamedAndRemoveUntil(
+                  context, '/BottamNavigation', (route) => false);
             } else if (state is UnAuthenticated) {
               Navigator.pushReplacement(
                 context,
@@ -30,7 +26,6 @@ class SplashPage extends StatelessWidget {
             }
           },
         ),
-        
       ],
       child: Scaffold(
         body: Container(
@@ -40,9 +35,9 @@ class SplashPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                child: Lottie.asset('lib/assests/images/splash.json', height: 200),
+                child:
+                    Lottie.asset('lib/assests/images/splash.json', height: 200),
               ),
-              
             ],
           ),
         ),

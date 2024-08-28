@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/profilef/personlinfo/personinfo_bloc.dart';
@@ -8,7 +10,7 @@ import 'package:jobmingle/presentaion/screen/user/profile/widgets/peronaldetals/
 import 'package:jobmingle/presentaion/screen/user/profile/widgets/peronaldetals/field/phone.dart';
 import 'package:jobmingle/utils/customcolor.dart';
 import 'package:jobmingle/utils/cutomtextformfil.dart';
-import 'package:jobmingle/utils/validator.dart';
+
 
 class PersonalInfo extends StatefulWidget {
   PersonalInfo(
@@ -44,6 +46,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
  TextEditingController hometowncontroller =TextEditingController();
  TextEditingController pincodecontroller=TextEditingController();
 
+  // ignore: unused_field
   DateTime? _selectedDate;
   String _gender = '';
   final formkey = GlobalKey<FormState>();

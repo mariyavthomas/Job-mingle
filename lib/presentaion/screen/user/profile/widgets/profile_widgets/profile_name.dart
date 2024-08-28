@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:jobmingle/domin/models/user_model.dart';
 import 'package:jobmingle/utils/customcolor.dart';

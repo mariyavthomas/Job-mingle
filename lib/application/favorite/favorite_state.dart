@@ -30,6 +30,7 @@ final  String error;
 Favoriteerror({required this.error});
 
 }
+// ignore: must_be_immutable
 class IsFavoriteState extends FavoriteState{
   final bool isFav;
   IsFavoriteState(this.isFav);

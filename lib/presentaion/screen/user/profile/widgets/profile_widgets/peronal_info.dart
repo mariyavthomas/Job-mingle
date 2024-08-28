@@ -111,6 +111,7 @@ class _Personal_InfoState extends State<Personal_Info> {
   }
 }
 
+// ignore: unused_element
 Future<void> _openPdf(BuildContext context, String pdfUrl) async {
   try {
     if (pdfUrl.isEmpty) {

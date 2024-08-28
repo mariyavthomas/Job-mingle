@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
+
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -87,9 +87,12 @@ class ApplyjobBloc extends Bloc<ApplyjobEvent, ApplyjobState> {
     emit(ApplyjobLoading());
 
     try {
-      final appliedjobs = await ApplyJobRepo().getallAppliedJob();
+      final appliedjobs = await ApplyJobRepo().getallAppliedJobStream();
       print(appliedjobs.length);
-      emit(AppliedJobLoaded(appliedjobs));
+      await for(var stream in appliedjobs){
+            emit(AppliedJobLoaded(stream));
+      }
+      
     } catch (e) {
       emit(ApplyjobFailure(error: e.toString()));
     }

@@ -7,7 +7,7 @@ part 'googlesignin_state.dart';
 class GooglesigninBloc extends Bloc<GooglesigninEvent, GooglesigninState> {
   GooglesigninBloc() : super(GooglesigninInitial()) {
     on<GooglesigninEvent>((event, emit) {
-      // TODO: implement event handler
+    
     });
   }
 }

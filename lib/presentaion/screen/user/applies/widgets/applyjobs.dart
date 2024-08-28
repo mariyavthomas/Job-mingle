@@ -5,7 +5,7 @@ import 'package:jobmingle/domin/models/appleyjob_model.dart';
 import 'package:jobmingle/presentaion/screen/user/applies/widgets/jobdetails.dart';
 import 'package:lottie/lottie.dart';
 
-class ApplyJobs extends StatelessWidget {
+class ApplyJobs extends StatefulWidget {
   const ApplyJobs({
     super.key,
     required this.height,
@@ -16,10 +16,20 @@ class ApplyJobs extends StatelessWidget {
   final double width;
 
   @override
+  State<ApplyJobs> createState() => _ApplyJobsState();
+}
+
+class _ApplyJobsState extends State<ApplyJobs> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<ApplyjobBloc>().add(LoadAppliedJobs());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<ApplyjobBloc, ApplyjobState>(
       builder: (context, state) {
-        
         if (state is ApplyjobLoading) {
           return Center(
             child: CircularProgressIndicator(),
@@ -28,7 +38,9 @@ class ApplyJobs extends StatelessWidget {
           print("hleo");
           if (state.appliedjob.isEmpty) {
             return Center(
-              child: Container(child: Lottie.asset('lib/assests/images/favemty.json'),),
+              child: Container(
+                child: Lottie.asset('lib/assests/images/favemty.json'),
+              ),
             );
           }
           return ListView.builder(
@@ -36,16 +48,18 @@ class ApplyJobs extends StatelessWidget {
             itemCount: state.appliedjob.length,
             itemBuilder: (BuildContext context, int index) {
               final AppliedJobModel appliedjobs = state.appliedjob[index];
-              //print(appliedjobs.username);
-              return JobDetailsapply(height: height, appliedjobs: appliedjobs, width: width);
+              print("heloo :${appliedjobs.candidatestatus}");
+              return JobDetailsapply(
+                  height: widget.height,
+                  appliedjobs: appliedjobs,
+                  width: widget.width);
             },
           );
         } else if (state is ApplyjobFailure) {
           return Center(
-              child: Container(
-               // child: Lottie.asset('lib/assests/images/favemty.json'),
+            child: Container(
+                // child: Lottie.asset('lib/assests/images/favemty.json'),
                 ),
-            
           );
         }
         return Center(
@@ -55,4 +69,3 @@ class ApplyJobs extends StatelessWidget {
     );
   }
 }
-

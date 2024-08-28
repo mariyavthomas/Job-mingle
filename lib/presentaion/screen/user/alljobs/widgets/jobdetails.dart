@@ -20,7 +20,9 @@ class Jobdetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-         context.read<GetAllJobsBloc>().add(FilterJobsByName(jobtitle:job.jobtitle));
+        context
+            .read<GetAllJobsBloc>()
+            .add(FilterJobsByName(jobtitle: job.jobtitle));
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -102,7 +104,6 @@ class Jobdetails extends StatelessWidget {
                     ],
                   ),
                 ),
-               
               ],
             ),
           ),

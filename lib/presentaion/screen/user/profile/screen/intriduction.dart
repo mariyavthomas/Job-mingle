@@ -30,6 +30,7 @@ class _IntroductionState extends State<Introduction> {
 
   int _currentLength = 0;
 
+  // ignore: unused_field
   final int _maxLength = 35;
   final int _maxLengthHeadline = 250;
 

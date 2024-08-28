@@ -6,6 +6,7 @@ import 'package:jobmingle/application/favorite/favorite_bloc.dart';
 import 'package:jobmingle/domin/models/fav_model.dart';
 import 'package:jobmingle/domin/models/jobmodel.dart';
 import 'package:jobmingle/presentaion/screen/user/detjobs/screen/detailed_job.dart';
+import 'package:jobmingle/presentaion/screen/user/favorite/widgets/favsearch.dart';
 import 'package:jobmingle/utils/customcolor.dart';
 import 'package:lottie/lottie.dart';
 
@@ -33,6 +34,7 @@ class _FavScreenState extends State<FavScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -64,37 +66,7 @@ class _FavScreenState extends State<FavScreen> {
             SizedBox(
               height: height *0.02,
             ),
-           Container(
-              padding: EdgeInsets.symmetric(horizontal: 8.0),
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.circular(30.0),
-              ),
-              child: TextField(
-                controller: searchcontroller,
-                onChanged: (value) {
-                  context.read<FavoriteBloc>().add(SearchEvent(searchQuery: value));
-                },
-                decoration: InputDecoration(
-                  hintText: 'Search',
-                  border: InputBorder.none,
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
-                  suffixIcon: searchcontroller.text.isNotEmpty
-                      ? IconButton(
-                          icon: Icon(Icons.clear, color: Colors.grey),
-                          onPressed: () {
-                            searchcontroller.clear();
-                            context.read<FavoriteBloc>().add(SearchEvent(searchQuery: ''));
-                          },
-                        )
-                      : null,
-                ),
-                style: TextStyle(
-                  fontSize: 16.0,
-                  color: Colors.black87,
-                ),
-              ),
-            ),
+           FavSearch(searchcontroller: searchcontroller),
             Expanded(
               child: BlocBuilder<FavoriteBloc, FavoriteState>(
                 builder: (context, state) {
@@ -163,7 +135,7 @@ class _FavScreenState extends State<FavScreen> {
                                       skill: fav.skill ?? "",
                                       timeofjobentering:
                                           fav.timeofjobentering ?? "",
-                                      jobuid: fav.favuid ?? " ",
+                                      jobuid: fav.favuid,
                                       jobtitle: fav.jobtitle ?? "",
                                       companyemail: fav.compantemail ?? "",
                                       salary: fav.salary ?? "",
@@ -290,3 +262,4 @@ class _FavScreenState extends State<FavScreen> {
     );
   }
 }
+

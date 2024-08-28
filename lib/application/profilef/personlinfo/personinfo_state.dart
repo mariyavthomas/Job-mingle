@@ -9,11 +9,13 @@ sealed class PersoninfoState extends Equatable {
 
 final class PersoninfoInitial extends PersoninfoState {}
  class Personalinfoloading extends PersoninfoState{}
+ // ignore: must_be_immutable
  class PersonalInfofailer extends PersoninfoState{
   String error;
   PersonalInfofailer({required this.error});
  }
 
+ // ignore: must_be_immutable
  class Personinfosuccess extends PersoninfoState{
   Usermodel personinf;
   Personinfosuccess({required this.personinf});

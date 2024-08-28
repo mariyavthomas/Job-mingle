@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:jobmingle/domin/models/user_model.dart';
-import 'package:jobmingle/presentaion/screen/user/profile/screen/neweducation.dart';
+
 import 'package:jobmingle/presentaion/screen/user/profile/screen/profession.dart';
 import 'package:jobmingle/presentaion/screen/user/profile/widgets/peronaldetals/cutomcolum/profession_colum.dart';
 import 'package:jobmingle/utils/customcolor.dart';
@@ -17,7 +17,7 @@ class Professionaldetails extends StatefulWidget {
 class _ProfessionaldetailsState extends State<Professionaldetails> {
   @override
   void initState() {
-    // TODO: implement initState
+   
     super.initState();
     // context.read<ProfileBloc>().add(GetUserEvent());
   }

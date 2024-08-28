@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/get_all_job/get_all_jobs_bloc.dart';
 import 'package:jobmingle/domin/models/jobmodel.dart';
-import 'package:jobmingle/presentaion/screen/user/alljobs/widgets/allJob.dart';
 import 'package:jobmingle/presentaion/screen/user/alljobs/widgets/jobdetails.dart';
 import 'package:jobmingle/presentaion/screen/user/detjobs/screen/detailed_job.dart';
 import 'package:jobmingle/presentaion/screen/user/detjobs/widget/Jobdetails/apply_button.dart';
@@ -181,6 +180,7 @@ class _AllJobdetailsState extends State<AllJobdetails> {
                             itemCount: filter.length,
                             itemBuilder: (BuildContext context, int index) {
                               final JobModel jobModel = filter[index];
+                              // ignore: dead_code
                               return Jobdetails(job: jobModel, height: widget.height, width: widget.width);;
                             },
                           );

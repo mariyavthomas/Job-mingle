@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:jobmingle/domin/models/user_model.dart';
-import 'package:jobmingle/infrastructure/Repo/get_data_user.dart';
+
 import 'package:jobmingle/infrastructure/Repo/profile_repo.dart';
 import 'package:equatable/equatable.dart';
 

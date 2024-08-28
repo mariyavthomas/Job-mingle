@@ -7,6 +7,7 @@ sealed class PersoninfoEvent extends Equatable {
   List<Object> get props => [];
 }
 
+// ignore: must_be_immutable
 class SavePersonalinfo extends PersoninfoEvent {
   String? email;
   String? phone;

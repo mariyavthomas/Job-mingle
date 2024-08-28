@@ -7,7 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jobmingle/application/Update_pic/update_pic_bloc.dart';
 import 'package:jobmingle/application/applyjob/applyjob_bloc.dart';
 import 'package:jobmingle/application/auth_user/loginauth_bloc.dart';
-import 'package:jobmingle/application/bloc/bottom_navigation_bar_bloc.dart';
+
+import 'package:jobmingle/application/bottom_navigation_bar/bottom_navigation_bar_bloc.dart';
+import 'package:jobmingle/application/candidatestatus/candidatestatus_bloc.dart';
 import 'package:jobmingle/application/favorite/favorite_bloc.dart';
 import 'package:jobmingle/application/filter_bloc/filter_bloc.dart';
 import 'package:jobmingle/application/gemini_bloc/gemini_bloc_bloc.dart';
@@ -18,6 +20,7 @@ import 'package:jobmingle/application/profilef/personlinfo/personinfo_bloc.dart'
 import 'package:jobmingle/application/profilef/profile/profile_bloc.dart';
 import 'package:jobmingle/application/profilef/profilesummert/aboutme_bloc.dart';
 import 'package:jobmingle/infrastructure/Repo/alljobrepo.dart';
+import 'package:jobmingle/infrastructure/Repo/applicantstausrepo.dart';
 
 import 'package:jobmingle/infrastructure/Repo/favorite.dart';
 
@@ -39,10 +42,10 @@ void main() async {
         ))
       : await Firebase.initializeApp();
   // await initializeDependencies();
- await FirebaseAppCheck.instance.activate(
- androidProvider: AndroidProvider.playIntegrity,
- //appleProvider: AppleProvider.deviceCheck
- ); 
+  await FirebaseAppCheck.instance.activate(
+    androidProvider: AndroidProvider.playIntegrity,
+    //appleProvider: AppleProvider.deviceCheck
+  );
   runApp(const MyApp());
 }
 
@@ -67,13 +70,19 @@ class MyApp extends StatelessWidget {
         BlocProvider<PdfdownloadBloc>(
             create: (context) => PdfdownloadBloc(UploadResumeRepo())),
         BlocProvider<ApplyjobBloc>(create: (context) => ApplyjobBloc()),
-        BlocProvider<AboutmeBloc>(create: (context)=>AboutmeBloc(UserProfileRepo())),
-        BlocProvider<PersoninfoBloc>(create: (context)=>PersoninfoBloc()),
-       BlocProvider<FavoriteBloc>(create: (context)=>FavoriteBloc(FavoriteRepo(),)),
-       BlocProvider<GeminiBlocBloc>(create: (context)=>GeminiBlocBloc()),
-       BlocProvider<BottomNavigationBarBloc>(create: (context)=>BottomNavigationBarBloc()),
-       BlocProvider<FilterBloc>(create: (context)=>FilterBloc())
-
+        BlocProvider<AboutmeBloc>(
+            create: (context) => AboutmeBloc(UserProfileRepo())),
+        BlocProvider<PersoninfoBloc>(create: (context) => PersoninfoBloc()),
+        BlocProvider<FavoriteBloc>(
+            create: (context) => FavoriteBloc(
+                  FavoriteRepo(),
+                )),
+        BlocProvider<GeminiBlocBloc>(create: (context) => GeminiBlocBloc()),
+        BlocProvider<BottomNavigationBarBloc>(
+            create: (context) => BottomNavigationBarBloc()),
+        BlocProvider<FilterBloc>(create: (context) => FilterBloc()),
+        BlocProvider<CandidatestatusBloc>(
+            create: (context) => CandidatestatusBloc(CandidateStatus()))
       ],
       child: MaterialApp(
         theme: ThemeData(

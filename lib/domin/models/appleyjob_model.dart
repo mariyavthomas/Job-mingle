@@ -49,8 +49,10 @@ class AppliedJobModel {
   String usercurrentdeparment;
   String usercurrentindustry;
   String usercurrentjobrole;
+  String ? candidatestatus;
 
   AppliedJobModel({
+    this.candidatestatus,
     required this.userprofileheadlines,
     required this.userprofilesummery,
     required this.usergender,
@@ -105,6 +107,7 @@ class AppliedJobModel {
 
   factory AppliedJobModel.fromJson(Map<String, dynamic> json) {
     return AppliedJobModel(
+      candidatestatus: json['candidatestatus'] ?? "",
       userprofileheadlines: json['userprofileheadlines'] ?? "",
       userprofilesummery: json['userprofilesummery'] ?? "",
       usergender: json['usergender'] ?? "",
@@ -160,6 +163,7 @@ class AppliedJobModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['candidatestatus']=this.candidatestatus;
     data['userprofileheadlines'] = this.userprofileheadlines;
     data['userprofilesummery'] = this.userprofilesummery;
     data['usergender'] = this.usergender;

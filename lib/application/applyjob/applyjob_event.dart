@@ -19,4 +19,3 @@ class ApplyjobUser extends ApplyjobEvent {
 }
 
 class LoadAppliedJobs extends ApplyjobEvent {}
- 

@@ -9,6 +9,7 @@ sealed class FilterState extends Equatable {
 
 final class FilterInitial extends FilterState {}
 class FilterLoading extends FilterState{}
+// ignore: must_be_immutable
 class FilterSuccessState extends FilterState{
    List<JobModel> filterjob=[];
   FilterSuccessState({ required this.filterjob});

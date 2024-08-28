@@ -84,6 +84,7 @@ class FavoriteRepo {
 
       // Filter the results locally to support case-insensitive search
       datas.docs.forEach((element) {
+        // ignore: unnecessary_cast
         var data = element.data() as Map<String, dynamic>;
         if (data['jobtitle']
             .toString()

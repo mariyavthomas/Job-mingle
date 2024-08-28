@@ -1,4 +1,4 @@
-import 'dart:io';
+
 
 import 'package:equatable/equatable.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,6 +16,7 @@ class SaveEvent extends UpdatePicEvent {}
 
 class LoadSavedImageEvent extends UpdatePicEvent {}
 
+// ignore: must_be_immutable
 class Uploadfirebaseimage extends UpdatePicEvent{
   
   XFile file;

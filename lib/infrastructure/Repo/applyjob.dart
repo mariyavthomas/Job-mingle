@@ -3,21 +3,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:jobmingle/domin/models/appleyjob_model.dart';
 
 class ApplyJobRepo {
-  Future<List<AppliedJobModel>> getallAppliedJob() async {
-    List<AppliedJobModel> appliedjoblist = [];
+  Stream<List<AppliedJobModel>> getallAppliedJobStream() {
     User? user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      // Return an empty stream if no user is logged in
+      return Stream.value([]);
+    }
 
-    final data = await FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection('applyjob')
-        .where('userid', isEqualTo: user!.uid)
-        .get();
-
-    data.docs.forEach((element) {
-      appliedjoblist.add(AppliedJobModel.fromJson(element.data()));
-   print(element.data());
-      });
-    print(appliedjoblist);
-  
-    return appliedjoblist;
+        .where('userid', isEqualTo: user.uid)
+        .snapshots()
+        .map((querySnapshot) {
+          return querySnapshot.docs
+              .map((doc) => AppliedJobModel.fromJson(doc.data()))
+              .toList();
+        });
   }
 }

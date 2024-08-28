@@ -6,6 +6,7 @@ sealed class AboutmeEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+// ignore: must_be_immutable
 class ProfileSummeryy extends AboutmeEvent{
   String ?profilesummery;
   ProfileSummeryy({required this.profilesummery});

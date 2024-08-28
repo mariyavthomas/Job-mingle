@@ -12,8 +12,8 @@ import 'package:jobmingle/utils/customcolor.dart';
 
 // ignore: must_be_immutable
 class ProfilePicture extends StatelessWidget {
-  ProfilePicture({super.key});
-  
+  ProfilePicture({super.key,required this.user});
+  Usermodel user;
   ImageRepo imagefire = ImageRepo();
   String? pickedImage;
   @override
@@ -22,8 +22,8 @@ class ProfilePicture extends StatelessWidget {
         child: Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children:[ Column(
+        child: ListView(children: [
+          Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IconButton(
@@ -48,7 +48,8 @@ class ProfilePicture extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 15),
                 child: Text(
                   """ Profile with photo has 40% hiher chance of gettong noticed by recruiters""",
-                  style: TextStyle(color: CustomColor.graycolor(), fontSize: 15),
+                  style:
+                      TextStyle(color: CustomColor.graycolor(), fontSize: 15),
                 ),
               ),
               SizedBox(
@@ -59,7 +60,7 @@ class ProfilePicture extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(top: 19),
                     child: CircleAvatar(
-                    //  backgroundImage: NetworkImage(!),
+                      //  backgroundImage: NetworkImage(!),
                       maxRadius: 102,
                       backgroundColor: Colors.grey,
                       child: GestureDetector(
@@ -72,7 +73,7 @@ class ProfilePicture extends StatelessWidget {
                               ),
                               builder: (BuildContext context) {
                                 // ignore: unused_label
-        
+
                                 return Padding(
                                   padding: const EdgeInsets.all(16.0),
                                   child: Column(
@@ -90,7 +91,8 @@ class ProfilePicture extends StatelessWidget {
                                         ),
                                       ),
                                       SizedBox(height: 24.0),
-                                      BlocBuilder<UpdatePicBloc, UpdatePicState>(
+                                      BlocBuilder<UpdatePicBloc,
+                                          UpdatePicState>(
                                         builder: (context, state) {
                                           // if(state is UploadImageSuccess){
                                           //   // pickedImage=state.image?.path;
@@ -101,14 +103,13 @@ class ProfilePicture extends StatelessWidget {
                                             children: [
                                               SizedBox(
                                                 width: 150,
-
                                               ),
                                               TextButton(
                                                 onPressed: () async {
                                                   // ignore: unused_local_variable
                                                   context.read<UpdatePicBloc>().add(
                                                       UploadCameraPictureEvent());
-                                                   //   context.read<ProfileBloc>().add(GetUserEvent());
+                                                  //   context.read<ProfileBloc>().add(GetUserEvent());
                                                   // context
                                                   //     .read<UpdatePicBloc>()
                                                   //     .add(SaveEvent());
@@ -116,7 +117,7 @@ class ProfilePicture extends StatelessWidget {
                                                       ? FileImage(
                                                           File(pickedImage!))
                                                       : null;
-        
+
                                                   Navigator.pop(context);
                                                 },
                                                 child: Text(
@@ -157,7 +158,8 @@ class ProfilePicture extends StatelessWidget {
                               backgroundImage: state.file != null
                                   ? FileImage(File(state.file!.path))
                                   : null,
-                              backgroundColor: Color.fromARGB(255, 139, 137, 137),
+                              backgroundColor:
+                                  Color.fromARGB(255, 139, 137, 137),
                               child: state.file != null
                                   ? SizedBox()
                                   : Icon(
@@ -166,16 +168,18 @@ class ProfilePicture extends StatelessWidget {
                                       color: CustomColor.graycolor(),
                                     ),
                             );
-        
                           },
                         ),
                       ),
                     ),
                   )),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(''' Supported file formate:PNG ,JPG,GIF MAXIMUM FILE Size upto 2 MB''',style: TextStyle(color: Colors.grey),),
-                  ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Text(
+                  ''' Supported file formate:PNG ,JPG,GIF MAXIMUM FILE Size upto 2 MB''',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              ),
               SizedBox(
                 height: 250,
               ),
@@ -195,15 +199,19 @@ class ProfilePicture extends StatelessWidget {
                   ),
                   BlocBuilder<UpdatePicBloc, UpdatePicState>(
                     builder: (context, state) {
-                      
                       return ElevatedButton(
                           style: ButtonStyle(),
                           onPressed: () {
-                            context.read<UpdatePicBloc>().add(Uploadfirebaseimage(file: state.file!, uid: FirebaseAuth.instance.currentUser!.uid));
-                           WidgetsBinding.instance.addPostFrameCallback((timeStamp) { 
-                               context.read<ProfileBloc>().add(GetUserEvent());
-                           });
-                            
+                            context.read<UpdatePicBloc>().add(
+                                Uploadfirebaseimage(
+                                    file: state.file!,
+                                    uid: FirebaseAuth
+                                        .instance.currentUser!.uid));
+                            WidgetsBinding.instance
+                                .addPostFrameCallback((timeStamp) {
+                              context.read<ProfileBloc>().add(GetUserEvent());
+                            });
+
                             Navigator.pop(context);
                           },
                           child: Text(
@@ -211,7 +219,7 @@ class ProfilePicture extends StatelessWidget {
                             style: TextStyle(fontSize: 18),
                           ));
                     },
-                  )
+                  ),
                 ],
               )
             ],

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:jobmingle/domin/models/fav_model.dart';
+
 import 'package:jobmingle/domin/models/jobmodel.dart';
 
 class AllJobRepo{
@@ -39,6 +39,7 @@ class AllJobRepo{
 
     // Filter the results locally to support case-insensitive search
     datas.docs.forEach((element) {
+      // ignore: unnecessary_cast
       var data = element.data() as Map<String, dynamic>;
       if (data['jobtitle'].toString().toLowerCase().contains(searchtxt.toLowerCase())) {
         jobList.add(JobModel.fromJson(data));

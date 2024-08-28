@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -28,6 +30,7 @@ class Pdfwidget extends StatelessWidget {
       return Center();
     });
   }
+  // ignore: unused_element
   Future<void> _pickupanduploadcv(BuildContext context, String uid) async {
     try {
       final pickedFile = await FilePicker.platform
@@ -36,7 +39,8 @@ class Pdfwidget extends StatelessWidget {
         String filename = pickedFile.files[0].name;
 
         File file = File(pickedFile.files.first.path!);
-        DateTime uploadDate = DateTime.now();
+       
+        DateTime uploadDate1 = DateTime.now();
         context.read<PdfdownloadBloc>().add(UploadResume(
             file: file,
             filename: filename,
